@@ -1,0 +1,31 @@
+<main class="main-content">
+  <div class="left-part">
+    <form [formGroup]="signUpForm" (ngSubmit)="signUp()">
+      <mat-form-field appearance="outline">
+        <mat-label>Create your email</mat-label>
+        <input matInput clickOutside formControlName="email" />
+        <mat-error *ngIf="signUpForm.controls['email'].invalid && signUpForm.controls['email'].touched">
+          <mat-icon [inline]="true" color="warn">info</mat-icon>
+          <p>Email must contain '@'</p>
+        </mat-error>
+        <mat-error *ngIf="emailAlreadyExist">
+          <mat-icon [inline]="true" color="warn">info</mat-icon>
+          <p>This email address is already registered.</p>
+        </mat-error>
+        <!-- <register-email-error-message [signUpForm]="signUpForm"></register-email-error-message> -->
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Create your password</mat-label>
+        <input matInput formControlName="password" [type]="hide ? 'password' : 'text'" />
+        <button type="button" mat-icon-button matSuffix (click)="hide = !hide">
+          <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        <register-password-error-message [signUpForm]="signUpForm"></register-password-error-message>
+      </mat-form-field>
+      <button type="submit" [disabled]="!signUpForm.valid" mat-raised-button color="primary">Sign up</button>
+    </form>
+  </div>
+  <div class="right-part">
+    <img src="/assets/sign-up.svg" class="logo-icon" />
+  </div>
+</main>

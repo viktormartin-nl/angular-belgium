@@ -1,0 +1,8 @@
+<h2 mat-dialog-title>Are you sure to delete this comment ?</h2>
+<mat-dialog-content>
+  <img class="deleted-img" src="/assets/deleted.svg" />
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-raised-button [mat-dialog-close]="true" color="primary">Delete</button>
+</mat-dialog-actions>

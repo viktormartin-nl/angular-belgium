@@ -1,0 +1,33 @@
+@import '../../../../styles.scss';
+
+main.main-content {
+  display: flex;
+  height: 88%;
+
+  div.left-part {
+    min-width: 50%;
+
+    button.validate-button {
+      background-color: $primary;
+      color: white;
+    }
+
+    form {
+      display: flex;
+      flex-flow: column;
+      justify-content: center;
+      height: 100%;
+      padding: 0px 67px;
+    }
+  }
+
+  div.right-part {
+    background-color: $light-primary;
+    display: flex;
+    justify-content: center;
+
+    img {
+      max-width: 72%;
+    }
+  }
+}

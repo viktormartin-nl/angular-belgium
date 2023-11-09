@@ -1,0 +1,8 @@
+<mat-error *ngIf="signUpForm.controls['email'].invalid && signUpForm.controls['email'].touched">
+  <mat-icon [inline]="true" color="warn">info</mat-icon>
+  <p>Email must contain '@'</p>
+</mat-error>
+<mat-error *ngIf="emailAlreadyExist">
+  <mat-icon [inline]="true" color="warn">info</mat-icon>
+  <p>This email address is already registered.</p>
+</mat-error>

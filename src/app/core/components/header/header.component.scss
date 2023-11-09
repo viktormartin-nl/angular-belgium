@@ -1,0 +1,47 @@
+@import '../../../../styles.scss';
+
+header.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: $light-primary;
+  padding: 1rem;
+  padding: 0.5rem 0.5rem;
+  height: 5%;
+
+  div.left-part {
+    display: flex;
+    align-items: center;
+    height: 100%;
+
+    div.header-logo {
+      display: flex;
+      align-items: center;
+      margin-right: 1rem;
+
+      img {
+        width: 47px;
+      }
+    }
+
+    div.navigation-button {
+      display: flex;
+      align-items: center;
+      padding-left: 1rem;
+      border-left: solid 1px #d9d9d9;
+      height: 100%;
+
+      div {
+        margin-right: 1rem;
+      }
+    }
+  }
+
+  div.right-part {
+    margin-right: 1rem;
+
+    div.sign-out {
+      padding-right: 0.5rem;
+    }
+  }
+}

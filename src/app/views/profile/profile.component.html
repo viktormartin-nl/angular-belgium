@@ -1,0 +1,327 @@
+<main class="profile-content">
+  <form [formGroup]="profileForm" (ngSubmit)="profileRegister()">
+    <div class="row">
+      <!-- column -->
+      <div class="col col-lg-5 col-sm-12">
+        <div class="avatar-card">
+          <div class="avatar-container">
+            <!-- <div class="image-container" [ngStyle]="{backgroundImage: 'url(' + fileName + ')'}">
+            </div> -->
+            <div class="cropped-image">
+              <img class="image-container" style="background-color: lightblue;" [src]="fileName" />
+            </div>
+
+            <label for="avatar-input-file">
+              <div class="icon-wrapper">
+                <!-- <input type="file" formControlName="photo" id="avatar-input-file" accept="image/*" (change)="onFileChange($event)" /> -->
+                <!-- <mat-icon class="icon">edit</mat-icon> -->
+                <mat-icon class="icon" (click)="openDialog('500ms', '500ms')">edit</mat-icon>
+              </div>
+            </label>
+          </div>
+        </div>
+      </div>
+      <!-- column -->
+      <!-- column -->
+      <div class="col col-lg-7 col-sm-12">
+        <mat-card class="oh text-center little-profile">
+          <mat-card-header>
+            <mat-card-title>User Info</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="row">
+              <div class="col-md-6 col-sm-12">
+                <mat-form-field appearance="outline">
+                  <mat-label>FirstName</mat-label>
+                  <input formControlName="firstName" matInput clickOutside />
+                  <mat-error
+                    *ngIf="!profileForm.controls['firstName'].valid && profileForm.controls['firstName'].touched">
+                    <mat-icon [inline]="true" color="warn">info</mat-icon>
+                    <p>FirstName required</p>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6 col-sm-12">
+                <mat-form-field appearance="outline">
+                  <mat-label>LastName</mat-label>
+                  <input formControlName="lastName" matInput clickOutside />
+                  <mat-error
+                    *ngIf="!profileForm.controls['lastName'].valid && profileForm.controls['lastName'].touched">
+                    <mat-icon [inline]="true" color="warn">info</mat-icon>
+                    <p>LastName required</p>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 col-sm-12">
+                <mat-form-field appearance="outline">
+                  <mat-label>Gender</mat-label>
+                  <input formControlName="Gender" matInput clickOutside />
+                  <mat-error *ngIf="!profileForm.controls['Gender'].valid && profileForm.controls['Gender'].touched">
+                    <mat-icon [inline]="true" color="warn">info</mat-icon>
+                    <p>Gender required</p>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6 col-sm-12">
+                <mat-form-field appearance="outline">
+                  <mat-label>DOB</mat-label>
+                  <input formControlName="DOB" matInput [matDatepicker]="picker">
+                  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                  <mat-error *ngIf="!profileForm.controls['DOB'].valid && profileForm.controls['DOB'].touched">
+                    <mat-icon [inline]="true" color="warn">info</mat-icon>
+                    <p>DOB required</p>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 col-sm-12">
+                <mat-form-field appearance="outline">
+                  <mat-label>Email</mat-label>
+                  <input formControlName="email" matInput clickOutside readonly />
+                  <mat-error *ngIf="!profileForm.controls['email'].valid && profileForm.controls['email'].touched">
+                    <mat-icon [inline]="true" color="warn">info</mat-icon>
+                    <p>Email required</p>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6 col-sm-12">
+                <mat-form-field appearance="outline">
+                  <mat-label>Password</mat-label>
+                  <input formControlName="password" matInput [type]="hide ? 'password' : 'text'" />
+                  <button type="button" mat-icon-button matSuffix (click)="hide = !hide">
+                    <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+                  </button>
+                  <mat-error
+                    *ngIf="!profileForm.controls['password'].valid && profileForm.controls['password'].touched">
+                    <mat-icon [inline]="true" color="warn">info</mat-icon>
+                    <p>Password required</p>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 col-sm-12">
+                <mat-form-field appearance="outline" floatLabel="always">
+                  <mat-label>Phone Number</mat-label>
+                  <input formControlName="phoneNumber" matInput ng2TelInput>
+                  <mat-error
+                    *ngIf="!profileForm.controls['phoneNumber'].valid && profileForm.controls['phoneNumber'].touched">
+                    <mat-icon [inline]="true" color="warn">info</mat-icon>
+                    <p>Password required</p>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6 col-sm-12">
+                <mat-form-field appearance="outline" floatLabel="always">
+                  <mat-label>Alternate Phone</mat-label>
+                  <input formControlName="alternatePhNo" matInput ng2TelInput>
+                </mat-form-field>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <!-- column -->
+    </div>
+    <div class="row">
+      <!-- Card column -->
+      <div class="col col-lg-12 col-sm-12">
+        <mat-card class="oh text-center little-profile">
+          <mat-card-header>
+            <mat-card-title>Add Address</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="row">
+              <div class="col-md-6 col-sm-12">
+                <div class="row">
+                  <div class="col-md-7 col-sm-12">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Search Location</mat-label>
+                      <!-- <input matInput clickOutside /> -->
+                      <input formControlName="address" matInput ngx-google-places-autocomplete [options]="options" #placesRef="ngx-places"
+                        (onAddressChange)="handleAddressChange($event)" />
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-5 col-sm-12"></div>
+                </div>
+                <div class="row">
+                  <div class="col-xl-7 col-lg-12">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Address</mat-label>
+                      <input formControlName="street" matInput clickOutside readonly />
+                      <mat-error
+                        *ngIf="!profileForm.controls['street'].valid && profileForm.controls['street'].touched">
+                        <mat-icon [inline]="true" color="warn">info</mat-icon>
+                        <p>Address required</p>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-5 col-md-12">
+                    <div class="row">
+                      <div class="col-md-5 col-sm-12">
+                        <mat-form-field appearance="outline">
+                          <mat-label>No:</mat-label>
+                          <input formControlName="no" matInput clickOutside readonly />
+                          <mat-error *ngIf="!profileForm.controls['no'].valid && profileForm.controls['no'].touched">
+                            <mat-icon [inline]="true" color="warn">info</mat-icon>
+                            <p>No. required</p>
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-7 col-sm-12">
+                        <mat-form-field appearance="outline">
+                          <mat-label>Flat/Box No:</mat-label>
+                          <input formControlName="flatNo" matInput clickOutside />
+                          <mat-error
+                            *ngIf="!profileForm.controls['flatNo'].valid && profileForm.controls['flatNo'].touched">
+                            <mat-icon [inline]="true" color="warn">info</mat-icon>
+                            <p>Flat/Box No. required</p>
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 col-sm-12">
+                    <mat-form-field appearance="outline">
+                      <mat-label>City</mat-label>
+                      <input formControlName="city" matInput clickOutside readonly />
+                      <mat-error *ngIf="!profileForm.controls['city'].valid && profileForm.controls['city'].touched">
+                        <mat-icon [inline]="true" color="warn">info</mat-icon>
+                        <p>City required</p>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6 col-sm-12">
+                    <mat-form-field appearance="outline">
+                      <mat-label>State</mat-label>
+                      <input formControlName="state" matInput clickOutside readonly />
+                      <mat-error *ngIf="!profileForm.controls['state'].valid && profileForm.controls['state'].touched">
+                        <mat-icon [inline]="true" color="warn">info</mat-icon>
+                        <p>State required</p>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 col-sm-12">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Postal Code</mat-label>
+                      <input formControlName="postCode" matInput clickOutside readonly />
+                      <mat-error
+                        *ngIf="!profileForm.controls['postCode'].valid && profileForm.controls['postCode'].touched">
+                        <mat-icon [inline]="true" color="warn">info</mat-icon>
+                        <p>Postal Code required</p>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6 col-sm-12">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Country</mat-label>
+                      <input formControlName="country" matInput clickOutside readonly />
+                      <mat-error
+                        *ngIf="!profileForm.controls['country'].valid && profileForm.controls['country'].touched">
+                        <mat-icon [inline]="true" color="warn">info</mat-icon>
+                        <p>Country required</p>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-sm-12">
+                <google-map height="370px" width="100%" [center]="center" [zoom]="zoom" (mapClick)="moveMap($event)"
+                  (mapMousemove)="move($event)">
+                  <map-marker [position]="center" [options]="markerOptions"></map-marker>
+                </google-map>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <!-- Card column -->
+    </div>
+    <div class="row">
+      <!-- Card column -->
+      <div class="col col-lg-12 col-sm-12">
+        <mat-card class="oh text-center little-profile">
+          <mat-card-header>
+            <mat-card-title>Additional Information</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="row">
+              <div class="col-md-6 col-sm-12">
+                <mat-form-field class="example-chip-list" appearance="outline">
+                  <mat-label>Spoken Languages</mat-label>
+                  <mat-chip-grid #chipGrid aria-label="Enter languages">
+                    <mat-chip-row *ngFor="let lang of languages" (removed)="remove(lang)" color="accent"
+                      [aria-description]="'press enter to edit ' + lang">
+                      {{lang}}
+                      <button matChipRemove [attr.aria-label]="'remove ' + lang">
+                        <mat-icon>cancel</mat-icon>
+                      </button>
+                    </mat-chip-row>
+                    <input formControlName="spokenLanguage" placeholder="New lang..." [matChipInputFor]="chipGrid"
+                      #langInput [formControl]="langCtrl" [matAutocomplete]="auto"
+                      [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+                      (matChipInputTokenEnd)="add($event)" />
+                    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                      <mat-option *ngFor="let lang of filteredLanguages | async" [value]="lang">
+                        {{lang}}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </mat-chip-grid>
+                  <mat-error *ngIf="languages.length === 0 && profileForm.controls['spokenLanguage'].touched">
+                    <mat-icon [inline]="true" color="warn">info</mat-icon>
+                    <p>Language required</p>
+                  </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                  <mat-label>Higher Education</mat-label>
+                  <input formControlName="higherEducation" matInput clickOutside />
+                </mat-form-field>
+              </div>
+              <div class="col-md-6 col-sm-12">
+                <mat-form-field appearance="outline">
+                  <mat-label>Instagram</mat-label>
+                  <mat-icon matPrefix svgIcon="instagram"></mat-icon>
+                  <input formControlName="instagram" matInput placeholder="">
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                  <mat-label>LinkedIn</mat-label>
+                  <mat-icon matPrefix svgIcon="linkedin"></mat-icon>
+                  <input formControlName="linkedIn" matInput placeholder="">
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                  <mat-label>Twitter</mat-label>
+                  <mat-icon matPrefix svgIcon="twitter"></mat-icon>
+                  <input formControlName="twitter" matInput placeholder="">
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                  <mat-label>Facebook</mat-label>
+                  <mat-icon matPrefix svgIcon="facebook"></mat-icon>
+                  <input formControlName="facebook" matInput placeholder="">
+                </mat-form-field>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <!-- Card column -->
+    </div>
+    <div class="row">
+      <!-- Card column -->
+      <div class="col col-lg-12 col-sm-12">
+        <button mat-fab extended color="primary" type="submit" [disabled]="!profileForm.valid">
+          <mat-icon>save</mat-icon>
+          Save
+        </button>
+      </div>
+      <!-- Card column -->
+    </div>
+  </form>
+</main>

@@ -1,0 +1,47 @@
+@import '../../../styles.scss';
+
+main.main-content {
+  display: flex;
+  height: 90%;
+  background-color: $light-primary;
+
+  .mat-mdc-form-field {
+    margin-bottom: 1rem;
+  }
+
+  div.left-part {
+    min-width: 50%;
+    margin: 10px;
+    background-color: white;
+
+    form {
+      display: flex;
+      flex-flow: column;
+      justify-content: center;
+      height: 100%;
+      padding: 0px 67px;
+
+      .mat-mdc-form-field-error {
+        display: flex;
+        font-size: 0.9rem;
+        margin-top: 0.1rem;
+
+        .mat-icon {
+          width: inherit;
+          height: inherit;
+          margin-right: 3px;
+        }
+      }
+    }
+  }
+
+  div.right-part {
+    background-color: map-get($map: $tutor-angular-starter-primary, $key: 50);
+    display: flex;
+    justify-content: center;
+
+    img {
+      max-width: 72%;
+    }
+  }
+}

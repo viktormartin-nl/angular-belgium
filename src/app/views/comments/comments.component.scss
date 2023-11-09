@@ -1,0 +1,31 @@
+@import '../../../styles.scss';
+
+main {
+  height: 88%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $light-primary;
+
+  div.table-content {
+    width: 80%;
+
+    .add-comment-button {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 1rem;
+    }
+
+    .mat-table {
+      width: 100%;
+    }
+
+    .mat-row:nth-child(2n + 1) {
+      background-color: map-get($map: $tutor-angular-starter-primary, $key: 100);
+    }
+
+    .actions-button {
+      cursor: pointer;
+    }
+  }
+}

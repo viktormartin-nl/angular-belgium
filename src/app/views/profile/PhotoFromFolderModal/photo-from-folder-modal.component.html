@@ -1,0 +1,34 @@
+<div mat-dialog-content style="margin-bottom: 20px;">
+  <div class="image-cropper row">
+    <div class="image-card col-sm-6">
+      <div class="image-container">
+        <div class="cropped-image">
+          <img class="cropped-image" style="background-color: lightblue;" [src]="croppedImage" />
+        </div>
+        <label for="avatar-input-file">
+          <div class="icon-wrapper">
+            <input type="file" formControlName="photo" id="avatar-input-file" accept="image/*" (change)="fileChangeEvent($event)" />
+            <mat-icon class="icon">edit</mat-icon>
+          </div>
+        </label>
+      </div>
+    </div>
+    <div class="image-card col-sm-6" style="height: auto;">
+      <image-cropper
+        [ngStyle]="{width: '400px'}"
+        [imageChangedEvent]="imageChangedEvent"
+        [maintainAspectRatio]="true"
+        format="png"
+        (imageCropped)="imageCropped($event)"
+        (imageLoaded)="imageLoaded()"
+        (cropperReady)="cropperReady()"
+        (loadImageFailed)="loadImageFailed()"
+        [roundCropper]="true">
+      </image-cropper>
+    </div>
+  </div>
+</div>
+<div class="mat-dialog-actions">
+  <button mat-button color="warning" (click)="exitDialog(false)">No</button>
+  <button mat-button cdkFocusInitial color="primary" (click)="exitDialog(true)">Ok</button>
+</div>

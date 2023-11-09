@@ -1,0 +1,31 @@
+<header class="header-content">
+  <div class="left-part">
+    <div class="header-logo">
+      <img src="/assets/logo.svg" class="logo-icon" />
+      <div class="logo-text">Angular CRUD</div>
+    </div>
+    <div class="navigation-button">
+      <!-- <div>Home</div>
+      <div>Features</div>
+      <div>About us</div> -->
+    </div>
+  </div>
+  <div class="right-part">
+    <button *ngIf="router.url == '/login'" [routerLink]="['/register']" mat-raised-button color="primary">
+      Sign up
+    </button>
+    <button *ngIf="router.url == '/register'" [routerLink]="['/login']" mat-raised-button color="primary">
+      Sign in
+    </button>
+    <button *ngIf="router.url == '/profile'" mat-icon-button #menuTrigger1="matMenuTrigger"
+      (mouseover)="openProfileMenu(menuTrigger1)" [matMenuTriggerFor]="profileMenu" color="primary">
+      <mat-icon>account_circle</mat-icon>
+    </button>
+    <mat-menu #profileMenu="matMenu">
+      <button mat-menu-item [routerLink]="['/profileview']"><mat-icon>account_circle</mat-icon>Profile</button>
+      <button mat-menu-item><mat-icon>settings</mat-icon>Settings</button>
+      <mat-divider></mat-divider>
+      <button mat-menu-item (click)="signOut()"><mat-icon>logout</mat-icon>Logout</button>
+    </mat-menu>
+  </div>
+</header>

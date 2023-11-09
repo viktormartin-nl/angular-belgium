@@ -1,0 +1,19 @@
+<h2 mat-dialog-title>Create new comment</h2>
+<mat-dialog-content>
+  <form [formGroup]="commentForm">
+    <mat-form-field appearance="fill">
+      <mat-label>Create your title</mat-label>
+      <input matInput clickOutside formControlName="title" />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Create your description</mat-label>
+      <input matInput clickOutside formControlName="description" />
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-raised-button [disabled]="!commentForm.valid" [mat-dialog-close]="commentForm.value" color="primary">
+    Create
+  </button>
+</mat-dialog-actions>

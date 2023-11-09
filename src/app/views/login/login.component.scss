@@ -1,0 +1,73 @@
+@import '../../../styles.scss';
+
+main.login-content {
+  display: flex;
+  flex-direction: row-reverse;
+  height: 90%;
+  background-color: $light-primary;
+
+  .mat-mdc-form-field {
+    margin-bottom: 1rem;
+  }
+
+  div.left-part {
+    min-width: 50%;
+    margin: 10px;
+    background-color: white;
+
+    .error-alert {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: #ffd9d9;
+      color: #f65d50;
+      margin-bottom: 23px;
+      padding-left: 8px;
+      height: 5%;
+
+      div {
+        display: flex;
+        align-items: center;
+
+        .mat-icon {
+          margin-right: 5px;
+        }
+      }
+    }
+
+    form {
+      display: flex;
+      flex-flow: column;
+      justify-content: center;
+      height: 100%;
+      padding: 0px 67px;
+
+      .mat-mdc-form-field-error {
+        display: flex;
+        font-size: 0.9rem;
+        margin-top: 0.1rem;
+
+        .mat-icon {
+          width: inherit;
+          height: inherit;
+          margin-right: 3px;
+        }
+
+        p {
+          margin-top: 0;
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+
+  div.right-part {
+    background-color: $light-primary;
+    display: flex;
+    justify-content: center;
+
+    img {
+      max-width: 72%;
+    }
+  }
+}

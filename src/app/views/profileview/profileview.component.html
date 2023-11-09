@@ -1,0 +1,236 @@
+<main class="profile-view">
+  <div style="margin-bottom: 30px;">
+    <h2 style="font-weight: bold;">Hi, I'm {{ firstName }} {{ lastName }}!</h2>
+    <p style="font-weight: normal;">Joined in Oct 20, 2020, 06:09:23 AM</p>
+  </div>
+  <div class="profile-content">
+    <div class="row">
+      <div class="col-md-6 col-sm-12">
+        <div class="side-col">
+          <div class="avatar-card">
+            <div class="avatar-container">
+              <div class="image-container" [ngStyle]="{backgroundImage: 'url()'}">
+              </div>
+            </div>
+          </div>
+          <mat-card>
+            <mat-card-header>
+              <mat-card-title><h4 style="margin: 0px;">Review Summary</h4></mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <div class="row">
+                <div class="col-lg-8 col-sm-12">
+                  <div class="row">
+                    <div class="col-lg-2 col-sm-2">5</div>
+                    <div class="col-lg-8 col-sm-8" style="display: flex; align-items: center">
+                      <mat-progress-bar mode="determinate" value="60"></mat-progress-bar>
+                    </div>
+                    <div class="col-lg-2 col-sm-2">60%</div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-2 col-sm-2">4</div>
+                    <div class="col-lg-8 col-sm-8" style="display: flex; align-items: center">
+                      <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
+                    </div>
+                    <div class="col-lg-2 col-sm-2">40%</div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-2 col-sm-2">3</div>
+                    <div class="col-lg-8 col-sm-8" style="display: flex; align-items: center">
+                      <mat-progress-bar mode="determinate" value="30"></mat-progress-bar>
+                    </div>
+                    <div class="col-lg-2 col-sm-2">30%</div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-2 col-sm-2">2</div>
+                    <div class="col-lg-8 col-sm-8" style="display: flex; align-items: center">
+                      <mat-progress-bar mode="determinate" value="20"></mat-progress-bar>
+                    </div>
+                    <div class="col-lg-2 col-sm-2">20%</div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-2 col-sm-2">1</div>
+                    <div class="col-lg-8 col-sm-8" style="display: flex; align-items: center">
+                      <mat-progress-bar mode="determinate" value="10"></mat-progress-bar>
+                    </div>
+                    <div class="col-lg-2 col-sm-2">10%</div>
+                  </div>
+                </div>
+                <div class="col-lg-4 col-sm-12">
+                  <div style="text-align: center;">
+                    <P style="font-size: 72px; margin: 24px 0 0; font-weight: normal;">4.5</P>
+                    <div style="margin-top: 20px;">
+                      <mat-icon color="primary">star</mat-icon>
+                      <mat-icon>star</mat-icon>
+                      <mat-icon>star</mat-icon>
+                      <mat-icon>star</mat-icon>
+                      <mat-icon>star</mat-icon>
+                    </div>
+                    <p style="text-decoration: underline; margin: 0">201 Reviews</p>
+                  </div>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+          <mat-card class="verify-state">
+            <mat-card-header>
+              <mat-card-title style="font-weight: bold;">User1@gmail.com</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <div>
+                <span class="verify-content">Identify</span>
+                <span class="verify-state">Verified</span>
+              </div>
+              <div>
+                <span class="verify-content">Email Address</span>
+                <span class="verify-state">Verified</span>
+              </div>
+              <div>
+                <span class="verify-content">Phone Number</span>
+                <span class="verify-state">Verified</span>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-12">
+        <div class="side-col">
+          <mat-card class="verify-state">
+            <mat-card-header>
+              <mat-card-title style="font-weight: bold;">Personal Information</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <div class="card-content-list">
+                <mat-icon class="icon">person</mat-icon>
+                <mat-label>{{ gender }}</mat-label>
+              </div>
+              <div class="card-content-list">
+                <mat-icon class="icon">calendar_today</mat-icon>
+                <mat-label>{{ DOB }}</mat-label>
+              </div>
+              <div class="card-content-list">
+                <mat-icon class="icon">phone</mat-icon>
+                <mat-label>{{ phoneNumber }}</mat-label>
+              </div>
+              <div class="card-content-list">
+                <mat-icon class="icon">home</mat-icon>
+                <mat-label>{{ address }}</mat-label>
+              </div>
+              <div class="card-content-list">
+                <mat-icon class="icon">message</mat-icon>
+                <mat-label>{{ spokenLanguage }}</mat-label>
+              </div>
+              <div class="card-content-list">
+                <mat-icon class="icon">access_time</mat-icon>
+                <mat-label>{{ DOB }}</mat-label>
+              </div>
+            </mat-card-content>
+          </mat-card>
+          <mat-card class="verify-state">
+            <mat-card-header>
+              <mat-card-title style="font-weight: bold;">Aditional Information</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <div class="card-content-list">
+                <mat-icon class="icon" svgIcon="bachelor"></mat-icon>
+                <mat-label>{{ higherEducation  }}</mat-label>
+              </div>
+              <div class="card-content-list">
+                <mat-icon class="icon" svgIcon="facebook"></mat-icon>
+                <mat-label>{{ facebook }}</mat-label>
+              </div>
+              <div class="card-content-list">
+                <mat-icon class="icon" svgIcon="linkedin"></mat-icon>
+                <mat-label>{{ linkedIn }}</mat-label>
+              </div>
+              <div class="card-content-list">
+                <mat-icon class="icon"svgIcon="instagram"></mat-icon>
+                <mat-label>{{ instagram }}</mat-label>
+              </div>
+              <div class="card-content-list">
+                <mat-icon class="icon" svgIcon="twitter"></mat-icon>
+                <mat-label>{{ twitter }}</mat-label>
+              </div>
+            </mat-card-content>
+          </mat-card>
+          <div style="position: absolute; right: 40px;  bottom: 40px;">
+            <button mat-fab color="secondary" aria-label="Profile edit icon" [routerLink]="['/profile']">
+              <mat-icon>edit</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="provider-profiles">
+    <div>
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>
+            <span style="margin: 0px; font-size: 24px; font-weight: bold">Service Provider Profiles</span>
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="profile-content"></div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+  <div class="review-rating">
+    <div>
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>
+            <span style="margin: 0px; font-size: 24px; font-weight: bold">Review and Rating</span>
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="profile-content">
+            <div>
+              <span style="margin: 0px 10px; font-size: 24px; font-weight: bold">45 Reviews</span>
+              <span style="margin: 0px 10px; font-size: 20px; font-weight: bold">4.5 <mat-icon>star</mat-icon></span>
+              <span style="margin: 0px; font-size: 20px; font-weight: bold">overall rating</span>
+            </div>
+            <mat-tab-group>
+              <mat-tab label="From Users (41)">
+                <div style="padding: 10px;">
+                  <mat-button-toggle-group name="starRating" aria-label="Star Rating">
+                    <mat-button-toggle value="all">All</mat-button-toggle>
+                    <mat-button-toggle value="5">5 <mat-icon>star</mat-icon></mat-button-toggle>
+                    <mat-button-toggle value="4">4 <mat-icon>star</mat-icon></mat-button-toggle>
+                    <mat-button-toggle value="3">3 <mat-icon>star</mat-icon></mat-button-toggle>
+                    <mat-button-toggle value="2">2 <mat-icon>star</mat-icon></mat-button-toggle>
+                    <mat-button-toggle value="1">1 <mat-icon>star</mat-icon></mat-button-toggle>
+                  </mat-button-toggle-group>
+                  <div class="review">
+                    <mat-card>
+                      <mat-card-content>
+                        <div class="row">
+                          <div class="col-lg-10 col-sm-8">
+                            <p class="review-title">Jayantheeswaran</p>
+                            <p class="review-content">Oct 17 - Oct 21, 2017 Clean Room in Evere-close to RU AirPort Zavemtem</p>
+                          </div>
+                          <div class="col-lg-2 col-sm-4 photo">
+                            <div></div>
+                          </div>
+                        </div>
+                        <mat-divider></mat-divider>
+                        <div>
+                          <p class="review-title">Overall rating</p>
+                          <p class="review-content">Great location, near to bus stop and shops in Paduwa. Room was bit small but I had entire
+                            home to stay. Good internet connection, kitchen, refrigerator & microwave available</p>
+                        </div>
+                      </mat-card-content>
+                    </mat-card>
+                  </div>
+                </div>
+              </mat-tab>
+              <mat-tab label="From Service Providers (41)"> From Services providers (41) </mat-tab>
+            </mat-tab-group>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</main>
+

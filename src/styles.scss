@@ -1,0 +1,79 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$tutor-angular-starter-primary: mat.define-palette(mat.$light-blue-palette);
+$tutor-angular-starter-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$tutor-angular-starter-warn: mat.define-palette(mat.$red-palette);
+
+//custom palette
+$tutor-angular-starter-cyan: mat.define-palette(mat.$cyan-palette);
+$tutor-angular-starter-green: mat.define-palette(mat.$green-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$tutor-angular-starter-theme: mat.define-light-theme((color: (primary: $tutor-angular-starter-primary,
+        accent: $tutor-angular-starter-accent,
+        warn: $tutor-angular-starter-warn,
+      )));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($tutor-angular-starter-theme);
+
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+$primary: map-get($map: $tutor-angular-starter-primary,
+    $key: 500,
+  );
+
+$contrast-primary: mat-color(map-get($map: $tutor-angular-starter-primary,
+      $key: 500,
+    ),
+    default-contrast);
+
+$light-primary: map-get($map: $tutor-angular-starter-primary,
+    $key: 50,
+  );
+
+$less-light-primary: map-get($map: $tutor-angular-starter-primary,
+    $key: 200,
+  );
+
+$warn: map-get($map: $tutor-angular-starter-warn,
+    $key: 500,
+  );
+
+$accent: map-get($map: $tutor-angular-starter-accent,
+    $key: 500,
+  );
+
+$cyan-50: map-get($map: $tutor-angular-starter-cyan,
+    $key: 50,
+  );
+
+$green-500: map-get($map: $tutor-angular-starter-green,
+    $key: 500,
+  );
