@@ -1,28 +1,50 @@
 <div class="mat-dialog-content" mat-dialog-content>
   <h3>Please capture your photo from camera!</h3>
-  <div class="capture-image">
-    <div class="web-camera" *ngIf="isCapturing">
+  <div class="capture-image" *ngIf="isCapturing">
+    <div class="web-camera">
       <webcam
         [trigger]="invokeObservable"
         (imageCapture)="captureImg($event)"
         [height]="240"
-        [width]="240"
-        [videoOptions]="{ facingMode: 'environment'}"
-        style="border-radius: 50%">
+        [width]="320"
+        [videoOptions]="{ facingMode: 'environment'}">
       </webcam>
     </div>
-    <div class="captured-image" *ngIf="!isCapturing">
-      <img [src]="webcamImage.imageAsDataUrl"/>
+    <div class="capture-button">
+      <button mat-fab extended color="primary" (click)="getSnapshot()">
+        <mat-icon>camera</mat-icon>
+        Capture Image
+      </button>
     </div>
   </div>
-  <div class="capture-button">
-    <button mat-fab extended color="primary" (click)="getSnapshot()">
-      <mat-icon>camera</mat-icon>
-      Capture Image
-    </button>
+  <div class="crop-image">
+    <div class="row" *ngIf="!isCapturing">
+      <!-- <img [src]="webcamImage.imageAsDataUrl"/> -->
+      <div class="col-sm-6">
+        <div class="captured-image">
+          <img [src]="croppedImage" />
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="selected-image">
+          <image-cropper
+            [maintainAspectRatio]="true"
+            [imageBase64]="sysImage"
+            format="png"
+            output="base64"
+            (imageCropped)="imageCropped($event)"
+            (imageLoaded)="imageLoaded()"
+            (cropperReady)="cropperReady()"
+            (loadImageFailed)="loadImageFailed()"
+            [allowMoveImage]="true"
+            [roundCropper]="true">
+          </image-cropper>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 <div class="mat-dialog-actions" mat-dialog-actions>
-  <button mat-flat-button color="warn" (click)="exitDialog(false)">No</button>
-  <button mat-flat-button color="primary" cdkFocusInitial (click)="exitDialog(true)">Ok</button>
+  <button mat-flat-button color="warn" (click)="exitDialog(false)">Cancel</button>
+  <button mat-flat-button color="primary" cdkFocusInitial (click)="exitDialog(true)">Crop</button>
 </div>

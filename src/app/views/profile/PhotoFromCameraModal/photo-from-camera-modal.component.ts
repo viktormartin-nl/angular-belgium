@@ -1,5 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { Subject, Observable } from 'rxjs';
 import { WebcamImage, WebcamInitError, WebcamUtil } from 'ngx-webcam';
 
@@ -33,6 +34,7 @@ export class PhotoFromCameraModal {
     this.webcamImage = webcamImage;
     this.sysImage = webcamImage!.imageAsDataUrl;
     this.isCapturing = !this.isCapturing;
+    console.log(this.sysImage);
   }
   public get invokeObservable(): Observable<any> {
     return this.trigger.asObservable();
@@ -41,9 +43,26 @@ export class PhotoFromCameraModal {
     return this.nextWebcam.asObservable();
   }
 
+  // Crop the captured Image
+
+  croppedImage: any = "";
+
+  imageCropped(event: ImageCroppedEvent) {
+    this.croppedImage = event.base64;
+  }
+  imageLoaded() {
+    // show cropper
+  }
+  cropperReady() {
+    // cropper ready
+  }
+  loadImageFailed() {
+    // show message
+  }
+
   exitDialog ( state : boolean ) {
     if ( state ) {
-      this.onDialogClose(this.sysImage);
+      this.onDialogClose(this.croppedImage);
     } else {
       this.onDialogClose('');
     }

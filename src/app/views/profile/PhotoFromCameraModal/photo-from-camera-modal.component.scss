@@ -1,29 +1,44 @@
 .mat-dialog-content {
 
   .capture-image {
-
-    display: flex;
-    justify-content: center;
-    height: 240px;
+    margin-bottom: 10px;
 
     .web-camera {
-      border: 2px solid #add8e6;
-      border-radius: 50%;
+      display: flex;
+      justify-content: center;
     }
 
-    .captured-image {
-      height: 240px;
-
-      img {
-        border: 2px solid #add8e6;
-        border-radius: 50%;
-      }
+    .capture-button {
+      text-align: center;
     }
+
   }
 
-  .capture-button {
-    text-align: center;
-    margin-top: 10px;
+  .crop-image {
+
+    .col-sm-6 {
+      margin-bottom: 10px;
+      .captured-image {
+        height: 240px;
+        display: flex;
+        justify-content: center;
+
+        img {
+          border: 2px solid #add8e6;
+          border-radius: 50%;
+          width: 240px;
+          height: 240px;
+        }
+      }
+
+      .selected-image {
+        height: 240px;
+        width: inherit;
+        border: 2px solid #add8e6;
+        display: flex;
+        align-items: center;
+      }
+    }
   }
 }
 
