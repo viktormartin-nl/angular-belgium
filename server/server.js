@@ -149,6 +149,15 @@ server.post('/profile/:id', (req, res) => {
         },
       });
     }
+    const userPhotoIndex = db.userPhoto.findIndex( item => item.email == req.body.email );
+    if ( userPhotoIndex > -1 ) {
+      db.userPhoto[userPhotoIndex].photo = req.body.photo ? req.body.photo : db.userPhoto[userPhotoIndex].photo;
+    } else {
+      db.userPhoto.push({
+        email: req.body.email,
+        photo: req.body.photo
+      });
+    }
     console.log(db);
     console.log(req.body);
     res.send({
@@ -159,51 +168,51 @@ server.post('/profile/:id', (req, res) => {
   }
 });
 
-server.post('/profile/photo/:id', async (req, res) => {
-    try {
-      console.log(db.userInfo);
-      const userInfoIndex = db.userInfo.findIndex( item => item.id == req.params.id );
-      if ( userInfoIndex > -1 ) {
-        const userEmail = db.userInfo[userInfoIndex].email;
-        if(!req.files) {
-            res.send({
-                status: false,
-                message: 'No file uploaded'
-            });
-        } else {
-            //Use the name of the input field (i.e. "avatar") to retrieve the uploaded file
-            let avatar = req.files.photo;
-            console.log(req.files);
+// server.post('/profile/photo/:id', async (req, res) => {
+//     try {
+//       console.log(db.userInfo);
+//       const userInfoIndex = db.userInfo.findIndex( item => item.id == req.params.id );
+//       if ( userInfoIndex > -1 ) {
+//         const userEmail = db.userInfo[userInfoIndex].email;
+//         if(!req.files) {
+//             res.send({
+//                 status: false,
+//                 message: 'No file uploaded'
+//             });
+//         } else {
+//             //Use the name of the input field (i.e. "avatar") to retrieve the uploaded file
+//             let avatar = req.files.photo;
+//             console.log(req.files);
 
-            const originalName = avatar.name.split('.');
-            const newName = userEmail.replace('.', '_') + '.' + originalName[originalName.length - 1];
+//             const originalName = avatar.name.split('.');
+//             const newName = userEmail.replace('.', '_') + '.' + originalName[originalName.length - 1];
 
-            //Use the mv() method to place the file in the upload directory (i.e. "uploads")
-            avatar.mv('./server/uploads/' + newName);
-            const newPhoto = {
-              email: userEmail,
-              photo: newName
-            };
-            db.userPhoto.push(newPhoto);
-            //send response
-            res.send({
-                status: true,
-                message: 'File is uploaded',
-                data: {
-                    name: newPhoto.photo,
-                    mimetype: avatar.mimetype,
-                    size: avatar.size
-                }
-            });
-        }
-      } else {
-        res.status(401).send('User doesn\'t exist!')
-      }
+//             //Use the mv() method to place the file in the upload directory (i.e. "uploads")
+//             avatar.mv('./server/uploads/' + newName);
+//             const newPhoto = {
+//               email: userEmail,
+//               photo: newName
+//             };
+//             db.userPhoto.push(newPhoto);
+//             //send response
+//             res.send({
+//                 status: true,
+//                 message: 'File is uploaded',
+//                 data: {
+//                     name: newPhoto.photo,
+//                     mimetype: avatar.mimetype,
+//                     size: avatar.size
+//                 }
+//             });
+//         }
+//       } else {
+//         res.status(401).send('User doesn\'t exist!')
+//       }
 
-    } catch (err) {
-        res.status(500).send(err);
-    }
-});
+//     } catch (err) {
+//         res.status(500).send(err);
+//     }
+// });
 
 // server.use('/users', (req, res, next) => {
 //   if (isAuthorized(req) || req.query.bypassAuth === 'true') {
@@ -214,10 +223,6 @@ server.post('/profile/photo/:id', async (req, res) => {
 // });
 
 server.use(router);
-
-// const __dirname = path.resolve(); //since we're using es modules syntax
-// server.use(express.static(__dirname + "/uploads"));
-// server.use("/uploads", express.static("server/uploads"));
 
 server.listen(3000, () => {
   console.log('JSON Server is running on port 3000');

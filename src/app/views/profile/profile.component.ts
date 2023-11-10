@@ -5,6 +5,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { MatDialog } from '@angular/material/dialog';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Observable, async, map, startWith } from 'rxjs';
 import { User } from 'src/app/shared/interface/user.interface';
 import { UserService } from 'src/app/shared/service/users/user.service';
@@ -56,6 +57,7 @@ export class ProfileComponent implements OnInit {
   constructor(private fb: FormBuilder,
     private userService: UserService,
     private snackBar: MatSnackBar,
+    private sanitizer: DomSanitizer,
     public dialog: MatDialog) {
     this.languageList = this.allLanguages;
     this.filteredLanguages = this.langCtrl.valueChanges.pipe(
@@ -69,6 +71,7 @@ export class ProfileComponent implements OnInit {
       next: (user: User) => {
         console.log(user);
         this.profileForm = this.fb.group({
+          photo: [user.userPhoto.photo],
           email: [user.email, [Validators.required, Validators.email]],
           password: [user.password, Validators.required],
           firstName: [user.firstName, Validators.required],
@@ -94,6 +97,8 @@ export class ProfileComponent implements OnInit {
           facebook: [user.userAdditionalInfo.socialMediaLinks.facebook],
           twitter: [user.userAdditionalInfo.socialMediaLinks.twitter],
         });
+        this.languages = user.userAdditionalInfo.spokenLanguage;
+        this.fileName = user.userPhoto.photo;
         if ( user.userAddress.Latitude && user.userAddress.Longitude ) {
           this.center = {
             lat: parseFloat(user.userAddress.Latitude),
@@ -110,6 +115,33 @@ export class ProfileComponent implements OnInit {
         duration: 3000
       });
     } else {
+      this.profileForm = this.fb.group({
+          photo: [this.fileName],
+          email: [this.profileForm.controls['email'].value, [Validators.required, Validators.email]],
+          password: [this.profileForm.controls['password'].value, Validators.required],
+          firstName: [this.profileForm.controls['firstName'].value, Validators.required],
+          lastName: [this.profileForm.controls['lastName'].value, Validators.required],
+          Gender: [this.profileForm.controls['Gender'].value, Validators.required],
+          DOB: [this.profileForm.controls['DOB'].value, Validators.required],
+          phoneNumber: [this.profileForm.controls['phoneNumber'].value, Validators.required],
+          alternatePhNo: [this.profileForm.controls['alternatePhNo'].value],
+          address: [this.profileForm.controls['address'].value, Validators.required],
+          street: [this.profileForm.controls['street'].value, Validators.required],
+          no: [this.profileForm.controls['no'].value, Validators.required],
+          flatNo: [this.profileForm.controls['flatNo'].value, Validators.required],
+          state: [this.profileForm.controls['state'].value, Validators.required],
+          city: [this.profileForm.controls['city'].value, Validators.required],
+          postCode: [this.profileForm.controls['postCode'].value, Validators.required],
+          country: [this.profileForm.controls['country'].value, Validators.required],
+          Longitude: [this.center.lng, Validators.required],
+          Latitude: [this.center.lat, Validators.required],
+          spokenLanguage: [this.languages, Validators.required],
+          higherEducation: [this.profileForm.controls['higherEducation'].value],
+          instagram: [this.profileForm.controls['instagram'].value],
+          linkedIn: [this.profileForm.controls['linkedIn'].value],
+          facebook: [this.profileForm.controls['facebook'].value],
+          twitter: [this.profileForm.controls['twitter'].value],
+        });
       console.log(this.profileForm.controls['spokenLanguage'].value);
       this.userService.postProfile(this.userId, this.profileForm.value).subscribe({
         next: (loggedInUser: User) => {
@@ -126,49 +158,32 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  convertBase64 = (file: File) => {
-    return new Promise((resolve, reject) => {
-        const fileReader = new FileReader();
-        fileReader.readAsDataURL(file);
-
-        fileReader.onload = () => {
-            resolve(fileReader.result);
-        };
-
-        fileReader.onerror = (error) => {
-            reject(error);
-        };
-    });
-};
-
   fileName: string = '';
-  onFileChange(event: any) {
-    const files = event.target.files as FileList;
-    const file: File = event.target.files[0];
-    console.log(file);
+  // onFileChange(event: any) {
+  //   const files = event.target.files as FileList;
+  //   const file: File = event.target.files[0];
+  //   console.log(file);
 
-    if(file) {
-      const base64 = this.convertBase64(file);
-      console.log(base64);
-      this.fileName = URL.createObjectURL(files[0]);
-      console.log(this.fileName);
-      const formData = new FormData();
-      formData.append('photo', file);
-      const upload$ = this.userService.fileUpload(this.userId, formData);
-      upload$.subscribe(
-        (success) => {
-          console.log('Upload successful:', success);
-        },
-        (error) => {
-          console.error('Upload error:', error);
-        },
-        () => {
-          console.log('Upload complete');
-        }
-      );
-      this.resetInput();
-    }
-  }
+  //   if(file) {
+  //     this.fileName = URL.createObjectURL(files[0]);
+  //     console.log(this.fileName);
+  //     const formData = new FormData();
+  //     formData.append('photo', file);
+  //     const upload$ = this.userService.fileUpload(this.userId, formData);
+  //     upload$.subscribe(
+  //       (success) => {
+  //         console.log('Upload successful:', success);
+  //       },
+  //       (error) => {
+  //         console.error('Upload error:', error);
+  //       },
+  //       () => {
+  //         console.log('Upload complete');
+  //       }
+  //     );
+  //     this.resetInput();
+  //   }
+  // }
 
   resetInput() {
     const input = document.getElementById('avatar-input-file') as HTMLInputElement;
@@ -281,6 +296,7 @@ export class ProfileComponent implements OnInit {
       }
     });
     this.profileForm = this.fb.group({
+          photo: [this.fileName],
           email: [this.profileForm.controls['email'].value, [Validators.required, Validators.email]],
           password: [this.profileForm.controls['password'].value, Validators.required],
           firstName: [this.profileForm.controls['firstName'].value, Validators.required],

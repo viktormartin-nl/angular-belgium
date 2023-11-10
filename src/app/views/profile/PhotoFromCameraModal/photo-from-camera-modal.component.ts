@@ -22,6 +22,7 @@ export class PhotoFromCameraModal {
   private trigger: Subject<any> = new Subject();
   public webcamImage!: WebcamImage;
   private nextWebcam: Subject<any> = new Subject();
+  public isCapturing: boolean = true;
 
   sysImage = '';
 
@@ -31,7 +32,7 @@ export class PhotoFromCameraModal {
   public captureImg(webcamImage: WebcamImage): void {
     this.webcamImage = webcamImage;
     this.sysImage = webcamImage!.imageAsDataUrl;
-    console.info('got webcam image', this.sysImage);
+    this.isCapturing = !this.isCapturing;
   }
   public get invokeObservable(): Observable<any> {
     return this.trigger.asObservable();

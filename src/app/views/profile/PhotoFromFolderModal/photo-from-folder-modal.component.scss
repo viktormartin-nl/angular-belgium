@@ -1,40 +1,39 @@
+.mat-dialog-content {
 
-.image-cropper {
-  text-align: center;
+  .row {
 
-  .image-card {
-    display: flex;
-    height: 250px;
-    justify-content: center;
-    align-items: center;
+    .captured-image {
+      height: 400px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
 
-    .image-container {
-      position: relative;
-      width: fit-content;
+      img {
+        background-color: #add8e6;
+        height: 240px;
+        width: 240px;
+        border-radius: 50%;
+        border: 2px solid #add8e6;
+      }
     }
 
-    .cropped-image {
-      height: 200px;
-      width: 200px;
-      z-index: 1;
-      border-radius: 50%;
-      background-position: center;
-      background-size: cover;
-      box-shadow: 10 20px 20px 20px #ff0000;
+    .selected-image {
+      height: 400px;
+      width: 400px;
+      border: 2px solid #add8e6;
+      display: flex;
+      align-items: center;
     }
-
+  }
     .icon-wrapper {
-      position: absolute;
       height: 40px;
-      width: 40px;
+      width: 200px;
       padding: .35rem;
       background-color: #2962FF;
-      border-radius: 50%;
+      border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
-      right: 0;
-      top: 80%;
       z-index: 2;
       cursor: pointer;
 
@@ -45,6 +44,8 @@
 
       .icon {
         color: white;
+        display: flex;
+        justify-content: space-between;
       }
 
       label {
@@ -58,7 +59,6 @@
         display: none;
       }
     }
-  }
 }
 
 .mat-dialog-actions {

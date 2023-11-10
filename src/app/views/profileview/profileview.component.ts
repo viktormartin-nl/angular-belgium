@@ -8,6 +8,7 @@ import { UserService } from 'src/app/shared/service/users/user.service';
   styleUrls: ['./profileview.component.scss']
 })
 export class ProfileViewComponent implements OnInit {
+  fileName: string = '';
   firstName: string = '';
   lastName: string = '';
   email: string = '';
@@ -33,6 +34,7 @@ export class ProfileViewComponent implements OnInit {
     this.userService.getProfile(this.userId).subscribe({
       next: (user: User) => {
         console.log(user);
+        this.fileName = user.userPhoto.photo;
         this.firstName = user.firstName;
         this.lastName = user.lastName;
         this.email = user.email;
@@ -47,7 +49,7 @@ export class ProfileViewComponent implements OnInit {
         this.phoneNumber = user.phoneNumber;
         this.alternatePhNo = user.alternatePhNo;
         this.address = user.userAddress.address;
-        const language = ['English', 'Chinese'];
+        const language = user.userAdditionalInfo.spokenLanguage;
         this.spokenLanguage = language.join(', ');
         console.log(user.userAdditionalInfo.socialMediaLinks);
         this.higherEducation = user.userAdditionalInfo.higherEducation;

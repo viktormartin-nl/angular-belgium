@@ -27,7 +27,7 @@ export class PhotoFromFolderModal {
     this.imageChangedEvent = event;
   }
   imageCropped(event: ImageCroppedEvent) {
-    this.croppedImage = this.sanitizer.bypassSecurityTrustUrl(event.objectUrl || event.base64 || '');
+    this.croppedImage = event.base64;
   }
   imageLoaded() {
     // show cropper

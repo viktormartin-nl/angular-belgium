@@ -9,7 +9,7 @@
         <div class="side-col">
           <div class="avatar-card">
             <div class="avatar-container">
-              <div class="image-container" [ngStyle]="{backgroundImage: 'url()'}">
+              <div class="image-container" [ngStyle]="{backgroundImage: 'url(' + fileName + ')'}">
               </div>
             </div>
           </div>
@@ -74,7 +74,7 @@
           </mat-card>
           <mat-card class="verify-state">
             <mat-card-header>
-              <mat-card-title style="font-weight: bold;">User1@gmail.com</mat-card-title>
+              <mat-card-title style="font-weight: bold;">{{ email }}</mat-card-title>
             </mat-card-header>
             <mat-card-content>
               <div>

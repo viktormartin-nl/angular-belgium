@@ -1,0 +1,32 @@
+.mat-dialog-content {
+
+  .capture-image {
+
+    display: flex;
+    justify-content: center;
+    height: 240px;
+
+    .web-camera {
+      border: 2px solid #add8e6;
+      border-radius: 50%;
+    }
+
+    .captured-image {
+      height: 240px;
+
+      img {
+        border: 2px solid #add8e6;
+        border-radius: 50%;
+      }
+    }
+  }
+
+  .capture-button {
+    text-align: center;
+    margin-top: 10px;
+  }
+}
+
+.mat-dialog-actions {
+  float: right;
+}
