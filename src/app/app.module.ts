@@ -22,7 +22,6 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatMenuModule } from "@angular/material/menu";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { Ng2TelInputModule } from 'ng2-tel-input';
 import { FooterComponent } from './core/components/footer/footer.component';
 import { LoginComponent } from './views/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
@@ -45,6 +44,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { WebcamModule } from 'ngx-webcam';
+import { NgxMatIntlTelInputComponent } from 'ngx-mat-intl-tel-input';
 
 @NgModule({
   declarations: [
@@ -87,7 +87,6 @@ import { WebcamModule } from 'ngx-webcam';
     MatChipsModule,
     MatAutocompleteModule,
     MatMenuModule,
-    Ng2TelInputModule,
     BrowserAnimationsModule,
     GooglePlaceModule,
     MatSnackBarModule,
@@ -95,7 +94,8 @@ import { WebcamModule } from 'ngx-webcam';
     MatTabsModule,
     MatButtonToggleModule,
     ImageCropperModule,
-    WebcamModule
+    WebcamModule,
+    NgxMatIntlTelInputComponent
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: CrudInterceptor, multi: true }],
   bootstrap: [AppComponent],

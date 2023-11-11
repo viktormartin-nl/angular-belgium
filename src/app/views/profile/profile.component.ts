@@ -116,7 +116,7 @@ export class ProfileComponent implements OnInit {
       });
     } else {
       this.profileForm = this.fb.group({
-          photo: [this.fileName],
+          photo: [this.fileName, [Validators.required]],
           email: [this.profileForm.controls['email'].value, [Validators.required, Validators.email]],
           password: [this.profileForm.controls['password'].value, Validators.required],
           firstName: [this.profileForm.controls['firstName'].value, Validators.required],
