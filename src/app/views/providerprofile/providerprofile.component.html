@@ -281,7 +281,7 @@
           <mat-card-content>
             <div class="row">
               <div class="col-md-6 col-sm-12">
-                <!-- <mat-form-field class="example-chip-list" appearance="outline">
+                <mat-form-field class="example-chip-list" appearance="outline">
                   <mat-label>Spoken Languages</mat-label>
                   <mat-chip-grid #chipGrid aria-label="Enter languages">
                     <mat-chip-row *ngFor="let lang of languages" (removed)="remove(lang)" color="accent"
@@ -305,7 +305,7 @@
                     <mat-icon [inline]="true" color="warn">info</mat-icon>
                     <p>Language required</p>
                   </mat-error>
-                </mat-form-field> -->
+                </mat-form-field>
                 <mat-form-field appearance="outline">
                   <mat-label>Higher Education</mat-label>
                   <input type="text" placeholder="" aria-label="Higher Education" matInput
@@ -373,7 +373,7 @@
               <div class="col-sm-12">
                 <mat-form-field appearance="outline">
                   <mat-label>Work Category</mat-label>
-                  <mat-chip-grid #chipGrid aria-label="Enter categories">
+                  <mat-chip-grid #chipGridCategory aria-label="Enter categories">
                     <mat-chip-row *ngFor="let category of categories" (removed)="removeCategory(category)"
                       color="accent" [aria-description]="'press enter to edit ' + category">
                       {{category}}
@@ -381,10 +381,10 @@
                         <mat-icon>cancel</mat-icon>
                       </button>
                     </mat-chip-row>
-                    <input formControlName="workCategory" placeholder="New category..." [matChipInputFor]="chipGrid"
-                      #categoryInput [formControl]="categoryCtrl" [matAutocomplete]="auto5"
-                      [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
-                      (matChipInputTokenEnd)="addCategory($event)" />
+                    <input formControlName="workCategory" placeholder="New category..."
+                      [matChipInputFor]="chipGridCategory" #categoryInput [formControl]="categoryCtrl"
+                      [matAutocomplete]="auto5" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                      [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="addCategory($event)" />
                     <mat-autocomplete #auto5="matAutocomplete" (optionSelected)="selectedCategory($event)">
                       <mat-option *ngFor="let category of filteredCategories | async" [value]="category">
                         {{category}}
