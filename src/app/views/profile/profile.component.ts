@@ -29,7 +29,7 @@ export class ProfileComponent implements OnInit {
     password: ['', Validators.required],
     firstName: ['', Validators.required],
     lastName: ['', Validators.required],
-    Gender: ['', Validators.required],
+    // Gender: ['', Validators.required],
     DOB: ['', Validators.required],
     phoneNumber: ['', Validators.required],
     alternatePhNo: [''],
@@ -76,7 +76,7 @@ export class ProfileComponent implements OnInit {
           password: [user.password, Validators.required],
           firstName: [user.firstName, Validators.required],
           lastName: [user.lastName, Validators.required],
-          Gender: ['male', Validators.required],
+          // Gender: ['male', Validators.required],
           DOB: [user.DOB, Validators.required],
           phoneNumber: [user.phoneNumber, Validators.required],
           alternatePhNo: [user.alternatePhNo],
@@ -105,6 +105,11 @@ export class ProfileComponent implements OnInit {
             lng: parseFloat(user.userAddress.Longitude)
           }
         }
+        if ( user.gender == 'Female' ) {
+          this.isMale = false;
+        } else {
+          this.isMale = true;
+        }
       },
     });
   }
@@ -121,7 +126,7 @@ export class ProfileComponent implements OnInit {
           password: [this.profileForm.controls['password'].value, Validators.required],
           firstName: [this.profileForm.controls['firstName'].value, Validators.required],
           lastName: [this.profileForm.controls['lastName'].value, Validators.required],
-          Gender: [this.profileForm.controls['Gender'].value, Validators.required],
+          Gender: [this.isMale? 'Male': 'Female', Validators.required],
           DOB: [this.profileForm.controls['DOB'].value, Validators.required],
           phoneNumber: [this.profileForm.controls['phoneNumber'].value, Validators.required],
           alternatePhNo: [this.profileForm.controls['alternatePhNo'].value],
@@ -189,6 +194,16 @@ export class ProfileComponent implements OnInit {
     const input = document.getElementById('avatar-input-file') as HTMLInputElement;
     if (input) {
       input.value = "";
+    }
+  }
+
+  isMale: boolean = true;
+
+  setGender(state: boolean) : any {
+    if ( state ) {
+      this.isMale = true;
+    } else {
+      this.isMale = false;
     }
   }
 
@@ -301,7 +316,7 @@ export class ProfileComponent implements OnInit {
           password: [this.profileForm.controls['password'].value, Validators.required],
           firstName: [this.profileForm.controls['firstName'].value, Validators.required],
           lastName: [this.profileForm.controls['lastName'].value, Validators.required],
-          Gender: [this.profileForm.controls['Gender'].value, Validators.required],
+          Gender: [this.isMale? 'Male' : 'Female', Validators.required],
           DOB: [this.profileForm.controls['DOB'].value, Validators.required],
           phoneNumber: [this.profileForm.controls['phoneNumber'].value, Validators.required],
           alternatePhNo: [this.profileForm.controls['alternatePhNo'].value],

@@ -55,14 +55,20 @@
             </div>
             <div class="row">
               <div class="col-md-6 col-sm-12">
-                <mat-form-field appearance="outline">
+                <!-- <mat-form-field appearance="outline">
                   <mat-label>Gender</mat-label>
                   <input formControlName="Gender" matInput clickOutside />
                   <mat-error *ngIf="!profileForm.controls['Gender'].valid && profileForm.controls['Gender'].touched">
                     <mat-icon [inline]="true" color="warn">info</mat-icon>
                     <p>Gender required</p>
                   </mat-error>
-                </mat-form-field>
+                </mat-form-field> -->
+                <div class="gender-selector">
+                  <div class="gender-button" [style.border]="isMale ? '2px solid green' : '1px solid black'"
+                    (click)="setGender(true)">👨 Male</div>
+                  <div class="gender-button" [style.border]="!isMale ? '2px solid green' : '1px solid black'"
+                    (click)="setGender(false)">👩‍🦰 Female</div>
+                </div>
               </div>
               <div class="col-md-6 col-sm-12">
                 <mat-form-field appearance="outline">
@@ -107,12 +113,8 @@
               <div class="col-md-6 col-sm-12">
                 <mat-form-field appearance="outline">
                   <mat-label>Phone Number</mat-label>
-                  <ngx-mat-intl-tel-input
-                    [preferredCountries]="['be', 'us']"
-                    [enablePlaceholder]="true"
-                    [enableSearch]="true"
-                    placeholder="Phone Number"
-                    name="phoneNumber"
+                  <ngx-mat-intl-tel-input [preferredCountries]="['be', 'us']" [enablePlaceholder]="true"
+                    [enableSearch]="true" placeholder="Phone Number" name="phoneNumber"
                     formControlName="phoneNumber"></ngx-mat-intl-tel-input>
                   <mat-error
                     *ngIf="!profileForm.controls['phoneNumber'].valid && profileForm.controls['phoneNumber'].touched">
@@ -125,12 +127,8 @@
                 <mat-form-field appearance="outline">
                   <mat-label>Alternate Phone</mat-label>
                   <!-- <input formControlName="alternatePhNo" matInput ng2TelInput> -->
-                  <ngx-mat-intl-tel-input
-                    [preferredCountries]="['be', 'us']"
-                    [enablePlaceholder]="true"
-                    [enableSearch]="true"
-                    name="alternatePhNo"
-                    formControlName="alternatePhNo"></ngx-mat-intl-tel-input>
+                  <ngx-mat-intl-tel-input [preferredCountries]="['be', 'us']" [enablePlaceholder]="true"
+                    [enableSearch]="true" name="alternatePhNo" formControlName="alternatePhNo"></ngx-mat-intl-tel-input>
                 </mat-form-field>
               </div>
             </div>
@@ -154,8 +152,8 @@
                     <mat-form-field appearance="outline">
                       <mat-label>Search Location</mat-label>
                       <!-- <input matInput clickOutside /> -->
-                      <input formControlName="address" matInput ngx-google-places-autocomplete [options]="options" #placesRef="ngx-places"
-                        (onAddressChange)="handleAddressChange($event)" />
+                      <input formControlName="address" matInput ngx-google-places-autocomplete [options]="options"
+                        #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)" />
                     </mat-form-field>
                   </div>
                   <div class="col-md-5 col-sm-12"></div>
@@ -305,7 +303,7 @@
                 </mat-form-field>
                 <mat-form-field appearance="outline">
                   <mat-label>LinkedIn</mat-label>
-                  <mat-icon matPrefix svgIcon="linkedin"></mat-icon>
+                  <mat-icon matPrefix svgIcon="linkedIn"></mat-icon>
                   <input formControlName="linkedIn" matInput placeholder="">
                 </mat-form-field>
                 <mat-form-field appearance="outline">

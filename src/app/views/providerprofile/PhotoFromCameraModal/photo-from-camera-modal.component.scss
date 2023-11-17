@@ -1,0 +1,47 @@
+.mat-dialog-content {
+
+  .capture-image {
+    margin-bottom: 10px;
+
+    .web-camera {
+      display: flex;
+      justify-content: center;
+    }
+
+    .capture-button {
+      text-align: center;
+    }
+
+  }
+
+  .crop-image {
+
+    .col-sm-6 {
+      margin-bottom: 10px;
+      .captured-image {
+        height: 240px;
+        display: flex;
+        justify-content: center;
+
+        img {
+          border: 2px solid #add8e6;
+          border-radius: 50%;
+          width: 240px;
+          height: 240px;
+        }
+      }
+
+      .selected-image {
+        height: 240px;
+        width: inherit;
+        border: 2px solid #add8e6;
+        display: flex;
+        align-items: center;
+      }
+    }
+  }
+}
+
+.mat-dialog-actions {
+  float: right;
+}

@@ -160,6 +160,15 @@ server.post('/profile/:id', (req, res) => {
     }
     console.log(db);
     console.log(req.body);
+    const jsonData = JSON.stringify(db);
+
+    fs.writeFile('/server/data.json', jsonData, 'utf8', (err) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+      console.log('Data saved to data.json');
+    });
     res.send({
       success: 'Profile is successfully updated!'
     });

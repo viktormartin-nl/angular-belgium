@@ -22,6 +22,17 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatMenuModule } from "@angular/material/menu";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { ImageCropperModule } from 'ngx-image-cropper';
+import { WebcamModule } from 'ngx-webcam';
+import { NgxMatIntlTelInputComponent } from 'ngx-mat-intl-tel-input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatListModule } from '@angular/material/list';
+
 import { FooterComponent } from './core/components/footer/footer.component';
 import { LoginComponent } from './views/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
@@ -37,14 +48,10 @@ import { ProfileViewComponent } from './views/profileview/profileview.component'
 import { PhotoSelectModal } from './views/profile/photoSelectModal/photo-select-modal.component';
 import { PhotoFromFolderModal } from './views/profile/PhotoFromFolderModal/photo-from-folder-modal.component';
 import { PhotoFromCameraModal } from './views/profile/PhotoFromCameraModal/photo-from-camera-modal.component';
-import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { ImageCropperModule } from 'ngx-image-cropper';
-import { WebcamModule } from 'ngx-webcam';
-import { NgxMatIntlTelInputComponent } from 'ngx-mat-intl-tel-input';
+// import { PhotoSelectModal } from './views/profile/photoSelectModal/photo-select-modal.component';
+// import { PhotoFromFolderModal } from './views/profile/PhotoFromFolderModal/photo-from-folder-modal.component';
+// import { PhotoFromCameraModal } from './views/profile/PhotoFromCameraModal/photo-from-camera-modal.component';
+import { ProviderProfileComponent } from './views/providerprofile/providerprofile.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +71,8 @@ import { NgxMatIntlTelInputComponent } from 'ngx-mat-intl-tel-input';
     EditionPopup,
     PhotoSelectModal,
     PhotoFromFolderModal,
-    PhotoFromCameraModal
+    PhotoFromCameraModal,
+    ProviderProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -95,7 +103,9 @@ import { NgxMatIntlTelInputComponent } from 'ngx-mat-intl-tel-input';
     MatButtonToggleModule,
     ImageCropperModule,
     WebcamModule,
-    NgxMatIntlTelInputComponent
+    NgxMatIntlTelInputComponent,
+    MatSelectModule,
+    MatListModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: CrudInterceptor, multi: true }],
   bootstrap: [AppComponent],
@@ -106,7 +116,7 @@ export class AppModule {
     this.matIconRegistry.addSvgIcon('facebook', this.domSanitizer.bypassSecurityTrustResourceUrl('assets/social/facebook.svg'));
     this.matIconRegistry.addSvgIcon('twitter', this.domSanitizer.bypassSecurityTrustResourceUrl('assets/social/twitter.svg'));
     this.matIconRegistry.addSvgIcon('instagram', this.domSanitizer.bypassSecurityTrustResourceUrl('assets/social/instagram.svg'));
-    this.matIconRegistry.addSvgIcon('linkedin', this.domSanitizer.bypassSecurityTrustResourceUrl('assets/social/linkedin.svg'));
+    this.matIconRegistry.addSvgIcon('linkedIn', this.domSanitizer.bypassSecurityTrustResourceUrl('assets/social/linkedin.svg'));
     this.matIconRegistry.addSvgIcon('bachelor', this.domSanitizer.bypassSecurityTrustResourceUrl('assets/social/bachelor.svg'));
     // Add more icons as needed
   }

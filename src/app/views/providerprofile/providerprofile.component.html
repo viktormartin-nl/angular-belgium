@@ -1,0 +1,603 @@
+<main class="profile-content">
+  <form [formGroup]="providerProfileForm" (ngSubmit)="providerProfileRegister()">
+    <div class="row">
+      <!-- column -->
+      <div class="col col-lg-5 col-sm-12">
+        <div class="avatar-card">
+          <div class="avatar-container">
+            <!-- <div class="image-container" [ngStyle]="{backgroundImage: 'url(' + fileName + ')'}">
+            </div> -->
+            <div class="cropped-image">
+              <img class="image-container" style="background-color: lightblue;" [src]="fileName" />
+            </div>
+
+            <label for="avatar-input-file">
+              <div class="icon-wrapper">
+                <!-- <input type="file" formControlName="photo" id="avatar-input-file" accept="image/*" (change)="onFileChange($event)" /> -->
+                <!-- <mat-icon class="icon">edit</mat-icon> -->
+                <mat-icon class="icon" (click)="openDialog('500ms', '500ms')">edit</mat-icon>
+              </div>
+            </label>
+          </div>
+        </div>
+      </div>
+      <!-- column -->
+      <!-- column -->
+      <div class="col col-lg-7 col-sm-12">
+        <mat-card class="oh text-center little-profile">
+          <mat-card-header>
+            <mat-card-title>User Info</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="row">
+              <div class="col-md-6 col-sm-12">
+                <mat-form-field appearance="outline">
+                  <mat-label>FirstName</mat-label>
+                  <input formControlName="firstName" matInput clickOutside />
+                  <mat-error
+                    *ngIf="!providerProfileForm.controls['firstName'].valid && providerProfileForm.controls['firstName'].touched">
+                    <mat-icon [inline]="true" color="warn">info</mat-icon>
+                    <p>FirstName required</p>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6 col-sm-12">
+                <mat-form-field appearance="outline">
+                  <mat-label>LastName</mat-label>
+                  <input formControlName="lastName" matInput clickOutside />
+                  <mat-error
+                    *ngIf="!providerProfileForm.controls['lastName'].valid && providerProfileForm.controls['lastName'].touched">
+                    <mat-icon [inline]="true" color="warn">info</mat-icon>
+                    <p>LastName required</p>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 col-sm-12">
+                <!-- <mat-form-field appearance="outline">
+                  <mat-label>Gender</mat-label>
+                  <input formControlName="Gender" matInput clickOutside />
+                  <mat-error *ngIf="!providerProfileForm.controls['Gender'].valid && providerProfileForm.controls['Gender'].touched">
+                    <mat-icon [inline]="true" color="warn">info</mat-icon>
+                    <p>Gender required</p>
+                  </mat-error>
+                </mat-form-field> -->
+                <div class="gender-selector">
+                  <div class="gender-button" [style.border]="isMale ? '2px solid green' : '1px solid black'"
+                    (click)="setGender(true)">👨 Male</div>
+                  <div class="gender-button" [style.border]="!isMale ? '2px solid green' : '1px solid black'"
+                    (click)="setGender(false)">👩‍🦰 Female</div>
+                </div>
+              </div>
+              <div class="col-md-6 col-sm-12">
+                <mat-form-field appearance="outline">
+                  <mat-label>DOB</mat-label>
+                  <input formControlName="DOB" matInput [matDatepicker]="picker">
+                  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                  <mat-error
+                    *ngIf="!providerProfileForm.controls['DOB'].valid && providerProfileForm.controls['DOB'].touched">
+                    <mat-icon [inline]="true" color="warn">info</mat-icon>
+                    <p>DOB required</p>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 col-sm-12">
+                <mat-form-field appearance="outline">
+                  <mat-label>Email</mat-label>
+                  <input formControlName="email" matInput clickOutside />
+                  <mat-error
+                    *ngIf="!providerProfileForm.controls['email'].valid && providerProfileForm.controls['email'].touched">
+                    <mat-icon [inline]="true" color="warn">info</mat-icon>
+                    <p>Email required</p>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6 col-sm-12">
+                <mat-form-field appearance="outline">
+                  <mat-label>Password</mat-label>
+                  <input formControlName="password" matInput [type]="hide ? 'password' : 'text'" />
+                  <button type="button" mat-icon-button matSuffix (click)="hide = !hide">
+                    <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+                  </button>
+                  <mat-error
+                    *ngIf="!providerProfileForm.controls['password'].valid && providerProfileForm.controls['password'].touched">
+                    <mat-icon [inline]="true" color="warn">info</mat-icon>
+                    <p>Password required</p>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 col-sm-12">
+                <mat-form-field appearance="outline">
+                  <mat-label>Phone Number</mat-label>
+                  <ngx-mat-intl-tel-input [preferredCountries]="['be', 'us']" [enablePlaceholder]="true"
+                    [enableSearch]="true" placeholder="Phone Number" name="phoneNumber"
+                    formControlName="phoneNumber"></ngx-mat-intl-tel-input>
+                  <mat-error
+                    *ngIf="!providerProfileForm.controls['phoneNumber'].valid && providerProfileForm.controls['phoneNumber'].touched">
+                    <mat-icon [inline]="true" color="warn">info</mat-icon>
+                    <p>Phone Number required</p>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6 col-sm-12">
+                <mat-form-field appearance="outline">
+                  <mat-label>Alternate Phone</mat-label>
+                  <!-- <input formControlName="alternatePhNo" matInput ng2TelInput> -->
+                  <ngx-mat-intl-tel-input [preferredCountries]="['be', 'us']" [enablePlaceholder]="true"
+                    [enableSearch]="true" name="alternatePhNo" formControlName="alternatePhNo"></ngx-mat-intl-tel-input>
+                </mat-form-field>
+              </div>
+              <div class="col-md-12 col-sm-12">
+                <mat-form-field appearance="outline">
+                  <mat-label>About You</mat-label>
+                  <textarea formControlName="aboutYou" matInput clickOutside placeholder="Max 350 words"
+                    rows="5"></textarea>
+                  <mat-error
+                    *ngIf="!providerProfileForm.controls['aboutYou'].valid && providerProfileForm.controls['aboutYou'].touched">
+                    <mat-icon [inline]="true" color="warn">info</mat-icon>
+                    <p>About You required</p>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <!-- column -->
+    </div>
+    <div class="row">
+      <!-- Card column -->
+      <div class="col col-lg-12 col-sm-12">
+        <mat-card class="oh text-center little-profile">
+          <mat-card-header>
+            <mat-card-title>Add Address</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="row">
+              <div class="col-md-6 col-sm-12">
+                <div class="row">
+                  <div class="col-md-7 col-sm-12">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Search Location</mat-label>
+                      <!-- <input matInput clickOutside /> -->
+                      <input formControlName="address" matInput ngx-google-places-autocomplete [options]="options"
+                        #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)" />
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-5 col-sm-12"></div>
+                </div>
+                <div class="row">
+                  <div class="col-xl-7 col-lg-12">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Address</mat-label>
+                      <input formControlName="street" matInput clickOutside readonly />
+                      <mat-error
+                        *ngIf="!providerProfileForm.controls['street'].valid && providerProfileForm.controls['street'].touched">
+                        <mat-icon [inline]="true" color="warn">info</mat-icon>
+                        <p>Address required</p>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-5 col-md-12">
+                    <div class="row">
+                      <div class="col-md-5 col-sm-12">
+                        <mat-form-field appearance="outline">
+                          <mat-label>No:</mat-label>
+                          <input formControlName="no" matInput clickOutside readonly />
+                          <mat-error
+                            *ngIf="!providerProfileForm.controls['no'].valid && providerProfileForm.controls['no'].touched">
+                            <mat-icon [inline]="true" color="warn">info</mat-icon>
+                            <p>No. required</p>
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-7 col-sm-12">
+                        <mat-form-field appearance="outline">
+                          <mat-label>Flat/Box No:</mat-label>
+                          <input formControlName="flatNo" matInput clickOutside />
+                          <mat-error
+                            *ngIf="!providerProfileForm.controls['flatNo'].valid && providerProfileForm.controls['flatNo'].touched">
+                            <mat-icon [inline]="true" color="warn">info</mat-icon>
+                            <p>Flat/Box No. required</p>
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 col-sm-12">
+                    <mat-form-field appearance="outline">
+                      <mat-label>City</mat-label>
+                      <input formControlName="city" matInput clickOutside readonly />
+                      <mat-error
+                        *ngIf="!providerProfileForm.controls['city'].valid && providerProfileForm.controls['city'].touched">
+                        <mat-icon [inline]="true" color="warn">info</mat-icon>
+                        <p>City required</p>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6 col-sm-12">
+                    <mat-form-field appearance="outline">
+                      <mat-label>State</mat-label>
+                      <input formControlName="state" matInput clickOutside readonly />
+                      <mat-error
+                        *ngIf="!providerProfileForm.controls['state'].valid && providerProfileForm.controls['state'].touched">
+                        <mat-icon [inline]="true" color="warn">info</mat-icon>
+                        <p>State required</p>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 col-sm-12">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Postal Code</mat-label>
+                      <input formControlName="postCode" matInput clickOutside readonly />
+                      <mat-error
+                        *ngIf="!providerProfileForm.controls['postCode'].valid && providerProfileForm.controls['postCode'].touched">
+                        <mat-icon [inline]="true" color="warn">info</mat-icon>
+                        <p>Postal Code required</p>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6 col-sm-12">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Country</mat-label>
+                      <input formControlName="country" matInput clickOutside readonly />
+                      <mat-error
+                        *ngIf="!providerProfileForm.controls['country'].valid && providerProfileForm.controls['country'].touched">
+                        <mat-icon [inline]="true" color="warn">info</mat-icon>
+                        <p>Country required</p>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-sm-12">
+                <google-map height="370px" width="100%" [center]="center" [zoom]="zoom">
+                  <map-marker [position]="center" [options]="markerOptions"></map-marker>
+                </google-map>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <!-- Card column -->
+    </div>
+    <div class="row">
+      <!-- Card column -->
+      <div class="col col-lg-12 col-sm-12">
+        <mat-card class="oh text-center little-profile">
+          <mat-card-header>
+            <mat-card-title>Additional Information</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="row">
+              <div class="col-md-6 col-sm-12">
+                <!-- <mat-form-field class="example-chip-list" appearance="outline">
+                  <mat-label>Spoken Languages</mat-label>
+                  <mat-chip-grid #chipGrid aria-label="Enter languages">
+                    <mat-chip-row *ngFor="let lang of languages" (removed)="remove(lang)" color="accent"
+                      [aria-description]="'press enter to edit ' + lang">
+                      {{lang}}
+                      <button matChipRemove [attr.aria-label]="'remove ' + lang">
+                        <mat-icon>cancel</mat-icon>
+                      </button>
+                    </mat-chip-row>
+                    <input formControlName="spokenLanguage" placeholder="New lang..." [matChipInputFor]="chipGrid"
+                      #langInput [formControl]="langCtrl" [matAutocomplete]="auto"
+                      [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+                      (matChipInputTokenEnd)="add($event)" />
+                    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                      <mat-option *ngFor="let lang of filteredLanguages | async" [value]="lang">
+                        {{lang}}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </mat-chip-grid>
+                  <mat-error *ngIf="languages.length === 0 && providerProfileForm.controls['spokenLanguage'].touched">
+                    <mat-icon [inline]="true" color="warn">info</mat-icon>
+                    <p>Language required</p>
+                  </mat-error>
+                </mat-form-field> -->
+                <mat-form-field appearance="outline">
+                  <mat-label>Higher Education</mat-label>
+                  <input type="text" placeholder="" aria-label="Higher Education" matInput
+                    formControlName="higherEducation" [matAutocomplete]="auto2">
+                  <mat-autocomplete #auto2="matAutocomplete">
+                    <mat-option>None</mat-option>
+                    <mat-option *ngFor="let education of educations" [value]="education">
+                      {{education}}
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6 col-sm-12">
+                <div class="row">
+                  <div class="col-sm-12 col-md-6">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Social Media</mat-label>
+                      <input [formControl]="socialMedia" matInput placeholder="">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-sm-12 col-md-6" style="display: flex; justify-content: space-around;">
+                    <div>
+                      <mat-form-field appearance="outline">
+                        <input type="text" placeholder="" aria-label="Social Media" matInput
+                          [formControl]="socialMediaValue" [matAutocomplete]="auto3">
+                        <mat-autocomplete #auto3="matAutocomplete">
+                          <mat-option *ngFor="let social of socialMedias" [value]="social">
+                            {{social}}
+                          </mat-option>
+                        </mat-autocomplete>
+                      </mat-form-field>
+                    </div>
+                    <div style="padding-top: 16px;" (click)="addSocialMedia()">
+                      <mat-icon>add_box</mat-icon>
+                    </div>
+                  </div>
+                </div>
+                <mat-list role="list">
+                  <mat-list-item role="listitem" style="padding: 0px;" *ngFor="let social of socials | keyvalue">
+                    <div style="display: flex; justify-content: space-evenly;">
+                      <p style="width: 80%; display: flex; align-items: center;">
+                        <mat-icon svgIcon="{{ social.key }}" style="margin-right: 10%;"></mat-icon>
+                        {{ social.value }}
+                      </p>
+                      <p (click)="cancelSocial(social.key)"><mat-icon>cancel</mat-icon></p>
+                    </div>
+                  </mat-list-item>
+                </mat-list>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <!-- Card column -->
+    </div>
+    <div class="row">
+      <!-- column -->
+      <div class="col col-lg-4 col-sm-12">
+        <mat-card class="oh text-center little-profile">
+          <mat-card-header>
+            <mat-card-title>Work Information</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="row">
+              <div class="col-sm-12">
+                <mat-form-field appearance="outline">
+                  <mat-label>Work Category</mat-label>
+                  <mat-chip-grid #chipGrid aria-label="Enter categories">
+                    <mat-chip-row *ngFor="let category of categories" (removed)="removeCategory(category)"
+                      color="accent" [aria-description]="'press enter to edit ' + category">
+                      {{category}}
+                      <button matChipRemove [attr.aria-label]="'remove ' + category">
+                        <mat-icon>cancel</mat-icon>
+                      </button>
+                    </mat-chip-row>
+                    <input formControlName="workCategory" placeholder="New category..." [matChipInputFor]="chipGrid"
+                      #categoryInput [formControl]="categoryCtrl" [matAutocomplete]="auto5"
+                      [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+                      (matChipInputTokenEnd)="addCategory($event)" />
+                    <mat-autocomplete #auto5="matAutocomplete" (optionSelected)="selectedCategory($event)">
+                      <mat-option *ngFor="let category of filteredCategories | async" [value]="category">
+                        {{category}}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </mat-chip-grid>
+                  <mat-error *ngIf="categories.length === 0 && providerProfileForm.controls['workCategory'].touched">
+                    <mat-icon [inline]="true" color="warn">info</mat-icon>
+                    <p>Category required</p>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-sm-12">
+                <mat-form-field appearance="outline">
+                  <mat-label>Experienced-In</mat-label>
+                  <input formControlName="experiencedIn" matInput clickOutside />
+                  <mat-error
+                    *ngIf="!providerProfileForm.controls['experiencedIn'].valid && providerProfileForm.controls['experiencedIn'].touched">
+                    <mat-icon [inline]="true" color="warn">info</mat-icon>
+                    <p>Experienced-In required</p>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-sm-12">
+                <mat-form-field appearance="outline">
+                  <mat-label>Visit charges/hour</mat-label>
+                  <input type="number" formControlName="visitCharge" matInput clickOutside />
+                  <mat-icon matSuffix>euro</mat-icon>
+                  <mat-error
+                    *ngIf="!providerProfileForm.controls['visitCharge'].valid && providerProfileForm.controls['visitCharge'].touched">
+                    <mat-icon [inline]="true" color="warn">info</mat-icon>
+                    <p>Visit Charges required</p>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <!-- column -->
+      <!-- column -->
+      <div class="col col-lg-8 col-sm-12">
+        <div class="row">
+          <div class="avatar-card col-sm-12 col-md-6">
+            <div class="avatar-container">
+              <!-- <div class="image-container" [ngStyle]="{backgroundImage: 'url(' + fileName + ')'}">
+                      </div> -->
+              <div class="cropped-image">
+                <img class="image-container" style="background-color: lightblue;" [src]="fileName" />
+              </div>
+
+              <label for="avatar-input-file">
+                <div class="icon-wrapper">
+                  <!-- <input type="file" formControlName="photo" id="avatar-input-file" accept="image/*" (change)="onFileChange($event)" /> -->
+                  <!-- <mat-icon class="icon">edit</mat-icon> -->
+                  <mat-icon class="icon" (click)="openDialog('500ms', '500ms')">edit</mat-icon>
+                </div>
+              </label>
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-6">
+            <mat-card>
+              <mat-card-content>
+                <!-- <mat-list role="list">
+                  <mat-list-item role="listitem">Item 1</mat-list-item>
+                  <mat-list-item role="listitem">Item 2</mat-list-item>
+                  <mat-list-item role="listitem">Item 3</mat-list-item>
+                </mat-list> -->
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+      <!-- column -->
+    </div>
+    <div class="row">
+      <!-- Card column -->
+      <div class="col col-lg-12 col-sm-12">
+        <mat-card class="oh text-center little-profile">
+          <mat-card-header>
+            <mat-card-title>Company Details</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="row">
+              <div class="col-md-6 col-sm-12">
+                <div class="row">
+                  <div class="col-md-6 col-sm-12">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Company Name</mat-label>
+                      <input formControlName="companyName" matInput clickOutside />
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-5 col-sm-12"></div>
+                </div>
+                <div class="row">
+                  <div class="col-md-8 col-sm-12">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Search Location</mat-label>
+                      <input formControlName="companyAddress" matInput ngx-google-places-autocomplete
+                        [options]="options" #placesRef="ngx-places"
+                        (onAddressChange)="handleCompanyAddressChange($event)" />
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-5 col-sm-12"></div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 col-sm-12">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Phone Number</mat-label>
+                      <ngx-mat-intl-tel-input [preferredCountries]="['be', 'us']" [enablePlaceholder]="true"
+                        [enableSearch]="true" name="companyPhone"
+                        formControlName="companyPhone"></ngx-mat-intl-tel-input>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6 col-sm-12">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Website Link</mat-label>
+                      <input formControlName="companyWebsiteLink" matInput clickOutside />
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 col-sm-12">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Enterprise Number</mat-label>
+                      <input formControlName="companyEnterpriseNumber" matInput clickOutside />
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-sm-12">
+                <google-map height="370px" width="100%" [center]="companyCenter" [zoom]="zoom">
+                  <map-marker [position]="companyCenter" [options]="markerOptions"></map-marker>
+                </google-map>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <!-- Card column -->
+    </div>
+    <div class="row">
+      <!-- Card column -->
+      <div class="col col-lg-12 col-sm-12">
+        <mat-card class="oh text-center little-profile">
+          <mat-card-header>
+            <mat-card-title>Emergency Details</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="row">
+              <div class="col-md-6 col-sm-12">
+                <mat-form-field appearance="outline">
+                  <mat-label>Name</mat-label>
+                  <input formControlName="emergencyName" matInput placeholder="">
+                  <mat-error
+                    *ngIf="!providerProfileForm.controls['emergencyName'].valid && providerProfileForm.controls['emergencyName'].touched">
+                    <mat-icon [inline]="true" color="warn">info</mat-icon>
+                    <p>FirstName required</p>
+                  </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                  <mat-label>Relation</mat-label>
+                  <input type="text" placeholder="" aria-label="Emergency Relation" matInput
+                    formControlName="emergencyRelation" [matAutocomplete]="auto1">
+                  <mat-autocomplete #auto1="matAutocomplete">
+                    <mat-option *ngFor="let relation of relations" [value]="relation">
+                      {{relation}}
+                    </mat-option>
+                  </mat-autocomplete>
+                  <mat-error
+                    *ngIf="!providerProfileForm.controls['emergencyRelation'].valid && providerProfileForm.controls['emergencyRelation'].touched">
+                    <mat-icon [inline]="true" color="warn">info</mat-icon>
+                    <p>Relation required</p>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6 col-sm-12">
+                <mat-form-field appearance="outline">
+                  <mat-label>Phone Number</mat-label>
+                  <ngx-mat-intl-tel-input [preferredCountries]="['be', 'us']" [enablePlaceholder]="true"
+                    [enableSearch]="true" name="emergencyPhone"
+                    formControlName="emergencyPhone"></ngx-mat-intl-tel-input>
+                  <mat-error
+                    *ngIf="!providerProfileForm.controls['emergencyPhone'].valid && providerProfileForm.controls['emergencyPhone'].touched">
+                    <mat-icon [inline]="true" color="warn">info</mat-icon>
+                    <p>FirstName required</p>
+                  </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                  <mat-label>Email Address</mat-label>
+                  <input formControlName="emergencyEmail" matInput placeholder="">
+                  <mat-error
+                    *ngIf="!providerProfileForm.controls['emergencyEmail'].valid && providerProfileForm.controls['emergencyEmail'].touched">
+                    <mat-icon [inline]="true" color="warn">info</mat-icon>
+                    <p>FirstName required</p>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <!-- Card column -->
+    </div>
+    <div class="row">
+      <!-- Card column -->
+      <div class="col col-lg-12 col-sm-12">
+        <button mat-fab extended color="primary" type="submit" [disabled]="!providerProfileForm.valid">
+          <mat-icon>save</mat-icon>
+          Save
+        </button>
+      </div>
+      <!-- Card column -->
+    </div>
+  </form>
+</main>

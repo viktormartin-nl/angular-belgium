@@ -11,6 +11,10 @@
     </div>
   </div>
   <div class="right-part">
+    <button *ngIf="router.url == '/profile'" [routerLink]="['/providerprofile']" mat-raised-button color="primary"
+      style="margin-right: 20px;">
+      Become Service Provider
+    </button>
     <button *ngIf="router.url == '/login'" [routerLink]="['/register']" mat-raised-button color="primary">
       Sign up
     </button>
