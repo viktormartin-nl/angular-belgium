@@ -1,0 +1,183 @@
+@import '../../../styles.scss';
+
+main.profile-view {
+  min-height: 90%;
+  background-color: $light-primary;
+  padding: 3%;
+
+
+  .work-photo {
+    margin-bottom: 2%;
+    box-sizing: border-box;
+
+    .main-photo {
+      background-color: white;
+      border: solid #c2bdbd 2px;
+      border-radius: 20px;
+      box-sizing: border-box;
+      height: 400px;
+    }
+  }
+
+  .profile-content {
+
+    background-color: white;
+    padding: 2%;
+    border: solid #c2bdbd 2px;
+    border-radius: 20px;
+    box-sizing: border-box;
+    // margin: 2%;
+    height: 96%;
+
+    .avatar-card {
+
+      justify-content: center;
+
+      .avatar-container {
+        display: flex;
+        height: 250px;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .image-container {
+        height: 200px;
+        width: 200px;
+        z-index: 1;
+        border-radius: 50%;
+        background-color: $light-primary;
+        background-position: center;
+        background-size: cover;
+        box-shadow: 10 20px 20px 20px #ff0000;
+      }
+    }
+
+    .verify {
+      padding: 5%;
+      display: flex;
+      justify-content: center;
+
+      .profile-name {
+        font-weight: 400;
+        font-size: 24px;
+      }
+
+      mat-list {
+        .icon {
+          margin-left: 20px;
+        }
+
+        .verify-state {
+          font-weight: 1000;
+          color: green;
+        }
+      }
+    }
+
+    mat-tab-group {
+      .card-content-list {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+
+        .icon {
+          margin-right: 10px;
+        }
+      }
+
+      .company-info {
+        padding: 15px;
+
+        .card-content-list {
+          display: flex;
+          align-items: center;
+          margin-bottom: 10px;
+
+          .icon {
+            margin-right: 10px;
+          }
+        }
+      }
+    }
+
+    .emergency-info {
+      padding: 20px 10px;
+
+      .card-content-list {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+
+        .icon {
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+
+  .provider-profiles {
+    mat-card {
+      background-color: $light-primary;
+
+      mat-card-content {
+        padding: 20px 10px;
+
+        .profile-content {
+          background-color: white;
+          border: solid #c2bdbd 2px;
+          border-radius: 10px;
+          height: 400px
+        }
+      }
+    }
+  }
+
+  .review-rating {
+    mat-card {
+      background-color: $light-primary;
+
+      mat-card-content {
+        padding: 20px 0;
+
+        .profile-content {
+          background-color: white;
+          border: solid #c2bdbd 2px;
+          border-radius: 10px;
+          padding: 2%;
+
+          .review-header {
+            margin-bottom: 30px;
+          }
+
+          .review-list {
+
+            mat-button-toggle-group {
+              margin-bottom: 20px;
+            }
+
+            .review-items {
+              margin-top: 20px;
+              border: solid #c2bdbd 2px;
+              border-radius: 10px;
+              padding: 20px 10px;
+
+              .row {
+                margin: 5px 0;
+
+                .col-md-8 {
+                  display: flex;
+                  align-items: center;
+                }
+
+                .col-md-4 {
+                  display: flex;
+                  justify-content: center;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

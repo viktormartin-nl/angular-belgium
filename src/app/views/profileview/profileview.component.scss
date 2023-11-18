@@ -23,11 +23,11 @@ main.profile-view {
           justify-content: center;
 
           .avatar-container {
-              display: flex;
-              height: 250px;
-              justify-content: center;
-              align-items: start;
-            }
+            display: flex;
+            height: 250px;
+            justify-content: center;
+            align-items: start;
+          }
 
           .image-container {
             height: 200px;
@@ -49,18 +49,20 @@ main.profile-view {
               display: flex;
               align-items: center;
               margin-bottom: 10px;
+
               .icon {
                 margin-right: 10px;
               }
             }
+
             .verify-content {
               margin-right: 10px;
             }
+
             .verify-state {
               font-weight: 1000;
               color: green;
             }
-
           }
 
         }
@@ -71,8 +73,10 @@ main.profile-view {
   .provider-profiles {
     mat-card {
       background-color: $light-primary;
+
       mat-card-content {
         padding: 20px 10px;
+
         .profile-content {
           background-color: white;
           border: solid #c2bdbd 2px;
@@ -102,12 +106,15 @@ main.profile-view {
               margin-top: 20px;
               border: solid #c2bdbd 2px;
               border-radius: 10px;
+
               mat-card {
                 background-color: white;
+
                 mat-card-content {
                   .photo {
                     justify-content: center;
                     display: flex;
+
                     div {
                       height: 100px;
                       width: 100px;
@@ -115,10 +122,12 @@ main.profile-view {
                       border-radius: 50%;
                     }
                   }
+
                   .review-title {
                     font-size: 16px;
                     font-weight: bold;
                   }
+
                   .review-content {
                     font-size: 14px;
                     font-weight: normal;

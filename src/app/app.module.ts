@@ -45,13 +45,13 @@ import { DeletedPopup } from './views/comments/components/deleted-popup/deleted-
 import { EditionPopup } from './views/comments/components/edition-popup/edition-popup.component';
 import { ProfileComponent } from './views/profile/profile.component';
 import { ProfileViewComponent } from './views/profileview/profileview.component';
-import { PhotoSelectModal } from './views/profile/photoSelectModal/photo-select-modal.component';
-import { PhotoFromFolderModal } from './views/profile/PhotoFromFolderModal/photo-from-folder-modal.component';
-import { PhotoFromCameraModal } from './views/profile/PhotoFromCameraModal/photo-from-camera-modal.component';
-// import { PhotoSelectModal } from './views/profile/photoSelectModal/photo-select-modal.component';
-// import { PhotoFromFolderModal } from './views/profile/PhotoFromFolderModal/photo-from-folder-modal.component';
-// import { PhotoFromCameraModal } from './views/profile/PhotoFromCameraModal/photo-from-camera-modal.component';
+import { PhotoSelectModal } from './core/components/photoSelectModal/photo-select-modal.component';
+import { PhotoFromFolderModal } from './core/components/PhotoFromFolderModal/photo-from-folder-modal.component';
+import { PhotoFromCameraModal } from './core/components/PhotoFromCameraModal/photo-from-camera-modal.component';
 import { ProviderProfileComponent } from './views/providerprofile/providerprofile.component';
+import { ProviderProfileListComponent } from './views/providerprofilelist/providerprofilelist.component';
+import { ProviderProfileViewComponent } from './views/providerprofileview/providerprofileview.component';
+
 
 @NgModule({
   declarations: [
@@ -72,7 +72,9 @@ import { ProviderProfileComponent } from './views/providerprofile/providerprofil
     PhotoSelectModal,
     PhotoFromFolderModal,
     PhotoFromCameraModal,
-    ProviderProfileComponent
+    ProviderProfileComponent,
+    ProviderProfileListComponent,
+    ProviderProfileViewComponent
   ],
   imports: [
     BrowserModule,

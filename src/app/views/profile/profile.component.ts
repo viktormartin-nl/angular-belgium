@@ -12,9 +12,9 @@ import { UserService } from 'src/app/shared/service/users/user.service';
 import { Address } from 'ngx-google-places-autocomplete/objects/address';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AppComponent } from 'src/app/app.component';
-import { PhotoSelectModal } from "./photoSelectModal/photo-select-modal.component";
-import { PhotoFromFolderModal } from "./PhotoFromFolderModal/photo-from-folder-modal.component";
-import { PhotoFromCameraModal } from "./PhotoFromCameraModal/photo-from-camera-modal.component";
+import { PhotoSelectModal } from "../../core/components/photoSelectModal/photo-select-modal.component";
+import { PhotoFromFolderModal } from "../../core/components/PhotoFromFolderModal/photo-from-folder-modal.component";
+import { PhotoFromCameraModal } from "../../core/components/PhotoFromCameraModal/photo-from-camera-modal.component";
 
 @Component({
   selector: 'app-profile',
@@ -99,13 +99,13 @@ export class ProfileComponent implements OnInit {
         });
         this.languages = user.userAdditionalInfo.spokenLanguage;
         this.fileName = user.userPhoto.photo;
-        if ( user.userAddress.Latitude && user.userAddress.Longitude ) {
+        if (user.userAddress.Latitude && user.userAddress.Longitude) {
           this.center = {
             lat: parseFloat(user.userAddress.Latitude),
             lng: parseFloat(user.userAddress.Longitude)
           }
         }
-        if ( user.gender == 'Female' ) {
+        if (user.gender == 'Female') {
           this.isMale = false;
         } else {
           this.isMale = true;
@@ -115,45 +115,45 @@ export class ProfileComponent implements OnInit {
   }
 
   profileRegister(): void {
-    if ( !this.fileName ){
-      this.snackBar.open('Please select your photo!','warning', {
+    if (!this.fileName) {
+      this.snackBar.open('Please select your photo!', 'warning', {
         duration: 3000
       });
     } else {
       this.profileForm = this.fb.group({
-          photo: [this.fileName, [Validators.required]],
-          email: [this.profileForm.controls['email'].value, [Validators.required, Validators.email]],
-          password: [this.profileForm.controls['password'].value, Validators.required],
-          firstName: [this.profileForm.controls['firstName'].value, Validators.required],
-          lastName: [this.profileForm.controls['lastName'].value, Validators.required],
-          Gender: [this.isMale? 'Male': 'Female', Validators.required],
-          DOB: [this.profileForm.controls['DOB'].value, Validators.required],
-          phoneNumber: [this.profileForm.controls['phoneNumber'].value, Validators.required],
-          alternatePhNo: [this.profileForm.controls['alternatePhNo'].value],
-          address: [this.profileForm.controls['address'].value, Validators.required],
-          street: [this.profileForm.controls['street'].value, Validators.required],
-          no: [this.profileForm.controls['no'].value, Validators.required],
-          flatNo: [this.profileForm.controls['flatNo'].value, Validators.required],
-          state: [this.profileForm.controls['state'].value, Validators.required],
-          city: [this.profileForm.controls['city'].value, Validators.required],
-          postCode: [this.profileForm.controls['postCode'].value, Validators.required],
-          country: [this.profileForm.controls['country'].value, Validators.required],
-          Longitude: [this.center.lng, Validators.required],
-          Latitude: [this.center.lat, Validators.required],
-          spokenLanguage: [this.languages, Validators.required],
-          higherEducation: [this.profileForm.controls['higherEducation'].value],
-          instagram: [this.profileForm.controls['instagram'].value],
-          linkedIn: [this.profileForm.controls['linkedIn'].value],
-          facebook: [this.profileForm.controls['facebook'].value],
-          twitter: [this.profileForm.controls['twitter'].value],
-        });
+        photo: [this.fileName, [Validators.required]],
+        email: [this.profileForm.controls['email'].value, [Validators.required, Validators.email]],
+        password: [this.profileForm.controls['password'].value, Validators.required],
+        firstName: [this.profileForm.controls['firstName'].value, Validators.required],
+        lastName: [this.profileForm.controls['lastName'].value, Validators.required],
+        Gender: [this.isMale ? 'Male' : 'Female', Validators.required],
+        DOB: [this.profileForm.controls['DOB'].value, Validators.required],
+        phoneNumber: [this.profileForm.controls['phoneNumber'].value, Validators.required],
+        alternatePhNo: [this.profileForm.controls['alternatePhNo'].value],
+        address: [this.profileForm.controls['address'].value, Validators.required],
+        street: [this.profileForm.controls['street'].value, Validators.required],
+        no: [this.profileForm.controls['no'].value, Validators.required],
+        flatNo: [this.profileForm.controls['flatNo'].value, Validators.required],
+        state: [this.profileForm.controls['state'].value, Validators.required],
+        city: [this.profileForm.controls['city'].value, Validators.required],
+        postCode: [this.profileForm.controls['postCode'].value, Validators.required],
+        country: [this.profileForm.controls['country'].value, Validators.required],
+        Longitude: [this.center.lng, Validators.required],
+        Latitude: [this.center.lat, Validators.required],
+        spokenLanguage: [this.languages, Validators.required],
+        higherEducation: [this.profileForm.controls['higherEducation'].value],
+        instagram: [this.profileForm.controls['instagram'].value],
+        linkedIn: [this.profileForm.controls['linkedIn'].value],
+        facebook: [this.profileForm.controls['facebook'].value],
+        twitter: [this.profileForm.controls['twitter'].value],
+      });
       console.log(this.profileForm.controls['spokenLanguage'].value);
       this.userService.postProfile(this.userId, this.profileForm.value).subscribe({
         next: (loggedInUser: User) => {
           // localStorage['loggedInUser'] = JSON.stringify(loggedInUser);
           this.snackBar.open('Registered your profile successfully!', 'Success', {
             duration: 3000
-            });
+          });
           console.log(loggedInUser);
         },
         error: error => {
@@ -199,8 +199,8 @@ export class ProfileComponent implements OnInit {
 
   isMale: boolean = true;
 
-  setGender(state: boolean) : any {
-    if ( state ) {
+  setGender(state: boolean): any {
+    if (state) {
       this.isMale = true;
     } else {
       this.isMale = false;
@@ -230,55 +230,64 @@ export class ProfileComponent implements OnInit {
     if (event.latLng != null) this.markerPositions.push(event.latLng.toJSON());
   }
   options: any = {
-    componentRestrictions: { }
+    componentRestrictions: {}
   }
 
   // open dialog for camera and local drive
-  openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+  openDialog(enterAnimationDuration: string, exitAnimationDuration: string, type: string, multiple: boolean): void {
     const dialogdef = this.dialog.open(PhotoSelectModal, {
       minWidth: '60%',
       minHeight: '150px',
       enterAnimationDuration,
       exitAnimationDuration,
-      data: {}
+      data: {
+        type,
+        multiple
+      }
     });
-    dialogdef.afterClosed().subscribe( result => {
-      if( result == 'camera') {
-        this.openPhotoFromCameraDialog();
-      } else if ( result == 'folder' ) {
-        this.openPhotoFromFolderDialog();
+    dialogdef.afterClosed().subscribe(result => {
+      if (result.goTo == 'camera') {
+        this.openPhotoFromCameraDialog(result.type, result.multiple);
+      } else if (result.goTo == 'folder') {
+        this.openPhotoFromFolderDialog(result.type, result.multiple);
       }
     })
   }
 
-  openPhotoFromFolderDialog () {
+  openPhotoFromFolderDialog(type: string, multiple: boolean) {
     const dialogDef = this.dialog.open(PhotoFromFolderModal, {
       minWidth: '60%',
       minHeight: '500px',
-
+      data: {
+        type,
+        multiple
+      }
     });
-    dialogDef.afterClosed().subscribe( result => {
-      if ( result ) {
-        this.fileName = result;
+    dialogDef.afterClosed().subscribe(result => {
+      if (result.state) {
+        this.fileName = result.result;
         console.log(this.fileName);
       } else {
-        this.openDialog('500', '500');
+        this.openDialog('500', '500', result.type, result.multiple);
       }
     });
   }
 
-  openPhotoFromCameraDialog () {
+  openPhotoFromCameraDialog(type: string, multiple: boolean) {
     const dialogDef = this.dialog.open(PhotoFromCameraModal, {
       minWidth: '60%',
       minHeight: '360px',
-
+      data: {
+        type,
+        multiple
+      }
     });
-    dialogDef.afterClosed().subscribe( result => {
-      if ( result ) {
-        this.fileName = result;
+    dialogDef.afterClosed().subscribe(result => {
+      if (result.state) {
+        this.fileName = result.result;
         console.log(this.fileName);
       } else {
-        this.openDialog('500', '500');
+        this.openDialog('500', '500', result.type, result.multiple);
       }
     });
   }
@@ -311,32 +320,32 @@ export class ProfileComponent implements OnInit {
       }
     });
     this.profileForm = this.fb.group({
-          photo: [this.fileName],
-          email: [this.profileForm.controls['email'].value, [Validators.required, Validators.email]],
-          password: [this.profileForm.controls['password'].value, Validators.required],
-          firstName: [this.profileForm.controls['firstName'].value, Validators.required],
-          lastName: [this.profileForm.controls['lastName'].value, Validators.required],
-          Gender: [this.isMale? 'Male' : 'Female', Validators.required],
-          DOB: [this.profileForm.controls['DOB'].value, Validators.required],
-          phoneNumber: [this.profileForm.controls['phoneNumber'].value, Validators.required],
-          alternatePhNo: [this.profileForm.controls['alternatePhNo'].value],
-          address: [address.formatted_address, Validators.required],
-          street: [components.street, Validators.required],
-          no: [components.houseNumber, Validators.required],
-          flatNo: [this.profileForm.controls['flatNo'].value, Validators.required],
-          state: [components.state, Validators.required],
-          city: [components.city, Validators.required],
-          postCode: [components.postalCode, Validators.required],
-          country: [components.country, Validators.required],
-          Longitude: [this.center.lng, Validators.required],
-          Latitude: [this.center.lat, Validators.required],
-          spokenLanguage: [this.languages, Validators.required],
-          higherEducation: [this.profileForm.controls['higherEducation'].value],
-          instagram: [this.profileForm.controls['instagram'].value],
-          linkedIn: [this.profileForm.controls['linkedIn'].value],
-          facebook: [this.profileForm.controls['facebook'].value],
-          twitter: [this.profileForm.controls['twitter'].value],
-        });
+      photo: [this.fileName],
+      email: [this.profileForm.controls['email'].value, [Validators.required, Validators.email]],
+      password: [this.profileForm.controls['password'].value, Validators.required],
+      firstName: [this.profileForm.controls['firstName'].value, Validators.required],
+      lastName: [this.profileForm.controls['lastName'].value, Validators.required],
+      Gender: [this.isMale ? 'Male' : 'Female', Validators.required],
+      DOB: [this.profileForm.controls['DOB'].value, Validators.required],
+      phoneNumber: [this.profileForm.controls['phoneNumber'].value, Validators.required],
+      alternatePhNo: [this.profileForm.controls['alternatePhNo'].value],
+      address: [address.formatted_address, Validators.required],
+      street: [components.street, Validators.required],
+      no: [components.houseNumber, Validators.required],
+      flatNo: [this.profileForm.controls['flatNo'].value, Validators.required],
+      state: [components.state, Validators.required],
+      city: [components.city, Validators.required],
+      postCode: [components.postalCode, Validators.required],
+      country: [components.country, Validators.required],
+      Longitude: [this.center.lng, Validators.required],
+      Latitude: [this.center.lat, Validators.required],
+      spokenLanguage: [this.languages, Validators.required],
+      higherEducation: [this.profileForm.controls['higherEducation'].value],
+      instagram: [this.profileForm.controls['instagram'].value],
+      linkedIn: [this.profileForm.controls['linkedIn'].value],
+      facebook: [this.profileForm.controls['facebook'].value],
+      twitter: [this.profileForm.controls['twitter'].value],
+    });
   }
 
 

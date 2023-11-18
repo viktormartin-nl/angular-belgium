@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { PhotoFromCameraModal } from './photo-from-camera-modal.component';
+import { ProviderProfileListComponent } from './providerprofilelist.component';
 
-describe('PhotoFromCameraModal', () => {
-  let component: PhotoFromCameraModal;
-  let fixture: ComponentFixture<PhotoFromCameraModal>;
+describe('ProviderProfileListComponent', () => {
+  let component: ProviderProfileListComponent;
+  let fixture: ComponentFixture<ProviderProfileListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PhotoFromCameraModal ]
+      declarations: [ProviderProfileListComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PhotoFromCameraModal);
+    fixture = TestBed.createComponent(ProviderProfileListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,0 +1,110 @@
+<main class="profile-view">
+  <div class="profile-search-bar">
+    <div class="row">
+      <div class="col-sm-12 col-md-8">
+        <div class="row">
+          <div class="col-sm-12 col-md-4">
+            <mat-form-field>
+              <mat-label>Service</mat-label>
+              <input matInput placeholder="What service you want?">
+            </mat-form-field>
+          </div>
+          <div class="col-sm-12 col-md-3">
+            <mat-form-field>
+              <mat-label>Location</mat-label>
+              <input matInput placeholder="What Location?">
+            </mat-form-field>
+          </div>
+          <div class="col-sm-12 col-md-3">
+            <mat-form-field>
+              <mat-label>Date</mat-label>
+              <input matInput placeholder="Add date">
+            </mat-form-field>
+          </div>
+          <div class="col-sm-12 col-md-2">
+            <button mat-flat-button color="primary">
+              Search
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-4">
+        <div class="row">
+          <div class="col-sm-12 col-md-6">
+            <mat-form-field>
+              <mat-label>Language</mat-label>
+              <input matInput placeholder="Service provider language?">
+            </mat-form-field>
+          </div>
+          <div class="col-sm-12 col-md-6">
+            <mat-form-field>
+              <mat-label>Price</mat-label>
+              <input matInput placeholder="Select Price">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="profile-add">
+      <button mat-flat-button color="primary">
+        <!-- <mat-icon>edit</mat-icon> -->
+        Add provider profile
+      </button>
+    </div>
+  </div>
+  <div class="profile-list">
+    <div class="row">
+      <div class="col-sm-12 col-md-6"
+        *ngFor="let item of providerProfile.slice(pageIndex * pageSize, (pageIndex + 1) * pageSize)">
+        <div class="profile-item">
+          <div class="row">
+            <div class="col-md-7 col-sm-12">
+              <div class="profile-photo" style="background-color: red; height: 250px;">
+              </div>
+              <div class="work-category">Category1, Category2, Category3</div>
+            </div>
+            <div class="col-md-5 col-sm-12 profile-description">
+              <div class="profile-review" style="display: flex; justify-content: space-between;">
+                <div>
+                  <span>3.17</span>
+                  <span><mat-icon>star</mat-icon></span>
+                  <span>(41 reviews)</span>
+                </div>
+                <mat-icon>favorite</mat-icon>
+              </div>
+              <div class="profile-verified">
+                <mat-list role="list">
+                  <mat-list-item role="listitem">
+                    Identify
+                    <mat-icon class="icon" color="primary">check</mat-icon>
+                    <span class="verified-state">erified</span>
+                  </mat-list-item>
+                  <mat-list-item role="listitem">
+                    Email
+                    <mat-icon class="icon" color="primary">check</mat-icon>
+                    <span class="verified-state">erified</span>
+                  </mat-list-item>
+                  <mat-list-item role="listitem">
+                    Phone Number
+                    <mat-icon class="icon" color="primary">check</mat-icon>
+                    <span class="verified-state">erified</span>
+                  </mat-list-item>
+                </mat-list>
+              </div>
+              <div class="visit-charge">
+                <mat-list-item role="listitem">
+                  Consultancy charges
+                  <mat-icon class="icon">euro</mat-icon>
+                  <span class="verified-state">52</span>
+                </mat-list-item>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <mat-paginator [length]="providerProfile.length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+      showFirstLastButtons="true" [pageIndex]="pageIndex" (page)="onPageChange($event)">
+    </mat-paginator>
+  </div>
+</main>

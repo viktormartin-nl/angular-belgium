@@ -1,0 +1,275 @@
+<main class="profile-view">
+  <div style="margin-bottom: 30px;">
+    <h2 style="font-weight: bold;">Category1. Category2 , Category3</h2>
+    <p style="font-weight: normal;">Created on 20 Oct, 2020, 06:09:23 AM</p>
+    <p>
+      <mat-icon>star</mat-icon>
+      4.5 (1 reviews)
+    </p>
+  </div>
+  <div class="work-photo">
+    <div class="main-photo">
+    </div>
+    <div class="image-carousel">sdfsdf</div>
+  </div>
+  <div class="profile-content">
+    <div class="row">
+      <div class="col-sm-12 col-md-4">
+        <div class="avatar-card">
+          <div class="avatar-container">
+            <div class="image-container" [ngStyle]="{backgroundImage: 'url(' + fileName + ')'}">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-4 verify">
+        <div>
+          <p class="profile-name">FirstName LastName</p>
+          <mat-list role="list">
+            <mat-list-item role="listitem">
+              <span>Identify</span>
+              <mat-icon class="icon" color="primary">check</mat-icon>
+              <span class="verify-state">erified</span>
+            </mat-list-item>
+            <mat-list-item role="listitem">
+              <span>Email Address</span>
+              <mat-icon class="icon" color="primary">check</mat-icon>
+              <span class="verify-state">erified</span>
+            </mat-list-item>
+            <mat-list-item role="listitem">
+              <span>Phone Number</span>
+              <mat-icon class="icon" color="primary">check</mat-icon>
+              <span class="verify-state">erified</span>
+            </mat-list-item>
+          </mat-list>
+        </div>
+      </div>
+    </div>
+    <mat-card>
+      <mat-card-header>
+        <span>Overall rating 3.17</span>
+        <mat-icon color="warn">star</mat-icon>
+        <span>(41 reviews)</span>
+      </mat-card-header>
+      <mat-card-content>
+        About you text here
+      </mat-card-content>
+    </mat-card>
+    <mat-tab-group>
+      <mat-tab label="Personal Information">
+        <div style="padding: 15px;">
+          <div class="row">
+            <div class="col-sm-12 col-md-7">
+              <mat-card>
+                <mat-card-header>
+                  <mat-card-title>
+                    <div class="card-content-list">
+                      <mat-icon class="icon">join</mat-icon>
+                      <mat-label>Joined in Oct 20, 2023, 6:09:23 AM</mat-label>
+                    </div>
+                  </mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                  <div class="card-content-list">
+                    <mat-icon class="icon">person</mat-icon>
+                    <mat-label>female</mat-label>
+                  </div>
+                  <div class="card-content-list">
+                    <mat-icon class="icon">calendar_today</mat-icon>
+                    <mat-label>2021-10-15</mat-label>
+                  </div>
+                  <div class="card-content-list">
+                    <mat-icon class="icon">phone</mat-icon>
+                    <mat-label>+91 74104 12312</mat-label>
+                  </div>
+                  <div class="card-content-list">
+                    <mat-icon class="icon">message</mat-icon>
+                    <mat-label>Speaks Papiamento</mat-label>
+                  </div>
+                  <div class="card-content-list">
+                    <mat-icon class="icon">access_time</mat-icon>
+                    <mat-label>Lived in E40, 9052 Gent, Belgium</mat-label>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+            </div>
+            <div class="col-sm-12 col-md-5">
+              <mat-card class="verify-state">
+                <mat-card-header>
+                  <mat-card-title style="font-weight: bold;">Aditional Information</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                  <div class="card-content-list">
+                    <mat-icon class="icon" svgIcon="bachelor"></mat-icon>
+                    <mat-label>{{ higherEducation }}sdfsdf</mat-label>
+                  </div>
+                  <div class="card-content-list">
+                    <mat-icon class="icon" svgIcon="facebook"></mat-icon>
+                    <mat-label>{{ facebook }}</mat-label>
+                  </div>
+                  <div class="card-content-list">
+                    <mat-icon class="icon" svgIcon="linkedIn"></mat-icon>
+                    <mat-label>{{ linkedIn }}</mat-label>
+                  </div>
+                  <div class="card-content-list">
+                    <mat-icon class="icon" svgIcon="instagram"></mat-icon>
+                    <mat-label>{{ instagram }}</mat-label>
+                  </div>
+                  <div class="card-content-list">
+                    <mat-icon class="icon" svgIcon="twitter"></mat-icon>
+                    <mat-label>{{ twitter }}</mat-label>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="Work Information"> Content 2 </mat-tab>
+      <mat-tab label="Company Information">
+        <div class="company-info">
+          <div class="row">
+            <div class="col-sm-12 col-md-7">
+              <google-map height="300px" width="100%" [center]="center" [zoom]="zoom">
+                <map-marker [position]="center" [options]="markerOptions"></map-marker>
+              </google-map>
+            </div>
+            <div class="col-sm-12 col-md-5">
+              <mat-card class="verify-state">
+                <mat-card-header>
+                  <mat-card-title>Company Information</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                  <div class="card-content-list">
+                    <mat-icon class="icon" svgIcon="bachelor"></mat-icon>
+                    <mat-label>{{ higherEducation }}</mat-label>
+                  </div>
+                  <div class="card-content-list">
+                    <mat-icon class="icon" svgIcon="facebook"></mat-icon>
+                    <mat-label>{{ facebook }}</mat-label>
+                  </div>
+                  <div class="card-content-list">
+                    <mat-icon class="icon" svgIcon="linkedIn"></mat-icon>
+                    <mat-label>{{ linkedIn }}</mat-label>
+                  </div>
+                  <div class="card-content-list">
+                    <mat-icon class="icon" svgIcon="instagram"></mat-icon>
+                    <mat-label>{{ instagram }}</mat-label>
+                  </div>
+                  <div class="card-content-list">
+                    <mat-icon class="icon" svgIcon="twitter"></mat-icon>
+                    <mat-label>{{ twitter }}</mat-label>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+    <div class="emergency-info">
+      <div class="row">
+        <div class="col-sm-12 col-md-7">
+          <google-map height="300px" width="100%" [center]="center" [zoom]="zoom">
+            <map-marker [position]="center" [options]="markerOptions"></map-marker>
+          </google-map>
+        </div>
+        <div class="col-sm-12 col-md-5">
+          <mat-card class="verify-state">
+            <mat-card-header>
+              <mat-card-title>Emergency Information</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <div class="card-content-list">
+                <mat-icon class="icon" svgIcon="bachelor"></mat-icon>
+                <mat-label>{{ higherEducation }}sdfsdf</mat-label>
+              </div>
+              <div class="card-content-list">
+                <mat-icon class="icon" svgIcon="facebook"></mat-icon>
+                <mat-label>{{ facebook }}</mat-label>
+              </div>
+              <div class="card-content-list">
+                <mat-icon class="icon" svgIcon="linkedIn"></mat-icon>
+                <mat-label>{{ linkedIn }}</mat-label>
+              </div>
+              <div class="card-content-list">
+                <mat-icon class="icon" svgIcon="instagram"></mat-icon>
+                <mat-label>{{ instagram }}</mat-label>
+              </div>
+              <div class="card-content-list">
+                <mat-icon class="icon" svgIcon="twitter"></mat-icon>
+                <mat-label>{{ twitter }}</mat-label>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="provider-profiles">
+    <div>
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>
+            <span style="margin: 0px; font-size: 24px; font-weight: bold">Service Provider Profiles</span>
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="profile-content"></div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div> -->
+  <div class="review-rating">
+    <div>
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>
+            <span style="margin: 0px; font-size: 24px; font-weight: bold">Review and Rating</span>
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="profile-content">
+            <div class="review-header">
+              <span style="margin: 0px 10px; font-size: 24px; font-weight: bold">6 Reviews</span>
+              <span style="margin: 0px 10px; font-size: 20px; font-weight: bold">3.17 <mat-icon>star</mat-icon></span>
+              <span style="margin: 0px; font-size: 20px; font-weight: bold">overall rating</span>
+            </div>
+            <div class="review-list" style="padding: 10px;">
+              <mat-button-toggle-group name="starRating" aria-label="Star Rating">
+                <mat-button-toggle value="all">All</mat-button-toggle>
+                <mat-button-toggle value="5">5<mat-icon>star</mat-icon></mat-button-toggle>
+                <mat-button-toggle value="4">4<mat-icon>star</mat-icon></mat-button-toggle>
+                <mat-button-toggle value="3">3<mat-icon>star</mat-icon></mat-button-toggle>
+                <mat-button-toggle value="2">2<mat-icon>star</mat-icon></mat-button-toggle>
+                <mat-button-toggle value="1">1<mat-icon>star</mat-icon></mat-button-toggle>
+              </mat-button-toggle-group>
+              <div class="review-items">
+                <div class="review-item" *ngFor="let i of [1,2,3,4,5]">
+                  <div class="row">
+                    <div class="col-sm-12 col-md-8" style="display: flex; align-items: center;">
+                      <div>
+                        <div>
+                          <span>user1@gmail.com</span>
+                          <mat-icon *ngFor="let i of [1,2,3,4,5]" color="primary">star</mat-icon>
+                        </div>
+                        <div>
+                          <span>Nov 1. 2021, 06:34:21 AM</span>
+                          <span>Good one</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-12 col-md-4" style="display: flex; justify-content: center;">
+                      <div style="height: 80px; width: 80px; background-color:#c2bdbd; border-radius: 50%;"></div>
+                    </div>
+                  </div>
+                  <mat-divider></mat-divider>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</main>

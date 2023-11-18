@@ -1,5 +1,5 @@
 const jsonServer = require('json-server');
-const fileupload = require('express-fileupload');
+// const fileupload = require('express-fileupload');
 // const express = require('express');
 const server = jsonServer.create();
 const router = jsonServer.router('server/db.json');
@@ -13,7 +13,7 @@ const fs = require('fs');
 
 server.use(middlewares);
 server.use(jsonServer.bodyParser);
-server.use(fileupload());
+// server.use(fileupload());
 
 server.post('/login', (req, res, next) => {
   const users = db.userInfo;
@@ -149,8 +149,8 @@ server.post('/profile/:id', (req, res) => {
         },
       });
     }
-    const userPhotoIndex = db.userPhoto.findIndex( item => item.email == req.body.email );
-    if ( userPhotoIndex > -1 ) {
+    const userPhotoIndex = db.userPhoto.findIndex(item => item.email == req.body.email);
+    if (userPhotoIndex > -1) {
       db.userPhoto[userPhotoIndex].photo = req.body.photo ? req.body.photo : db.userPhoto[userPhotoIndex].photo;
     } else {
       db.userPhoto.push({

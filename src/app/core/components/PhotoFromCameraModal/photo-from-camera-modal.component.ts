@@ -14,7 +14,7 @@ export class PhotoFromCameraModal {
   constructor(
     public dialogRef: MatDialogRef<PhotoFromCameraModal>,
     @Inject(MAT_DIALOG_DATA) public data: any
-  ) {}
+  ) { }
 
   onDialogClose(result: any): void {
     this.dialogRef.close(result);
@@ -60,11 +60,21 @@ export class PhotoFromCameraModal {
     // show message
   }
 
-  exitDialog ( state : boolean ) {
-    if ( state ) {
-      this.onDialogClose(this.croppedImage);
+  exitDialog(state: boolean) {
+    if (state) {
+      let result = {
+        state: state,
+        type: this.data.type,
+        result: this.croppedImage
+      };
+      this.onDialogClose(result);
     } else {
-      this.onDialogClose('');
+      let result = {
+        state: state,
+        type: this.data.type,
+        multiple: this.data.multiple
+      };
+      this.onDialogClose(result);
     }
   }
 }

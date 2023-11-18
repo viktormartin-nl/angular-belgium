@@ -13,9 +13,9 @@ import { UserService } from 'src/app/shared/service/users/user.service';
 import { Address } from 'ngx-google-places-autocomplete/objects/address';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AppComponent } from 'src/app/app.component';
-import { PhotoSelectModal } from "./photoSelectModal/photo-select-modal.component";
-import { PhotoFromFolderModal } from "./PhotoFromFolderModal/photo-from-folder-modal.component";
-import { PhotoFromCameraModal } from "./PhotoFromCameraModal/photo-from-camera-modal.component";
+import { PhotoSelectModal } from "../../core/components/photoSelectModal/photo-select-modal.component";
+import { PhotoFromFolderModal } from "../../core/components/PhotoFromFolderModal/photo-from-folder-modal.component";
+import { PhotoFromCameraModal } from "../../core/components/PhotoFromCameraModal/photo-from-camera-modal.component";
 
 @Component({
   selector: 'provider-profile',
@@ -33,7 +33,7 @@ export class ProviderProfileComponent implements OnInit {
     DOB: ['', Validators.required],
     phoneNumber: ['', Validators.required],
     alternatePhNo: [''],
-    aboutYou: ['', Validators.required],
+    aboutYou: ['', Validators.required, Validators.maxLength(350)],
     address: ['', Validators.required],
     street: ['', Validators.required],
     no: ['', Validators.required],
@@ -91,6 +91,7 @@ export class ProviderProfileComponent implements OnInit {
   }
 
   fileName: string = '';
+  workPhoto: string = '';
 
   isMale: boolean = true;
 
@@ -130,51 +131,67 @@ export class ProviderProfileComponent implements OnInit {
   }
 
   // open dialog for camera and local drive
-  openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+  openDialog(enterAnimationDuration: string, exitAnimationDuration: string, type: string, multiple: boolean): void {
     const dialogdef = this.dialog.open(PhotoSelectModal, {
       minWidth: '60%',
       minHeight: '150px',
       enterAnimationDuration,
       exitAnimationDuration,
-      data: {}
+      data: {
+        type,
+        multiple
+      }
     });
     dialogdef.afterClosed().subscribe(result => {
-      if (result == 'camera') {
-        this.openPhotoFromCameraDialog();
-      } else if (result == 'folder') {
-        this.openPhotoFromFolderDialog();
+      if (result.goTo == 'camera') {
+        this.openPhotoFromCameraDialog(result.type, result.multiple);
+      } else if (result.goTo == 'folder') {
+        this.openPhotoFromFolderDialog(result.type, result.multiple);
       }
     })
   }
 
-  openPhotoFromFolderDialog() {
+  openPhotoFromFolderDialog(type: string, multiple: boolean) {
     const dialogDef = this.dialog.open(PhotoFromFolderModal, {
       minWidth: '60%',
       minHeight: '500px',
-
+      data: {
+        type,
+        multiple
+      }
     });
     dialogDef.afterClosed().subscribe(result => {
-      if (result) {
-        this.fileName = result;
-        console.log(this.fileName);
+      console.log(result);
+      if (result.state) {
+        if (result.type == 'photo') {
+          this.fileName = result.result;
+        } else if (result.type == 'work') {
+          this.workPhoto = result.result;
+        }
       } else {
-        this.openDialog('500', '500');
+        this.openDialog('500', '500', result.type, result.multiple);
       }
     });
   }
 
-  openPhotoFromCameraDialog() {
+  openPhotoFromCameraDialog(type: string, multiple: boolean) {
     const dialogDef = this.dialog.open(PhotoFromCameraModal, {
       minWidth: '60%',
       minHeight: '360px',
-
+      data: {
+        type,
+        multiple
+      }
     });
     dialogDef.afterClosed().subscribe(result => {
-      if (result) {
-        this.fileName = result;
-        console.log(this.fileName);
+      if (result.state) {
+        if (result.type == 'photo') {
+          this.fileName = result.result;
+        } else if (result.type == 'work') {
+          this.workPhoto = result.result;
+        }
       } else {
-        this.openDialog('500', '500');
+        this.openDialog('500', '500', result.type, result.multiple);
       }
     });
   }
@@ -207,31 +224,42 @@ export class ProviderProfileComponent implements OnInit {
       }
     });
     this.providerProfileForm = this.fb.group({
-      photo: [this.fileName],
-      email: [this.providerProfileForm.controls['email'].value, [Validators.required, Validators.email]],
-      password: [this.providerProfileForm.controls['password'].value, Validators.required],
-      firstName: [this.providerProfileForm.controls['firstName'].value, Validators.required],
-      lastName: [this.providerProfileForm.controls['lastName'].value, Validators.required],
-      Gender: [this.isMale ? 'Male' : 'Female', Validators.required],
-      DOB: [this.providerProfileForm.controls['DOB'].value, Validators.required],
-      phoneNumber: [this.providerProfileForm.controls['phoneNumber'].value, Validators.required],
-      alternatePhNo: [this.providerProfileForm.controls['alternatePhNo'].value],
-      address: [address.formatted_address, Validators.required],
-      street: [components.street, Validators.required],
-      no: [components.houseNumber, Validators.required],
-      flatNo: [this.providerProfileForm.controls['flatNo'].value, Validators.required],
-      state: [components.state, Validators.required],
-      city: [components.city, Validators.required],
-      postCode: [components.postalCode, Validators.required],
-      country: [components.country, Validators.required],
-      Longitude: [this.center.lng, Validators.required],
-      Latitude: [this.center.lat, Validators.required],
-      spokenLanguage: [this.languages, Validators.required],
-      higherEducation: [this.providerProfileForm.controls['higherEducation'].value],
-      instagram: [this.providerProfileForm.controls['instagram'].value],
-      linkedIn: [this.providerProfileForm.controls['linkedIn'].value],
-      facebook: [this.providerProfileForm.controls['facebook'].value],
-      twitter: [this.providerProfileForm.controls['twitter'].value],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      DOB: ['', Validators.required],
+      phoneNumber: ['', Validators.required],
+      alternatePhNo: [''],
+      aboutYou: ['', Validators.required],
+      address: ['', Validators.required],
+      street: ['', Validators.required],
+      no: ['', Validators.required],
+      flatNo: ['', Validators.required],
+      state: ['', Validators.required],
+      city: ['', Validators.required],
+      postCode: ['', Validators.required],
+      country: ['', Validators.required],
+      Longitude: ['', Validators.required],
+      Latitude: ['', Validators.required],
+      spokenLanguage: [[], Validators.required],
+      higherEducation: [[]],
+      instagram: [''],
+      facebook: [''],
+      linkedIn: [''],
+      twitter: [''],
+      experiencedIn: ['', Validators.required],
+      workCategory: ['', Validators.required],
+      visitCharge: ['', Validators.required],
+      companyName: [''],
+      companyAddress: [''],
+      companyPhone: [''],
+      companyWebsiteLink: [''],
+      companyEnterpriseNumber: [''],
+      emergencyName: ['', Validators.required],
+      emergencyRelation: ['', Validators.required],
+      emergencyPhone: ['', Validators.required],
+      emergencyEmail: ['', Validators.email],
     });
   }
 

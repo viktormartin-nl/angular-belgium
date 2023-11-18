@@ -1,7 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
-import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'photo-from-folder-modal',
@@ -11,10 +10,9 @@ import { DomSanitizer } from '@angular/platform-browser';
 
 export class PhotoFromFolderModal {
   constructor(
-    private sanitizer: DomSanitizer,
     public dialogRef: MatDialogRef<PhotoFromFolderModal>,
     @Inject(MAT_DIALOG_DATA) public data: any
-  ) {}
+  ) { }
 
   public isCaptured: boolean = false;
 
@@ -42,11 +40,21 @@ export class PhotoFromFolderModal {
     // show message
   }
 
-  exitDialog ( state : boolean ) {
-    if ( state ) {
-      this.onDialogClose(this.croppedImage);
+  exitDialog(state: boolean) {
+    if (state) {
+      let result = {
+        state: state,
+        type: this.data.type,
+        result: this.croppedImage
+      };
+      this.onDialogClose(result);
     } else {
-      this.onDialogClose('');
+      let result = {
+        state: state,
+        type: this.data.type,
+        multiple: this.data.multiple
+      };
+      this.onDialogClose(result);
     }
   }
 }

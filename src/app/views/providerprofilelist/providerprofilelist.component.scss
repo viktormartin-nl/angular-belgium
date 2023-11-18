@@ -1,0 +1,70 @@
+@import '../../../styles.scss';
+
+main.profile-view {
+  min-height: 90%;
+  background-color: $light-primary;
+  padding: 3%;
+
+  .profile-search-bar {
+    .col-sm-12 {
+      margin-bottom: 10px;
+
+      button {
+        margin-top: 11px;
+      }
+    }
+
+    .profile-add {
+      float: right;
+    }
+  }
+
+  .profile-list {
+    margin-top: 60px;
+
+    .row {
+      .profile-item {
+        border: 1px solid black;
+        border-radius: 10px;
+        padding: 2%;
+        margin-bottom: 10px;
+        background-color: white;
+
+        .row {
+
+          .work-category {
+            font-size: 20px;
+            font-weight: 800;
+            text-decoration: underline;
+          }
+
+          .profile-description {
+
+            .profile-review {
+              display: flex;
+              justify-content: space-between;
+
+            }
+
+            mat-list-item {
+              padding: 0;
+
+              .icon {
+                margin-left: 20px;
+              }
+
+              .verified-state {
+                color: green;
+              }
+            }
+
+            .visit-charge {
+              font-weight: 500;
+            }
+          }
+        }
+      }
+    }
+
+  }
+}
