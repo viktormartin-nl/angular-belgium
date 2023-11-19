@@ -16,12 +16,66 @@ main.profile-content {
       margin-left: 0;
       margin-right: 0;
 
+      mat-grid-list {
+
+        img {
+          width: 100%;
+          height: 100%;
+          margin: 3px;
+        }
+
+        button {
+          position: absolute;
+          top: 0;
+          right: 0;
+          width: 20px;
+          height: 20px;
+        }
+      }
+
       .col {
         .avatar-card {
           display: flex;
           height: 400px;
           justify-content: center;
           align-items: center;
+        }
+
+        .id-card {
+          display: flex;
+          height: 200px;
+          justify-content: center;
+          align-items: center;
+          margin-bottom: 20px;
+
+          .image-container {
+            height: 200px;
+            width: 360px;
+            z-index: 1;
+            border-radius: 10px;
+            background-color: #fff;
+            background-position: center;
+            background-size: cover;
+            box-shadow: 10 20px 20px 20px #ff0000;
+          }
+        }
+
+        .work-image {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin-bottom: 20px;
+
+          .image-container {
+            height: 200px;
+            width: 360px;
+            z-index: 1;
+            border-radius: 10px;
+            background-color: #fff;
+            background-position: center;
+            background-size: cover;
+            box-shadow: 10 20px 20px 20px #ff0000;
+          }
         }
 
         .avatar-container {

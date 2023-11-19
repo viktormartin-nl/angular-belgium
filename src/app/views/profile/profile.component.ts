@@ -319,6 +319,8 @@ export class ProfileComponent implements OnInit {
         components.country = component.long_name;
       }
     });
+    console.log(this.center);
+    console.log(components);
     this.profileForm = this.fb.group({
       photo: [this.fileName],
       email: [this.profileForm.controls['email'].value, [Validators.required, Validators.email]],

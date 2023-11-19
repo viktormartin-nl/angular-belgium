@@ -10,6 +10,7 @@ import { ProfileViewComponent } from './views/profileview/profileview.component'
 import { ProviderProfileComponent } from './views/providerprofile/providerprofile.component';
 import { ProviderProfileListComponent } from './views/providerprofilelist/providerprofilelist.component';
 import { ProviderProfileViewComponent } from './views/providerprofileview/providerprofileview.component';
+import { OrderComponent } from './views/order/order.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'register', pathMatch: 'full' },
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'providerprofile', component: ProviderProfileComponent, canActivate: [Auth] },
   { path: 'providerprofilelist', component: ProviderProfileListComponent, canActivate: [Auth] },
   { path: 'providerprofileview', component: ProviderProfileViewComponent, canActivate: [Auth] },
+  { path: 'order', component: OrderComponent, canActivate: [Auth] },
   { path: 'comments', component: CommentsComponent, canActivate: [Auth] },
 ];
 

@@ -27,11 +27,15 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { WebcamModule } from 'ngx-webcam';
 import { NgxMatIntlTelInputComponent } from 'ngx-mat-intl-tel-input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatListModule } from '@angular/material/list';
+import { MatRadioModule } from '@angular/material/radio';
+import { NgImageSliderModule } from 'ng-image-slider';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 import { FooterComponent } from './core/components/footer/footer.component';
 import { LoginComponent } from './views/login/login.component';
@@ -51,7 +55,7 @@ import { PhotoFromCameraModal } from './core/components/PhotoFromCameraModal/pho
 import { ProviderProfileComponent } from './views/providerprofile/providerprofile.component';
 import { ProviderProfileListComponent } from './views/providerprofilelist/providerprofilelist.component';
 import { ProviderProfileViewComponent } from './views/providerprofileview/providerprofileview.component';
-
+import { OrderComponent } from './views/order/order.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +78,8 @@ import { ProviderProfileViewComponent } from './views/providerprofileview/provid
     PhotoFromCameraModal,
     ProviderProfileComponent,
     ProviderProfileListComponent,
-    ProviderProfileViewComponent
+    ProviderProfileViewComponent,
+    OrderComponent
   ],
   imports: [
     BrowserModule,
@@ -107,7 +112,11 @@ import { ProviderProfileViewComponent } from './views/providerprofileview/provid
     WebcamModule,
     NgxMatIntlTelInputComponent,
     MatSelectModule,
-    MatListModule
+    MatListModule,
+    MatCheckboxModule,
+    MatRadioModule,
+    MatGridListModule,
+    NgImageSliderModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: CrudInterceptor, multi: true }],
   bootstrap: [AppComponent],

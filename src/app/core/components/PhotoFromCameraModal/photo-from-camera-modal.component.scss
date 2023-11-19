@@ -18,9 +18,11 @@
 
     .col-sm-6 {
       margin-bottom: 10px;
+
       .captured-image {
         height: 240px;
         display: flex;
+        align-items: center;
         justify-content: center;
 
         img {

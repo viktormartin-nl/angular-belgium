@@ -30,10 +30,11 @@ export class ProviderProfileComponent implements OnInit {
     password: ['', Validators.required],
     firstName: ['', Validators.required],
     lastName: ['', Validators.required],
+    gender: ['Male', Validators.required],
     DOB: ['', Validators.required],
     phoneNumber: ['', Validators.required],
     alternatePhNo: [''],
-    aboutYou: ['', Validators.required, Validators.maxLength(350)],
+    aboutYou: ['', [Validators.required, Validators.maxLength(350)]],
     address: ['', Validators.required],
     street: ['', Validators.required],
     no: ['', Validators.required],
@@ -51,7 +52,7 @@ export class ProviderProfileComponent implements OnInit {
     linkedIn: [''],
     twitter: [''],
     experiencedIn: ['', Validators.required],
-    workCategory: ['', Validators.required],
+    workCategory: [[], Validators.required],
     visitCharge: ['', Validators.required],
     companyName: [''],
     companyAddress: [''],
@@ -88,18 +89,21 @@ export class ProviderProfileComponent implements OnInit {
   }
 
   providerProfileRegister(): void {
+    console.log(this.providerProfileForm.controls);
   }
 
-  fileName: string = '';
-  workPhoto: string = '';
+  profile: string = '';
+  idProof: string = '';
 
   isMale: boolean = true;
 
   setGender(state: boolean): any {
     if (state) {
       this.isMale = true;
+      this.providerProfileForm.controls['gender'].setValue('Male');
     } else {
       this.isMale = false;
+      this.providerProfileForm.controls['gender'].setValue('Female');
     }
   }
 
@@ -163,10 +167,10 @@ export class ProviderProfileComponent implements OnInit {
     dialogDef.afterClosed().subscribe(result => {
       console.log(result);
       if (result.state) {
-        if (result.type == 'photo') {
-          this.fileName = result.result;
-        } else if (result.type == 'work') {
-          this.workPhoto = result.result;
+        if (result.type == 'profile') {
+          this.profile = result.result;
+        } else if (result.type == 'idProof') {
+          this.idProof = result.result;
         }
       } else {
         this.openDialog('500', '500', result.type, result.multiple);
@@ -185,10 +189,10 @@ export class ProviderProfileComponent implements OnInit {
     });
     dialogDef.afterClosed().subscribe(result => {
       if (result.state) {
-        if (result.type == 'photo') {
-          this.fileName = result.result;
-        } else if (result.type == 'work') {
-          this.workPhoto = result.result;
+        if (result.type == 'profile') {
+          this.profile = result.result;
+        } else if (result.type == 'idProof') {
+          this.idProof = result.result;
         }
       } else {
         this.openDialog('500', '500', result.type, result.multiple);
@@ -198,68 +202,35 @@ export class ProviderProfileComponent implements OnInit {
 
   handleAddressChange(address: Address) {
     console.log(address.formatted_address)
+
+    this.providerProfileForm.controls['firstName'].setValue('sdfsdf');
     this.center = {
       lat: address.geometry.location.lat(),
       lng: address.geometry.location.lng()
     }
-    const components: any = {};
+
+    this.providerProfileForm.controls['Longitude'].setValue(this.center.lng);
+    this.providerProfileForm.controls['Latitude'].setValue(this.center.lat);
+
     address.address_components.forEach(component => {
       if (component.types.includes('street_number')) {
-        components.houseNumber = component.long_name;
+        this.providerProfileForm.controls['no'].setValue(component.long_name);
       }
       if (component.types.includes('route')) {
-        components.street = component.long_name;
+        this.providerProfileForm.controls['street'].setValue(component.long_name);
       }
       if (component.types.includes('postal_code')) {
-        components.postalCode = component.long_name;
+        this.providerProfileForm.controls['postCode'].setValue(component.long_name);
       }
       if (component.types.includes('locality')) {
-        components.city = component.long_name;
+        this.providerProfileForm.controls['city'].setValue(component.long_name);
       }
       if (component.types.includes('administrative_area_level_1')) {
-        components.state = component.long_name;
+        this.providerProfileForm.controls['state'].setValue(component.long_name);
       }
       if (component.types.includes('country')) {
-        components.country = component.long_name;
+        this.providerProfileForm.controls['country'].setValue(component.long_name);
       }
-    });
-    this.providerProfileForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      DOB: ['', Validators.required],
-      phoneNumber: ['', Validators.required],
-      alternatePhNo: [''],
-      aboutYou: ['', Validators.required],
-      address: ['', Validators.required],
-      street: ['', Validators.required],
-      no: ['', Validators.required],
-      flatNo: ['', Validators.required],
-      state: ['', Validators.required],
-      city: ['', Validators.required],
-      postCode: ['', Validators.required],
-      country: ['', Validators.required],
-      Longitude: ['', Validators.required],
-      Latitude: ['', Validators.required],
-      spokenLanguage: [[], Validators.required],
-      higherEducation: [[]],
-      instagram: [''],
-      facebook: [''],
-      linkedIn: [''],
-      twitter: [''],
-      experiencedIn: ['', Validators.required],
-      workCategory: ['', Validators.required],
-      visitCharge: ['', Validators.required],
-      companyName: [''],
-      companyAddress: [''],
-      companyPhone: [''],
-      companyWebsiteLink: [''],
-      companyEnterpriseNumber: [''],
-      emergencyName: ['', Validators.required],
-      emergencyRelation: ['', Validators.required],
-      emergencyPhone: ['', Validators.required],
-      emergencyEmail: ['', Validators.email],
     });
   }
 
@@ -292,6 +263,8 @@ export class ProviderProfileComponent implements OnInit {
     console.log('aaa');
     console.log(this.languages);
     console.log(this.languageList);
+
+    this.providerProfileForm.controls['spokenLanguage'].setValue(this.languages);
   }
 
   remove(language: string): void {
@@ -304,6 +277,8 @@ export class ProviderProfileComponent implements OnInit {
     console.log('bbb');
     console.log(this.languages);
     console.log(this.languageList);
+
+    this.providerProfileForm.controls['spokenLanguage'].setValue(this.languages);
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
@@ -353,6 +328,8 @@ export class ProviderProfileComponent implements OnInit {
     console.log('aaa');
     console.log(this.categories);
     console.log(this.categoryList);
+
+    this.providerProfileForm.controls['workCategory'].setValue(this.categories);
   }
 
   removeCategory(category: string): void {
@@ -365,6 +342,8 @@ export class ProviderProfileComponent implements OnInit {
     console.log('bbb');
     console.log(this.categories);
     console.log(this.categoryList);
+
+    this.providerProfileForm.controls['workCategory'].setValue(this.categories);
   }
 
   selectedCategory(event: MatAutocompleteSelectedEvent): void {
@@ -378,6 +357,7 @@ export class ProviderProfileComponent implements OnInit {
 
     console.log(this.categories);
     console.log(this.categoryList);
+
   }
 
   private _filterCategory(value: string): string[] {
@@ -399,12 +379,67 @@ export class ProviderProfileComponent implements OnInit {
     // });
     this.socialMedia.setValue('');
     this.socialMediaValue.setValue('');
-    console.log(this.socials);
+
+    this.providerProfileForm.controls['linkedIn'].setValue(this.socials.linkedIn);
+    this.providerProfileForm.controls['instagram'].setValue(this.socials.instagram);
+    this.providerProfileForm.controls['facebook'].setValue(this.socials.facebook);
+    this.providerProfileForm.controls['twitter'].setValue(this.socials.twitter);
   }
 
   cancelSocial(key: any) {
     delete this.socials[key];
     console.log(key);
+  }
+
+  //work image upload
+
+  workImage: any[] = [];
+
+  onFileChange(event: any) {
+    const files = event.target.files;
+
+    // Iterate over each uploaded file
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        console.log(reader.result);
+        this.workImage.push(reader.result);
+        console.log(this.workImage);
+      };
+    }
+
+    // if (file) {
+    //   this.fileName = URL.createObjectURL(files[0]);
+    //   console.log(this.fileName);
+    //   const formData = new FormData();
+    //   formData.append('photo', file);
+    //   const upload$ = this.userService.fileUpload(this.userId, formData);
+    //   upload$.subscribe(
+    //     (success) => {
+    //       console.log('Upload successful:', success);
+    //     },
+    //     (error) => {
+    //       console.error('Upload error:', error);
+    //     },
+    //     () => {
+    //       console.log('Upload complete');
+    //     }
+    //   );
+    //   this.resetInput();
+    // }
+  }
+
+  resetInput() {
+    const input = document.getElementById('avatar-input-file') as HTMLInputElement;
+    if (input) {
+      input.value = "";
+    }
+  }
+
+  cancalWorkImage(index: number) {
+    this.workImage.splice(index, 1);
   }
 
   //Company information Editing

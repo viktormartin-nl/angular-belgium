@@ -10,9 +10,6 @@
 
       img {
         background-color: #add8e6;
-        height: 240px;
-        width: 240px;
-        border-radius: 50%;
         border: 2px solid #add8e6;
       }
     }
@@ -25,40 +22,41 @@
       align-items: center;
     }
   }
-    .icon-wrapper {
-      height: 40px;
-      width: 200px;
-      padding: .35rem;
-      background-color: #2962FF;
-      border-radius: 10px;
+
+  .icon-wrapper {
+    height: 40px;
+    width: 200px;
+    padding: .35rem;
+    background-color: #2962FF;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    cursor: pointer;
+
+    &:hover {
+      transition: all .25s;
+      background-color: darken(#2962FF, 15%);
+    }
+
+    .icon {
+      color: white;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    label {
+      cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      z-index: 2;
-      cursor: pointer;
-
-      &:hover {
-        transition: all .25s;
-        background-color: darken(#2962FF, 15%);
-      }
-
-      .icon {
-        color: white;
-        display: flex;
-        justify-content: space-between;
-      }
-
-      label {
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      input[type='file'] {
-        display: none;
-      }
     }
+
+    input[type='file'] {
+      display: none;
+    }
+  }
 }
 
 .mat-dialog-actions {

@@ -1,0 +1,107 @@
+<main class="order">
+  <mat-card>
+    <mat-card-content>
+      <mat-form-field appearance="outline">
+        <mat-label>Description</mat-label>
+        <textarea name="description" matInput placeholder="" rows="3"></textarea>
+      </mat-form-field>
+      <form>
+        <label for="avatar-input-file">
+          <div class="icon-wrapper">
+            <input type="file" id="avatar-input-file" accept="*" (change)="onFileChange($event)" />
+            <mat-icon class="icon">attach_file</mat-icon>
+          </div>
+        </label>
+        <p>Attach a file</p>
+      </form>
+      <mat-checkbox name="sameRequestAndBilling" [checked]="sameRequestAndBilling" (change)="toggleCheckbox()">
+        My billing and request address are the same
+      </mat-checkbox>
+    </mat-card-content>
+  </mat-card>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Request Address</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-divider></mat-divider>
+      <mat-radio-group class="example-radio-group" [(ngModel)]="selectedRequestAddress">
+        <mat-radio-button class="example-radio-button" *ngFor="let address of requestAddresses" [value]="address">
+          {{address}}
+        </mat-radio-button>
+      </mat-radio-group>
+      <button mat-raised-button color="primary" aria-label="Icon Button for adding a address"
+        (click)="visibleAddress('request')">
+        <mat-icon>add</mat-icon>
+        Add a new Address
+      </button>
+
+      <div class="request-address" [style.display]="isVisibleRequestAddress ? 'block' : 'none'">
+        <div class="row">
+          <div class="col-md-6 col-sm-12">
+            <mat-form-field appearance="outline">
+              <mat-label>Search Location</mat-label>
+              <input matInput ngx-google-places-autocomplete [options]="options" #placesRef="ngx-places"
+                (onAddressChange)="handleRequestAddressChange($event)" />
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Flat/Box No:</mat-label>
+              <input name="requestFlatNo" matInput clickOutside />
+            </mat-form-field>
+            <button mat-raised-button (click)="addAddress('request')"> Add Address </button>
+          </div>
+          <div class="col-md-6 col-sm-12">
+            <google-map height="320px" width="100%" [center]="requestCenter" [zoom]="zoom">
+              <map-marker [position]="requestCenter" [options]="markerOptions"></map-marker>
+            </google-map>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+
+  </mat-card>
+  <mat-card [style.display]="!sameRequestAndBilling ? 'block' : 'none'">
+    <mat-card-header>
+      <mat-card-title>Billing Address</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-divider></mat-divider>
+      <mat-radio-group class="example-radio-group" [(ngModel)]="selectedBillingAddress">
+        <mat-radio-button class="example-radio-button" *ngFor="let address of billingAddresses" [value]="address">
+          {{address}}
+        </mat-radio-button>
+      </mat-radio-group>
+      <button mat-raised-button color="primary" aria-label="Icon Button for adding a address"
+        (click)="visibleAddress('billing')">
+        <mat-icon>add</mat-icon>
+        Add a new Address
+      </button>
+
+      <div class="billing-address" [style.display]="isVisibleBillingAddress ? 'block' : 'none'">
+        <div class="row">
+          <div class="col-md-6 col-sm-12">
+            <mat-form-field appearance="outline">
+              <mat-label>Search Location</mat-label>
+              <input matInput ngx-google-places-autocomplete [options]="options" #placesRef="ngx-places"
+                (onAddressChange)="handleBillingAddressChange($event)" />
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Flat/Box No:</mat-label>
+              <input name="billingFlatNo" matInput clickOutside />
+            </mat-form-field>
+            <button mat-raised-button (click)="addAddress('billing')"> Add Address </button>
+          </div>
+          <div class="col-md-6 col-sm-12">
+            <google-map height="320px" width="100%" [center]="billingCenter" [zoom]="zoom">
+              <map-marker [position]="billingCenter" [options]="markerOptions"></map-marker>
+            </google-map>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+
+  </mat-card>
+  <div class="payment-button">
+    <button mat-raised-button color="primary" (click)="payment()">Payment</button>
+  </div>
+</main>

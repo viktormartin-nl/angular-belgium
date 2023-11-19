@@ -1,16 +1,41 @@
 <main class="profile-view">
-  <div style="margin-bottom: 30px;">
-    <h2 style="font-weight: bold;">Category1. Category2 , Category3</h2>
-    <p style="font-weight: normal;">Created on 20 Oct, 2020, 06:09:23 AM</p>
-    <p>
-      <mat-icon>star</mat-icon>
-      4.5 (1 reviews)
-    </p>
+  <div class="row">
+    <div class="col-sm-12 col-md-7">
+      <div style="margin-bottom: 30px;">
+        <h2 style="font-weight: bold;">Category1. Category2 , Category3</h2>
+        <p style="font-weight: normal;">Created on 20 Oct, 2020, 06:09:23 AM</p>
+        <p>
+          <mat-icon>star</mat-icon>
+          4.5 (1 reviews)
+        </p>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-5" style="display: flex; justify-content: end;">
+      <mat-card>
+        <mat-card-content>
+          <div style="text-align: center;">
+            <p>Select the date and block the service provider</p>
+            <button mat-flat-button color="primary" [matMenuTriggerFor]="dropdown">Select dates and block</button>
+            <mat-menu #dropdown="matMenu" xPosition="before">
+              <div>
+                <mat-calendar [(selected)]="selected"></mat-calendar>
+                <mat-calendar [(selected)]="selected"></mat-calendar>
+              </div>
+            </mat-menu>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
   </div>
   <div class="work-photo">
     <div class="main-photo">
     </div>
-    <div class="image-carousel">sdfsdf</div>
+    <div class="image-carousel">
+      <div style="width: 100%; text-align:center;margin:0; padding:0;">
+        <ng-image-slider #nav [images]="imageObject" [infinite]="true" [autoSlide]="1" [imageSize]="{width: '25%'}"
+          slideImage="1"></ng-image-slider>
+      </div>
+    </div>
   </div>
   <div class="profile-content">
     <div class="row">

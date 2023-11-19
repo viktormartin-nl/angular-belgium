@@ -59,7 +59,11 @@
         <div class="profile-item">
           <div class="row">
             <div class="col-md-7 col-sm-12">
-              <div class="profile-photo" style="background-color: red; height: 250px;">
+              <!-- <div class="profile-photo" style="background-color: red; height: 250px;">
+              </div> -->
+              <div style="width: 100%; text-align:center;margin:0; padding:0;">
+                <ng-image-slider #nav [images]="imageObject" [infinite]="true" [autoSlide]="1"
+                  [imageSize]="{width: '100%'}" slideImage="1"></ng-image-slider>
               </div>
               <div class="work-category">Category1, Category2, Category3</div>
             </div>

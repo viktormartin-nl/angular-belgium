@@ -8,14 +8,31 @@
             <!-- <div class="image-container" [ngStyle]="{backgroundImage: 'url(' + fileName + ')'}">
             </div> -->
             <div class="cropped-image">
-              <img class="image-container" style="background-color: lightblue;" [src]="fileName" />
+              <img class="image-container" style="background-color: lightblue;" [src]="profile" />
             </div>
 
             <label for="avatar-input-file">
               <div class="icon-wrapper">
                 <!-- <input type="file" formControlName="photo" id="avatar-input-file" accept="image/*" (change)="onFileChange($event)" /> -->
                 <!-- <mat-icon class="icon">edit</mat-icon> -->
-                <mat-icon class="icon" (click)="openDialog('500ms', '500ms', 'photo', false)">edit</mat-icon>
+                <mat-icon class="icon" (click)="openDialog('500ms', '500ms', 'profile', false)">edit</mat-icon>
+              </div>
+            </label>
+          </div>
+        </div>
+        <div class="id-card">
+          <div class="avatar-container">
+            <!-- <div class="image-container" [ngStyle]="{backgroundImage: 'url(' + fileName + ')'}">
+                    </div> -->
+            <div class="cropped-image">
+              <img class="image-container" style="background-color: lightblue;" [src]="idProof" />
+            </div>
+
+            <label for="avatar-input-file">
+              <div class="icon-wrapper">
+                <!-- <input type="file" formControlName="photo" id="avatar-input-file" accept="image/*" (change)="onFileChange($event)" /> -->
+                <!-- <mat-icon class="icon">edit</mat-icon> -->
+                <mat-icon class="icon" (click)="openDialog('500ms', '500ms', 'idProof', false)">edit</mat-icon>
               </div>
             </label>
           </div>
@@ -26,7 +43,7 @@
       <div class="col col-lg-7 col-sm-12">
         <mat-card class="oh text-center little-profile">
           <mat-card-header>
-            <mat-card-title>User Info</mat-card-title>
+            <mat-card-title>Service Provider</mat-card-title>
           </mat-card-header>
           <mat-card-content>
             <div class="row">
@@ -64,10 +81,12 @@
                   </mat-error>
                 </mat-form-field> -->
                 <div class="gender-selector">
-                  <div class="gender-button" [style.border]="isMale ? '2px solid green' : '1px solid black'"
-                    (click)="setGender(true)">👨 Male</div>
-                  <div class="gender-button" [style.border]="!isMale ? '2px solid green' : '1px solid black'"
-                    (click)="setGender(false)">👩‍🦰 Female</div>
+                  <button type="button" class="gender-button" mat-raised-button
+                    [style.border]="isMale ? '2px solid green' : ''" (click)="setGender(true)">👨
+                    Male</button>
+                  <button type="button" class="gender-button" mat-raised-button
+                    [style.border]="!isMale ? '2px solid green' : ''" (click)="setGender(false)">👩‍🦰
+                    Female</button>
                 </div>
               </div>
               <div class="col-md-6 col-sm-12">
@@ -132,7 +151,7 @@
                     [enableSearch]="true" name="alternatePhNo" formControlName="alternatePhNo"></ngx-mat-intl-tel-input>
                 </mat-form-field>
               </div>
-              <div class="col-md-6 col-sm-12">
+              <div class="col-md-12 col-sm-12">
                 <mat-form-field appearance="outline">
                   <mat-label>About You</mat-label>
                   <textarea formControlName="aboutYou" matInput clickOutside placeholder="Max 350 words"
@@ -143,9 +162,6 @@
                     <p>About You required</p>
                   </mat-error>
                 </mat-form-field>
-              </div>
-              <div class="col-md-6 col-sm-12">
-
               </div>
             </div>
           </mat-card-content>
@@ -393,7 +409,7 @@
                       </mat-option>
                     </mat-autocomplete>
                   </mat-chip-grid>
-                  <mat-error *ngIf="categories.length === 0 && providerProfileForm.controls['workCategory'].touched">
+                  <mat-error *ngIf="categories.length == 0 && providerProfileForm.controls['workCategory'].touched">
                     <mat-icon [inline]="true" color="warn">info</mat-icon>
                     <p>Category required</p>
                   </mat-error>
@@ -430,31 +446,35 @@
       <!-- column -->
       <div class="col col-lg-8 col-sm-12">
         <div class="row">
-          <div class="avatar-card col-sm-12 col-md-6">
+          <div class="work-image avatar-card col-sm-12 col-md-6">
             <div class="avatar-container">
               <!-- <div class="image-container" [ngStyle]="{backgroundImage: 'url(' + fileName + ')'}">
                       </div> -->
               <div class="cropped-image">
-                <img class="image-container" style="background-color: lightblue;" [src]="workPhoto" />
+                <img class="image-container" style="background-color: lightblue;" [src]="workImage[0]" />
               </div>
 
-              <label for="avatar-input-file">
+              <label for="work-image-file">
                 <div class="icon-wrapper">
-                  <!-- <input type="file" formControlName="photo" id="avatar-input-file" accept="image/*" (change)="onFileChange($event)" /> -->
-                  <!-- <mat-icon class="icon">edit</mat-icon> -->
-                  <mat-icon class="icon" (click)="openDialog('500ms', '500ms', 'work', true)">edit</mat-icon>
+                  <input type="file" name="workImage" id="work-image-file" multiple accept="image/*"
+                    (change)="onFileChange($event)" />
+                  <mat-icon class="icon">edit</mat-icon>
+                  <!-- <mat-icon class="icon" (click)="openDialog('500ms', '500ms', 'workImage', true)">edit</mat-icon> -->
                 </div>
               </label>
             </div>
           </div>
           <div class="col-sm-12 col-md-6">
-            <mat-card>
+            <mat-card style="height: 375px; overflow-y: scroll;">
               <mat-card-content>
-                <!-- <mat-list role="list">
-                  <mat-list-item role="listitem">Item 1</mat-list-item>
-                  <mat-list-item role="listitem">Item 2</mat-list-item>
-                  <mat-list-item role="listitem">Item 3</mat-list-item>
-                </mat-list> -->
+                <mat-grid-list cols="2" rowHeight="2:1">
+                  <mat-grid-tile *ngFor="let image of workImage; let i = index">
+                    <img [src]="image">
+                    <button type="button" mat-mini-fab color="warn" (click)="cancalWorkImage(i)">
+                      <mat-icon>cancel</mat-icon>
+                    </button>
+                  </mat-grid-tile>
+                </mat-grid-list>
               </mat-card-content>
             </mat-card>
           </div>
@@ -553,7 +573,7 @@
                     formControlName="emergencyRelation" [matAutocomplete]="auto1">
                   <mat-autocomplete #auto1="matAutocomplete">
                     <mat-option *ngFor="let relation of relations" [value]="relation">
-                      {{relation}}
+                      {{ relation }}
                     </mat-option>
                   </mat-autocomplete>
                   <mat-error
@@ -594,7 +614,8 @@
     <div class="row">
       <!-- Card column -->
       <div class="col col-lg-12 col-sm-12">
-        <button mat-fab extended color="primary" type="submit" [disabled]="!providerProfileForm.valid">
+        <button mat-fab extended color="primary" type="submit" [disabled]="!providerProfileForm.valid"
+          (click)="providerProfileRegister()">
           <mat-icon>save</mat-icon>
           Save
         </button>

@@ -15,7 +15,7 @@
               <div class="icon-wrapper">
                 <!-- <input type="file" formControlName="photo" id="avatar-input-file" accept="image/*" (change)="onFileChange($event)" /> -->
                 <!-- <mat-icon class="icon">edit</mat-icon> -->
-                <mat-icon class="icon" (click)="openDialog('500ms', '500ms', 'photo', false)">edit</mat-icon>
+                <mat-icon class="icon" (click)="openDialog('500ms', '500ms', 'profile', false)">edit</mat-icon>
               </div>
             </label>
           </div>
@@ -64,10 +64,12 @@
                   </mat-error>
                 </mat-form-field> -->
                 <div class="gender-selector">
-                  <div class="gender-button" [style.border]="isMale ? '2px solid green' : '1px solid black'"
-                    (click)="setGender(true)">👨 Male</div>
-                  <div class="gender-button" [style.border]="!isMale ? '2px solid green' : '1px solid black'"
-                    (click)="setGender(false)">👩‍🦰 Female</div>
+                  <button type="button" mat-raised-button class="gender-button"
+                    [style.border]="isMale ? '2px solid green' : ''" (click)="setGender(true)">👨
+                    Male</button>
+                  <button type="button" mat-raised-button class="gender-button"
+                    [style.border]="!isMale ? '2px solid green' : ''" (click)="setGender(false)">👩‍🦰
+                    Female</button>
                 </div>
               </div>
               <div class="col-md-6 col-sm-12">

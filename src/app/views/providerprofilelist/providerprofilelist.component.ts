@@ -16,6 +16,26 @@ export class ProviderProfileListComponent implements OnInit {
   constructor(private userService: UserService) {
   }
 
+  imageObject = [{
+    image: 'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/5.jpg',
+    thumbImage: 'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/5.jpg',
+  }, {
+    image: 'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/9.jpg',
+    thumbImage: 'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/9.jpg'
+  }, {
+    image: 'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/4.jpg',
+    thumbImage: 'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/4.jpg',
+  }, {
+    image: 'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/7.jpg',
+    thumbImage: 'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/7.jpg',
+  }, {
+    image: 'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/1.jpg',
+    thumbImage: 'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/1.jpg'
+  }, {
+    image: 'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/2.jpg',
+    thumbImage: 'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/2.jpg',
+  }];
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   // Example data array
