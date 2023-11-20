@@ -55,6 +55,7 @@ import { PhotoFromCameraModal } from './core/components/PhotoFromCameraModal/pho
 import { ProviderProfileComponent } from './views/providerprofile/providerprofile.component';
 import { ProviderProfileListComponent } from './views/providerprofilelist/providerprofilelist.component';
 import { ProviderProfileViewComponent } from './views/providerprofileview/providerprofileview.component';
+import { SelectDateModal } from './views/providerprofileview/selectDateModal/select-date-modal.component';
 import { OrderComponent } from './views/order/order.component';
 
 @NgModule({
@@ -79,6 +80,7 @@ import { OrderComponent } from './views/order/order.component';
     ProviderProfileComponent,
     ProviderProfileListComponent,
     ProviderProfileViewComponent,
+    SelectDateModal,
     OrderComponent
   ],
   imports: [
@@ -116,7 +118,7 @@ import { OrderComponent } from './views/order/order.component';
     MatCheckboxModule,
     MatRadioModule,
     MatGridListModule,
-    NgImageSliderModule
+    NgImageSliderModule,
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: CrudInterceptor, multi: true }],
   bootstrap: [AppComponent],

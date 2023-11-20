@@ -12,16 +12,12 @@
     </div>
     <div class="col-sm-12 col-md-5" style="display: flex; justify-content: end;">
       <mat-card>
+        <mat-card-header>
+          <mat-card-title>Select the date and block the service provider</mat-card-title>
+        </mat-card-header>
         <mat-card-content>
-          <div style="text-align: center;">
-            <p>Select the date and block the service provider</p>
-            <button mat-flat-button color="primary" [matMenuTriggerFor]="dropdown">Select dates and block</button>
-            <mat-menu #dropdown="matMenu" xPosition="before">
-              <div>
-                <mat-calendar [(selected)]="selected"></mat-calendar>
-                <mat-calendar [(selected)]="selected"></mat-calendar>
-              </div>
-            </mat-menu>
+          <div class="select-date-block">
+            <button mat-flat-button color="primary" (click)="openDialog('500', '500')">Select dates and block</button>
           </div>
         </mat-card-content>
       </mat-card>
@@ -29,12 +25,11 @@
   </div>
   <div class="work-photo">
     <div class="main-photo">
+      <img [src]="imageObject[0].image">
     </div>
     <div class="image-carousel">
-      <div style="width: 100%; text-align:center;margin:0; padding:0;">
-        <ng-image-slider #nav [images]="imageObject" [infinite]="true" [autoSlide]="1" [imageSize]="{width: '25%'}"
-          slideImage="1"></ng-image-slider>
-      </div>
+      <ng-image-slider #nav [images]="imageObject" [infinite]="true" [autoSlide]="1" [imageSize]="{width: '20%'}"
+        slideImage="1"></ng-image-slider>
     </div>
   </div>
   <div class="profile-content">
@@ -150,7 +145,27 @@
           </div>
         </div>
       </mat-tab>
-      <mat-tab label="Work Information"> Content 2 </mat-tab>
+      <mat-tab label="Work Information">
+        <div class="work-info">
+          <mat-card>
+            <mat-card-header>
+              <mat-card-title>
+                Category1, Category2, Category3
+              </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <mat-list role="list">
+                <mat-list-item role="listitem">
+                  Experienced-In
+                </mat-list-item>
+                <mat-list-item role="listitem">
+                  Visit Charges/hour
+                </mat-list-item>
+              </mat-list>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </mat-tab>
       <mat-tab label="Company Information">
         <div class="company-info">
           <div class="row">

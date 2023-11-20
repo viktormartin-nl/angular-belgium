@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { User } from 'src/app/shared/interface/user.interface';
 import { UserService } from 'src/app/shared/service/users/user.service';
+import { SelectDateModal } from './selectDateModal/select-date-modal.component';
 
 @Component({
   selector: 'app-provider-profile-view',
@@ -27,7 +29,7 @@ export class ProviderProfileViewComponent implements OnInit {
   loggedInUser = localStorage.getItem('loggedInUser');
   userId: number = this.loggedInUser ? JSON.parse(this.loggedInUser).id : 1;
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, public dialog: MatDialog) {
   }
 
   imageObject = [{
@@ -95,5 +97,19 @@ export class ProviderProfileViewComponent implements OnInit {
   markerPositions: google.maps.LatLngLiteral[] = [];
   addMarker(event: google.maps.MapMouseEvent) {
     if (event.latLng != null) this.markerPositions.push(event.latLng.toJSON());
+  }
+
+  openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+    const dialogdef = this.dialog.open(SelectDateModal, {
+      minWidth: '60%',
+      minHeight: '150px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+      data: {
+      }
+    });
+    dialogdef.afterClosed().subscribe(result => {
+
+    })
   }
 }

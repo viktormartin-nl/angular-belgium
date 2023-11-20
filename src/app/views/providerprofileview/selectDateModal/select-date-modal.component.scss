@@ -1,0 +1,46 @@
+main.mat-dialog {
+  padding: 36px 5px 0;
+
+  .time-picker {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+
+    .time-picker-item {
+      margin: 5px 0;
+
+      button {
+        width: 150px;
+      }
+    }
+
+  }
+
+  .start-date {
+    justify-content: space-around;
+
+    .start-date-item {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+
+      .start-date-item-label {
+        margin-bottom: 10px;
+      }
+
+      mat-form-field {
+        width: 180px;
+      }
+
+      button {
+        margin: 0 3px;
+      }
+    }
+  }
+}
+
+
+.mat-dialog-actions {
+  float: right;
+}
