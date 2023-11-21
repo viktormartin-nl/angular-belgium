@@ -16,6 +16,7 @@ import { AppComponent } from 'src/app/app.component';
 import { PhotoSelectModal } from "../../core/components/photoSelectModal/photo-select-modal.component";
 import { PhotoFromFolderModal } from "../../core/components/PhotoFromFolderModal/photo-from-folder-modal.component";
 import { PhotoFromCameraModal } from "../../core/components/PhotoFromCameraModal/photo-from-camera-modal.component";
+import { ExpandImageModal } from "../../core/components/ExpandImageModal/expand-image-modal.component";
 
 @Component({
   selector: 'provider-profile',
@@ -26,6 +27,8 @@ export class ProviderProfileComponent implements OnInit {
   error_message: string = '';
 
   providerProfileForm: FormGroup = this.fb.group({
+    profile: [''],
+    idProof: [''],
     email: ['', [Validators.required, Validators.email]],
     password: ['', Validators.required],
     firstName: ['', Validators.required],
@@ -46,13 +49,14 @@ export class ProviderProfileComponent implements OnInit {
     Longitude: ['', Validators.required],
     Latitude: ['', Validators.required],
     spokenLanguage: [[], Validators.required],
-    higherEducation: [[]],
+    higherEducation: [''],
     instagram: [''],
     facebook: [''],
     linkedIn: [''],
     twitter: [''],
-    experiencedIn: ['', Validators.required],
-    workCategory: [[], Validators.required],
+    workCategory: [[]],
+    experiencedIn: [[], Validators.required],
+    workImage: [[], Validators.required],
     visitCharge: ['', Validators.required],
     companyName: [''],
     companyAddress: [''],
@@ -73,30 +77,200 @@ export class ProviderProfileComponent implements OnInit {
     private snackBar: MatSnackBar,
     private sanitizer: DomSanitizer,
     public dialog: MatDialog) {
+
     this.languageList = this.allLanguages;
     this.filteredLanguages = this.langCtrl.valueChanges.pipe(
       startWith(null),
       map((language: string | null) => (language ? this._filter(language) : this.languageList.slice())),
     );
+
     this.categoryList = this.allCategories;
     this.filteredCategories = this.categoryCtrl.valueChanges.pipe(
       startWith(null),
       map((category: string | null) => (category ? this._filterCategory(category) : this.categoryList.slice())),
     );
+
+    this.experienceList = this.allExperiences;
+    this.filteredExperiences = this.experienceCtrl.valueChanges.pipe(
+      startWith(null),
+      map((experience: string | null) => (experience ? this._filterExperience(experience) : this.experienceList.slice())),
+    );
   }
 
   ngOnInit() {
+    this.userService.getProfile(this.userId).subscribe({
+      next: (user: User) => {
+        console.log(user);
+        this.providerProfileForm = this.fb.group({
+          email: [user.email, [Validators.required, Validators.email]],
+          password: [user.password, Validators.required],
+          firstName: [user.firstName, Validators.required],
+          lastName: [user.lastName, Validators.required],
+          gender: ['Male', Validators.required],
+          DOB: [user.DOB, Validators.required],
+          phoneNumber: [user.phoneNumber, Validators.required],
+          alternatePhNo: [user.alternatePhNo],
+          aboutYou: ['', [Validators.required, Validators.maxLength(350)]],
+          address: [user.userAddress.address, Validators.required],
+          street: [user.userAddress.street, Validators.required],
+          no: [user.userAddress.no, Validators.required],
+          flatNo: [user.userAddress.flatNo, Validators.required],
+          state: [user.userAddress.state, Validators.required],
+          city: [user.userAddress.city, Validators.required],
+          postCode: [user.userAddress.postCode, Validators.required],
+          country: [user.userAddress.country, Validators.required],
+          Longitude: [user.userAddress.Longitude, Validators.required],
+          Latitude: [user.userAddress.Latitude, Validators.required],
+          spokenLanguage: [user.userAdditionalInfo.spokenLanguage, Validators.required],
+          higherEducation: [user.userAdditionalInfo.higherEducation],
+          instagram: [user.userAdditionalInfo.socialMediaLinks.instagram],
+          linkedIn: [user.userAdditionalInfo.socialMediaLinks.linkedIn],
+          facebook: [user.userAdditionalInfo.socialMediaLinks.facebook],
+          twitter: [user.userAdditionalInfo.socialMediaLinks.twitter],
+          experiencedIn: [[], Validators.required],
+          workCategory: [[], Validators.required],
+          visitCharge: ['', Validators.required],
+          companyName: [''],
+          companyAddress: [''],
+          companyPhone: [''],
+          companyWebsiteLink: [''],
+          companyEnterpriseNumber: [''],
+          emergencyName: ['', Validators.required],
+          emergencyRelation: ['', Validators.required],
+          emergencyPhone: ['', Validators.required],
+          emergencyEmail: ['', Validators.email],
+        });
+        this.languages = user.userAdditionalInfo.spokenLanguage;
+        if (user.userAddress.Latitude && user.userAddress.Longitude) {
+          this.center = {
+            lat: parseFloat(user.userAddress.Latitude),
+            lng: parseFloat(user.userAddress.Longitude)
+          }
+        }
+        if (user.gender == 'Female') {
+          this.isMale = false;
+        } else {
+          this.isMale = true;
+        }
+      },
+    });
   }
 
   providerProfileRegister(): void {
-    console.log(this.providerProfileForm.controls);
+    this.providerProfileForm.controls['spokenLanguage'].setValue(this.languages);
+    this.providerProfileForm.controls['workCategory'].setValue(this.categories);
+    this.providerProfileForm.controls['experiencedIn'].setValue(this.experiences);
+    this.providerProfileForm.controls['Longitude'].setValue(this.center.lng);
+    this.providerProfileForm.controls['Latitude'].setValue(this.center.lat);
+
+    if (this.profile === '') {
+      this.snackBar.open('Please select your profile photo!', 'warning', {
+        duration: 3000
+      });
+    } else if (this.idProof === '') {
+      this.snackBar.open('Please select your ID Card!', 'warning', {
+        duration: 3000
+      });
+    } else if (this.workImage.length === 0) {
+      this.snackBar.open('Please select Images of your work!', 'warning', {
+        duration: 3000
+      });
+    } else if (this.providerProfileForm.valid) {
+      console.log(this.providerProfileForm.controls);
+      this.providerProfileForm = this.fb.group({
+        profile: [this.profile, Validators.required],
+        idProof: [this.idProof, Validators.required],
+        email: [this.providerProfileForm.controls['email'].value, [Validators.required, Validators.email]],
+        password: [this.providerProfileForm.controls['password'].value, Validators.required],
+        firstName: [this.providerProfileForm.controls['firstName'].value, Validators.required],
+        lastName: [this.providerProfileForm.controls['lastName'].value, Validators.required],
+        gender: [this.providerProfileForm.controls['gender'].value, Validators.required],
+        DOB: [this.providerProfileForm.controls['DOB'].value, Validators.required],
+        phoneNumber: [this.providerProfileForm.controls['phoneNumber'].value, Validators.required],
+        alternatePhNo: [this.providerProfileForm.controls['alternatePhNo'].value],
+        aboutYou: [this.providerProfileForm.controls['aboutYou'].value, [Validators.required, Validators.maxLength(350)]],
+        address: [this.providerProfileForm.controls['address'].value, Validators.required],
+        street: [this.providerProfileForm.controls['street'].value, Validators.required],
+        no: [this.providerProfileForm.controls['no'].value, Validators.required],
+        flatNo: [this.providerProfileForm.controls['flatNo'].value, Validators.required],
+        state: [this.providerProfileForm.controls['state'].value, Validators.required],
+        city: [this.providerProfileForm.controls['city'].value, Validators.required],
+        postCode: [this.providerProfileForm.controls['postCode'].value, Validators.required],
+        country: [this.providerProfileForm.controls['country'].value, Validators.required],
+        Longitude: [this.providerProfileForm.controls['Longitude'].value, Validators.required],
+        Latitude: [this.providerProfileForm.controls['Longitude'].value, Validators.required],
+        spokenLanguage: [this.languages, Validators.required],
+        higherEducation: [this.providerProfileForm.controls['higherEducation'].value],
+        instagram: [this.socials.instagram],
+        facebook: [this.socials.facebook],
+        linkedIn: [this.socials.linkedIn],
+        twitter: [this.socials.twitter],
+        workCategory: [this.categories, Validators.required],
+        experiencedIn: [this.providerProfileForm.controls['experiencedIn'].value, Validators.required],
+        workImage: [this.workImage, Validators.required],
+        visitCharge: [this.providerProfileForm.controls['visitCharge'].value, Validators.required],
+        companyName: [this.providerProfileForm.controls['companyName'].value],
+        companyAddress: [this.providerProfileForm.controls['companyAddress'].value],
+        companyPhone: [this.providerProfileForm.controls['companyPhone'].value],
+        companyWebsiteLink: [this.providerProfileForm.controls['companyWebsiteLink'].value],
+        companyEnterpriseNumber: [this.providerProfileForm.controls['companyEnterpriseNumber'].value],
+        emergencyName: [this.providerProfileForm.controls['emergencyName'].value, Validators.required],
+        emergencyRelation: [this.providerProfileForm.controls['emergencyRelation'].value, Validators.required],
+        emergencyPhone: [this.providerProfileForm.controls['emergencyPhone'].value, Validators.required],
+        emergencyEmail: [this.providerProfileForm.controls['emergencyEmail'].value, Validators.email],
+      });
+
+      this.userService.postProviderProfile(this.userId, this.providerProfileForm.value).subscribe({
+        next: (loggedInUser: User) => {
+          // localStorage['loggedInUser'] = JSON.stringify(loggedInUser);
+          this.snackBar.open('Registered your provider profile successfully!', 'Success', {
+            duration: 4000
+          });
+          window.location.href = '/providerprofilelist';
+          console.log(loggedInUser);
+        },
+        error: error => {
+          this.error_message = error.error;
+          console.log(error);
+        },
+      })
+
+    } else {
+      console.log(this.providerProfileForm.controls);
+      console.log(this.experiences);
+    }
   }
+
+  expandImage(event: MouseEvent) {
+    const imageTarget = event.target as HTMLImageElement;
+    const image = imageTarget.src;
+    if (image.includes('image')) {
+      this.openExpandImageModal('500', '500', image);
+    }
+    console.log(image);
+  }
+
+  openExpandImageModal(enterAnimationDuration: string, exitAnimationDuration: string, image: string): void {
+    const dialogDef = this.dialog.open(ExpandImageModal, {
+      minWidth: '360px',
+      width: '30%',
+      height: 'content-fit',
+      enterAnimationDuration,
+      exitAnimationDuration,
+      data: {
+        image
+      }
+    });
+    dialogDef.afterClosed().subscribe(result => {
+      console.log(result);
+    });
+  }
+
 
   profile: string = '';
   idProof: string = '';
 
   isMale: boolean = true;
-
   setGender(state: boolean): any {
     if (state) {
       this.isMale = true;
@@ -132,6 +306,39 @@ export class ProviderProfileComponent implements OnInit {
   // }
   options: any = {
     componentRestrictions: {}
+  }
+
+  handleAddressChange(address: Address) {
+    console.log(address.formatted_address)
+
+    this.providerProfileForm.controls['firstName'].setValue('sdfsdf');
+    this.center = {
+      lat: address.geometry.location.lat(),
+      lng: address.geometry.location.lng()
+    };
+
+    this.providerProfileForm.controls['address'].setValue(address.formatted_address);
+
+    address.address_components.forEach(component => {
+      if (component.types.includes('street_number')) {
+        this.providerProfileForm.controls['no'].setValue(component.long_name);
+      }
+      if (component.types.includes('route')) {
+        this.providerProfileForm.controls['street'].setValue(component.long_name);
+      }
+      if (component.types.includes('postal_code')) {
+        this.providerProfileForm.controls['postCode'].setValue(component.long_name);
+      }
+      if (component.types.includes('locality')) {
+        this.providerProfileForm.controls['city'].setValue(component.long_name);
+      }
+      if (component.types.includes('administrative_area_level_1')) {
+        this.providerProfileForm.controls['state'].setValue(component.long_name);
+      }
+      if (component.types.includes('country')) {
+        this.providerProfileForm.controls['country'].setValue(component.long_name);
+      }
+    });
   }
 
   // open dialog for camera and local drive
@@ -199,41 +406,6 @@ export class ProviderProfileComponent implements OnInit {
       }
     });
   }
-
-  handleAddressChange(address: Address) {
-    console.log(address.formatted_address)
-
-    this.providerProfileForm.controls['firstName'].setValue('sdfsdf');
-    this.center = {
-      lat: address.geometry.location.lat(),
-      lng: address.geometry.location.lng()
-    }
-
-    this.providerProfileForm.controls['Longitude'].setValue(this.center.lng);
-    this.providerProfileForm.controls['Latitude'].setValue(this.center.lat);
-
-    address.address_components.forEach(component => {
-      if (component.types.includes('street_number')) {
-        this.providerProfileForm.controls['no'].setValue(component.long_name);
-      }
-      if (component.types.includes('route')) {
-        this.providerProfileForm.controls['street'].setValue(component.long_name);
-      }
-      if (component.types.includes('postal_code')) {
-        this.providerProfileForm.controls['postCode'].setValue(component.long_name);
-      }
-      if (component.types.includes('locality')) {
-        this.providerProfileForm.controls['city'].setValue(component.long_name);
-      }
-      if (component.types.includes('administrative_area_level_1')) {
-        this.providerProfileForm.controls['state'].setValue(component.long_name);
-      }
-      if (component.types.includes('country')) {
-        this.providerProfileForm.controls['country'].setValue(component.long_name);
-      }
-    });
-  }
-
 
   //user-additional-info
   addOnBlur = true;
@@ -328,8 +500,6 @@ export class ProviderProfileComponent implements OnInit {
     console.log('aaa');
     console.log(this.categories);
     console.log(this.categoryList);
-
-    this.providerProfileForm.controls['workCategory'].setValue(this.categories);
   }
 
   removeCategory(category: string): void {
@@ -342,8 +512,6 @@ export class ProviderProfileComponent implements OnInit {
     console.log('bbb');
     console.log(this.categories);
     console.log(this.categoryList);
-
-    this.providerProfileForm.controls['workCategory'].setValue(this.categories);
   }
 
   selectedCategory(event: MatAutocompleteSelectedEvent): void {
@@ -365,6 +533,8 @@ export class ProviderProfileComponent implements OnInit {
     return this.categoryList.filter(category => category.toLowerCase().includes(filterValue) && !this.categories.includes(category));
   }
 
+  // Handle socialMedia links
+
   socialMediaValue = new FormControl();
   socialMedia = new FormControl();
   socialMedias: string[] = ['linkedIn', 'instagram', 'facebook', 'twitter'];
@@ -379,11 +549,6 @@ export class ProviderProfileComponent implements OnInit {
     // });
     this.socialMedia.setValue('');
     this.socialMediaValue.setValue('');
-
-    this.providerProfileForm.controls['linkedIn'].setValue(this.socials.linkedIn);
-    this.providerProfileForm.controls['instagram'].setValue(this.socials.instagram);
-    this.providerProfileForm.controls['facebook'].setValue(this.socials.facebook);
-    this.providerProfileForm.controls['twitter'].setValue(this.socials.twitter);
   }
 
   cancelSocial(key: any) {
@@ -450,11 +615,79 @@ export class ProviderProfileComponent implements OnInit {
   };
 
   handleCompanyAddressChange(address: Address) {
-    console.log(address.formatted_address)
     this.companyCenter = {
       lat: address.geometry.location.lat(),
       lng: address.geometry.location.lng()
     }
+    this.providerProfileForm.controls['companyAddress'].setValue(address.formatted_address);
+  }
+
+  // Work information Editing
+
+  experienceCtrl = new FormControl('');
+  filteredExperiences: Observable<string[]>;
+  experiences: string[] = [];
+  allExperiences: string[] = ['Experience1', 'Experience2', 'Experience3', 'Experience4'];
+  experienceList: string[];
+
+  @ViewChild('experienceInput')
+  experienceInput!: ElementRef<HTMLInputElement>;
+
+  addExperience(event: MatChipInputEvent): void {
+    const value = (event.value || '').trim();
+    console.log(value);
+
+    // Add our language
+    if (value && this.experienceList.includes(value) && !this.experiences.includes(value)) {
+      this.experienceList.filter(experience => experience !== value);
+      this.experiences.push(value);
+      console.log('add');
+
+      // Clear the input value
+      event.chipInput!.clear();
+    }
+    console.log('aaa');
+    console.log(this.experiences);
+    console.log(this.experienceList);
+  }
+
+  removeExperience(experience: string): void {
+    const index = this.experiences.indexOf(experience);
+    if (index >= 0) {
+      console.log('remove');
+      this.experienceList.push(experience);
+      this.experiences.splice(index, 1);
+    }
+    console.log('bbb');
+    console.log(this.experiences);
+    console.log(this.experienceList);
+  }
+
+  selectedExperience(event: MatAutocompleteSelectedEvent): void {
+    if (!this.experiences.includes(event.option.viewValue)) {
+      this.experienceList.filter(lang => lang !== event.option.viewValue);
+      this.experiences.push(event.option.viewValue);
+    }
+    this.experienceInput.nativeElement.value = '';
+    this.experienceCtrl.setValue(null);
+
+    console.log(this.experiences);
+    console.log(this.experienceList);
+
+  }
+
+  private _filterExperience(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    return this.experienceList.filter(experience => experience.toLowerCase().includes(filterValue) && !this.experiences.includes(experience));
+  }
+
+  additionExperience(event: any) {
+    // console.log(this.experienceCtrl.value, '=');
+    const additionExperience = this.providerProfileForm.controls['experiencedIn'].value;
+    this.experiences.push(additionExperience);
+    console.log(this.experiences, 'ssssssssss');
+    // this.experienceList.push(additionExperience);
+    this.providerProfileForm.controls['experiencedIn'].setValue(this.experiences);
   }
 
   // Emergency details Editing

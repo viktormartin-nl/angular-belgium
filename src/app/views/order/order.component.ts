@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { User } from 'src/app/shared/interface/user.interface';
 import { UserService } from 'src/app/shared/service/users/user.service';
 import { Address } from 'ngx-google-places-autocomplete/objects/address';
 import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-profileview',
@@ -14,7 +15,7 @@ export class OrderComponent implements OnInit {
   loggedInUser = localStorage.getItem('loggedInUser');
   userId: number = this.loggedInUser ? JSON.parse(this.loggedInUser).id : 1;
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private snackBar: MatSnackBar) {
 
   }
 
@@ -92,7 +93,11 @@ export class OrderComponent implements OnInit {
 
   // Request Address
 
-  addresses: string[] = ['Winter', 'Spring', 'Summer', 'Autumn'];
+  addresses: string[] = [
+    'Rue de la Loi 20, 1000 Bruxelles, Belgium',
+    'Yorkshirelaan 20, Woluwe-Saint-Lambert, Brussels, Belgium',
+    'Drève Olympique 2, Anderlecht, Brussels, Belgium',
+    'Brussels Cemetery, Avenue du Cimetière de Bruxelles, Evere, Belgium'];
 
   requestAddresses: string[] = [...this.addresses];
   billingAddresses: string[] = [...this.addresses];
@@ -128,32 +133,72 @@ export class OrderComponent implements OnInit {
   options: any = {
     componentRestrictions: {}
   }
-  handleRequestAddressChange(address: Address) {
+
+  handleAddressChange(address: Address, type: string) {
     this.addingAddress = address.formatted_address;
-    this.requestCenter = {
-      lat: address.geometry.location.lat(),
-      lng: address.geometry.location.lng()
+    if (type == 'request') {
+      this.requestCenter = {
+        lat: address.geometry.location.lat(),
+        lng: address.geometry.location.lng()
+      };
+    } else if (type == 'billing') {
+      this.billingCenter = {
+        lat: address.geometry.location.lat(),
+        lng: address.geometry.location.lng()
+      };
     }
+
+    const addingAddress: any = {};
+    address.address_components.forEach(component => {
+      if (component.types.includes('street_number')) {
+        addingAddress.no = component.long_name;
+      }
+      if (component.types.includes('route')) {
+        addingAddress.street = component.long_name;
+      }
+      if (component.types.includes('postal_code')) {
+        addingAddress.postCode = component.long_name;
+      }
+      if (component.types.includes('locality')) {
+        addingAddress.city = component.long_name;
+      }
+      if (component.types.includes('administrative_area_level_1')) {
+        addingAddress.state = component.long_name;
+      }
+      if (component.types.includes('country')) {
+        addingAddress.country = component.long_name;
+      }
+    });
+    console.log(addingAddress);
   }
-  handleBillingAddressChange(address: Address) {
-    this.addingAddress = address.formatted_address;
-    this.billingCenter = {
-      lat: address.geometry.location.lat(),
-      lng: address.geometry.location.lng()
-    }
-  }
+
+  @ViewChild('requestFlatNo') requestFlatNo!: ElementRef;
+  @ViewChild('billingFlatNo') billingFlatNo!: ElementRef;
 
   addAddress(type: string) {
     if (this.addingAddress != '') {
       if (type === 'request') {
-        this.requestAddresses.push(this.addingAddress);
-        this.addingAddress = '';
+        if (this.requestFlatNo.nativeElement.value == '') {
+          this.snackBar.open('Please Enter the Flat No!', 'warning', {
+            duration: 3000
+          });
+        } else {
+          this.requestAddresses.push(this.addingAddress);
+          this.addingAddress = '';
+        }
       } else {
-        this.billingAddresses.push(this.addingAddress);
-        this.addingAddress = '';
+        if (this.billingFlatNo.nativeElement.value == '') {
+          this.snackBar.open('Please Enter the Flat No!', 'warning', {
+            duration: 3000
+          });
+        } else {
+          this.billingAddresses.push(this.addingAddress);
+          this.addingAddress = '';
+        }
       }
     }
   }
+
 
   payment() {
   }

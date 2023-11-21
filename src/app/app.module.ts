@@ -56,6 +56,7 @@ import { ProviderProfileComponent } from './views/providerprofile/providerprofil
 import { ProviderProfileListComponent } from './views/providerprofilelist/providerprofilelist.component';
 import { ProviderProfileViewComponent } from './views/providerprofileview/providerprofileview.component';
 import { SelectDateModal } from './views/providerprofileview/selectDateModal/select-date-modal.component';
+import { ExpandImageModal } from "../app/core/components/ExpandImageModal/expand-image-modal.component";
 import { OrderComponent } from './views/order/order.component';
 
 @NgModule({
@@ -81,6 +82,7 @@ import { OrderComponent } from './views/order/order.component';
     ProviderProfileListComponent,
     ProviderProfileViewComponent,
     SelectDateModal,
+    ExpandImageModal,
     OrderComponent
   ],
   imports: [
@@ -131,6 +133,7 @@ export class AppModule {
     this.matIconRegistry.addSvgIcon('instagram', this.domSanitizer.bypassSecurityTrustResourceUrl('assets/social/instagram.svg'));
     this.matIconRegistry.addSvgIcon('linkedIn', this.domSanitizer.bypassSecurityTrustResourceUrl('assets/social/linkedin.svg'));
     this.matIconRegistry.addSvgIcon('bachelor', this.domSanitizer.bypassSecurityTrustResourceUrl('assets/social/bachelor.svg'));
+    this.matIconRegistry.addSvgIcon('handshake', this.domSanitizer.bypassSecurityTrustResourceUrl('assets/social/handshake.svg'));
     // Add more icons as needed
   }
 }

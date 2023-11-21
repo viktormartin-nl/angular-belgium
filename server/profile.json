@@ -1,0 +1,79 @@
+{
+  "userInfo": [
+    {
+      "email": "admin@example.com",
+      "password": "Admin@example.com1",
+      "id": 2,
+      "role": "admin",
+      "userAddress": {
+        "email": "admin@example.com",
+        "address": "",
+        "country": "",
+        "state": "",
+        "city": "",
+        "street": "",
+        "postCode": "",
+        "no": "",
+        "flatNo": "",
+        "Longitude": "",
+        "Latitude": ""
+      },
+      "userPhoto": {
+        "email": "admin@example.com",
+        "photo": ""
+      },
+      "userAdditionalInfo": {
+        "email": "admin@example.com",
+        "spokenLanguage": [],
+        "higherEducation": "",
+        "socialMediaLinks": {
+          "instagram": "",
+          "linkedIn": "",
+          "facebook": "",
+          "twitter": ""
+        }
+      },
+      "firstName": "sdfsdf",
+      "lastName": "sdfsfd",
+      "gender": "Male",
+      "DOB": "2023-11-13T15:00:00.000Z",
+      "phoneNumber": "+3223423422"
+    }
+  ],
+  "userPhoto": [
+    {
+      "email": "admin@example.com",
+      "photo": "data:image/png;base64,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"
+    }
+  ],
+  "userAddress": [
+    {
+      "email": "admin@example.com",
+      "address": "Bd de Waterloo 20, 1000 Bruxelles, Belgium",
+      "country": "Belgium",
+      "state": "Bruxelles",
+      "city": "Bruxelles",
+      "street": "Boulevard de Waterloo",
+      "postCode": "1000",
+      "no": "20",
+      "flatNo": "23",
+      "Longitude": 4.3595292,
+      "Latitude": 50.8381027
+    }
+  ],
+  "userAdditionalInfo": [
+    {
+      "email": "admin@example.com",
+      "spokenLanguage": [
+        "Spanish"
+      ],
+      "higherEducation": "",
+      "socialMediaLinks": {
+        "instagram": "",
+        "linkedIn": "",
+        "facebook": "",
+        "twitter": ""
+      }
+    }
+  ]
+}

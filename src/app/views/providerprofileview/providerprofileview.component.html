@@ -2,8 +2,8 @@
   <div class="row">
     <div class="col-sm-12 col-md-7">
       <div style="margin-bottom: 30px;">
-        <h2 style="font-weight: bold;">Category1. Category2 , Category3</h2>
-        <p style="font-weight: normal;">Created on 20 Oct, 2020, 06:09:23 AM</p>
+        <h2 style="font-weight: bold;">{{ providerProfie.workCategory.join(", ") }}</h2>
+        <p style="font-weight: normal;">Created on {{ providerProfie.createdAt }}</p>
         <p>
           <mat-icon>star</mat-icon>
           4.5 (1 reviews)
@@ -25,7 +25,7 @@
   </div>
   <div class="work-photo">
     <div class="main-photo">
-      <img [src]="imageObject[0].image">
+      <img [src]="imageObject[0].image" (click)="expandImage($event)" />
     </div>
     <div class="image-carousel">
       <ng-image-slider #nav [images]="imageObject" [infinite]="true" [autoSlide]="1" [imageSize]="{width: '20%'}"
@@ -37,14 +37,16 @@
       <div class="col-sm-12 col-md-4">
         <div class="avatar-card">
           <div class="avatar-container">
-            <div class="image-container" [ngStyle]="{backgroundImage: 'url(' + fileName + ')'}">
-            </div>
+            <!-- <div class="image-container"
+              [ngStyle]="{backgroundImage: 'url(' + providerProfie.profilePhoto.value + ')'}">
+            </div> -->
+            <img class="image-container" [src]="providerProfie.profilePhoto.value" (click)="expandImage($event)" />
           </div>
         </div>
       </div>
       <div class="col-sm-12 col-md-4 verify">
         <div>
-          <p class="profile-name">FirstName LastName</p>
+          <p class="profile-name">{{ providerProfie.userInfo.firstName + " " + providerProfie.userInfo.lastName }}</p>
           <mat-list role="list">
             <mat-list-item role="listitem">
               <span>Identify</span>
@@ -72,48 +74,48 @@
         <span>(41 reviews)</span>
       </mat-card-header>
       <mat-card-content>
-        About you text here
+        {{ providerProfie.userInfo.aboutYou }}
       </mat-card-content>
     </mat-card>
     <mat-tab-group>
       <mat-tab label="Personal Information">
         <div style="padding: 15px;">
           <div class="row">
-            <div class="col-sm-12 col-md-7">
+            <div class="col-sm-12 col-md-6">
               <mat-card>
                 <mat-card-header>
                   <mat-card-title>
                     <div class="card-content-list">
-                      <mat-icon class="icon">join</mat-icon>
-                      <mat-label>Joined in Oct 20, 2023, 6:09:23 AM</mat-label>
+                      <mat-icon class="icon" svgIcon="handshake"></mat-icon>
+                      <mat-label>Joined in {{ providerProfie.userInfo.createdAt }}</mat-label>
                     </div>
                   </mat-card-title>
                 </mat-card-header>
                 <mat-card-content>
                   <div class="card-content-list">
                     <mat-icon class="icon">person</mat-icon>
-                    <mat-label>female</mat-label>
+                    <mat-label> {{ providerProfie.userInfo.gender }} </mat-label>
                   </div>
                   <div class="card-content-list">
-                    <mat-icon class="icon">calendar_today</mat-icon>
-                    <mat-label>2021-10-15</mat-label>
+                    <mat-icon class="icon">event_note</mat-icon>
+                    <mat-label> {{ providerProfie.userInfo.DOB }} </mat-label>
                   </div>
                   <div class="card-content-list">
                     <mat-icon class="icon">phone</mat-icon>
-                    <mat-label>+91 74104 12312</mat-label>
+                    <mat-label> {{ providerProfie.userInfo.phoneNo }} </mat-label>
                   </div>
                   <div class="card-content-list">
-                    <mat-icon class="icon">message</mat-icon>
-                    <mat-label>Speaks Papiamento</mat-label>
+                    <mat-icon class="icon">g_translate</mat-icon>
+                    <mat-label> {{ providerProfie.userInfo.spokenLanguage.join(", ") }} </mat-label>
                   </div>
                   <div class="card-content-list">
-                    <mat-icon class="icon">access_time</mat-icon>
-                    <mat-label>Lived in E40, 9052 Gent, Belgium</mat-label>
+                    <mat-icon class="icon">contact_mail</mat-icon>
+                    <mat-label> {{ providerProfie.address.address }} </mat-label>
                   </div>
                 </mat-card-content>
               </mat-card>
             </div>
-            <div class="col-sm-12 col-md-5">
+            <div class="col-sm-12 col-md-6">
               <mat-card class="verify-state">
                 <mat-card-header>
                   <mat-card-title style="font-weight: bold;">Aditional Information</mat-card-title>
@@ -121,23 +123,23 @@
                 <mat-card-content>
                   <div class="card-content-list">
                     <mat-icon class="icon" svgIcon="bachelor"></mat-icon>
-                    <mat-label>{{ higherEducation }}sdfsdf</mat-label>
+                    <mat-label>{{ providerProfie.userInfo.higherEduction }}</mat-label>
                   </div>
                   <div class="card-content-list">
                     <mat-icon class="icon" svgIcon="facebook"></mat-icon>
-                    <mat-label>{{ facebook }}</mat-label>
+                    <mat-label>{{ providerProfie.socialMediaLinks.facebook }}</mat-label>
                   </div>
                   <div class="card-content-list">
                     <mat-icon class="icon" svgIcon="linkedIn"></mat-icon>
-                    <mat-label>{{ linkedIn }}</mat-label>
+                    <mat-label>{{ providerProfie.socialMediaLinks.linkedIn }}</mat-label>
                   </div>
                   <div class="card-content-list">
                     <mat-icon class="icon" svgIcon="instagram"></mat-icon>
-                    <mat-label>{{ instagram }}</mat-label>
+                    <mat-label>{{ providerProfie.socialMediaLinks.instagram }}</mat-label>
                   </div>
                   <div class="card-content-list">
                     <mat-icon class="icon" svgIcon="twitter"></mat-icon>
-                    <mat-label>{{ twitter }}</mat-label>
+                    <mat-label>{{ providerProfie.socialMediaLinks.twitter }}</mat-label>
                   </div>
                 </mat-card-content>
               </mat-card>
@@ -150,16 +152,19 @@
           <mat-card>
             <mat-card-header>
               <mat-card-title>
-                Category1, Category2, Category3
+                {{ providerProfie.workCategory.join(", ") }}
               </mat-card-title>
             </mat-card-header>
             <mat-card-content>
               <mat-list role="list">
                 <mat-list-item role="listitem">
-                  Experienced-In
+                  {{ "Experienced-In: " + providerProfie.experiencedIn }}
                 </mat-list-item>
                 <mat-list-item role="listitem">
-                  Visit Charges/hour
+                  <div class="card-content-list">
+                    <mat-label> {{ 'Visit Charges/hour: ' + providerProfie.charge }} </mat-label>
+                    <mat-icon class="icon">euro</mat-icon>
+                  </div>
                 </mat-list-item>
               </mat-list>
             </mat-card-content>
@@ -181,24 +186,20 @@
                 </mat-card-header>
                 <mat-card-content>
                   <div class="card-content-list">
-                    <mat-icon class="icon" svgIcon="bachelor"></mat-icon>
-                    <mat-label>{{ higherEducation }}</mat-label>
+                    <mat-icon class="icon">group</mat-icon>
+                    <mat-label>{{ providerProfie.companyDetails.name }}</mat-label>
                   </div>
                   <div class="card-content-list">
-                    <mat-icon class="icon" svgIcon="facebook"></mat-icon>
-                    <mat-label>{{ facebook }}</mat-label>
+                    <mat-icon class="icon">location_city</mat-icon>
+                    <mat-label>{{ providerProfie.companyDetails.enterpriseNo }}</mat-label>
                   </div>
                   <div class="card-content-list">
-                    <mat-icon class="icon" svgIcon="linkedIn"></mat-icon>
-                    <mat-label>{{ linkedIn }}</mat-label>
+                    <mat-icon class="icon">phone</mat-icon>
+                    <mat-label>{{ providerProfie.companyDetails.phoneNo }}</mat-label>
                   </div>
                   <div class="card-content-list">
-                    <mat-icon class="icon" svgIcon="instagram"></mat-icon>
-                    <mat-label>{{ instagram }}</mat-label>
-                  </div>
-                  <div class="card-content-list">
-                    <mat-icon class="icon" svgIcon="twitter"></mat-icon>
-                    <mat-label>{{ twitter }}</mat-label>
+                    <mat-icon class="icon">domain</mat-icon>
+                    <mat-label>{{ providerProfie.companyDetails.websiteLink }}</mat-label>
                   </div>
                 </mat-card-content>
               </mat-card>
@@ -221,24 +222,19 @@
             </mat-card-header>
             <mat-card-content>
               <div class="card-content-list">
-                <mat-icon class="icon" svgIcon="bachelor"></mat-icon>
-                <mat-label>{{ higherEducation }}sdfsdf</mat-label>
+                <mat-label>{{ providerProfie.emergencyContact.relation }}</mat-label>
               </div>
               <div class="card-content-list">
-                <mat-icon class="icon" svgIcon="facebook"></mat-icon>
-                <mat-label>{{ facebook }}</mat-label>
+                <mat-icon class="icon">email</mat-icon>
+                <mat-label>{{ providerProfie.emergencyContact.email }}</mat-label>
               </div>
               <div class="card-content-list">
-                <mat-icon class="icon" svgIcon="linkedIn"></mat-icon>
-                <mat-label>{{ linkedIn }}</mat-label>
+                <mat-icon class="icon">phone</mat-icon>
+                <mat-label>{{ providerProfie.emergencyContact.phoneNo }}</mat-label>
               </div>
               <div class="card-content-list">
-                <mat-icon class="icon" svgIcon="instagram"></mat-icon>
-                <mat-label>{{ instagram }}</mat-label>
-              </div>
-              <div class="card-content-list">
-                <mat-icon class="icon" svgIcon="twitter"></mat-icon>
-                <mat-label>{{ twitter }}</mat-label>
+                <mat-icon class="icon">contact_mail</mat-icon>
+                <mat-label>{{ providerProfie.companyDetails.address.address }}</mat-label>
               </div>
             </mat-card-content>
           </mat-card>
@@ -287,7 +283,7 @@
               <div class="review-items">
                 <div class="review-item" *ngFor="let i of [1,2,3,4,5]">
                   <div class="row">
-                    <div class="col-sm-12 col-md-8" style="display: flex; align-items: center;">
+                    <div class="col-sm-12 col-md-8">
                       <div>
                         <div>
                           <span>user1@gmail.com</span>
@@ -299,7 +295,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-sm-12 col-md-4" style="display: flex; justify-content: center;">
+                    <div class="col-sm-12 col-md-4">
                       <div style="height: 80px; width: 80px; background-color:#c2bdbd; border-radius: 50%;"></div>
                     </div>
                   </div>

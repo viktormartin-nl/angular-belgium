@@ -8,7 +8,8 @@
       <form>
         <label for="avatar-input-file">
           <div class="icon-wrapper">
-            <input type="file" id="avatar-input-file" accept="*" (change)="onFileChange($event)" />
+            <input type="file" accept="images/*, text/*, " id="avatar-input-file" accept="*"
+              (change)="onFileChange($event)" />
             <mat-icon class="icon">attach_file</mat-icon>
           </div>
         </label>
@@ -42,11 +43,11 @@
             <mat-form-field appearance="outline">
               <mat-label>Search Location</mat-label>
               <input matInput ngx-google-places-autocomplete [options]="options" #placesRef="ngx-places"
-                (onAddressChange)="handleRequestAddressChange($event)" />
+                (onAddressChange)="handleAddressChange($event, 'request')" />
             </mat-form-field>
             <mat-form-field appearance="outline">
               <mat-label>Flat/Box No:</mat-label>
-              <input name="requestFlatNo" matInput clickOutside />
+              <input name="requestFlatNo" #requestFlatNo matInput clickOutside />
             </mat-form-field>
             <button mat-raised-button (click)="addAddress('request')"> Add Address </button>
           </div>
@@ -83,11 +84,11 @@
             <mat-form-field appearance="outline">
               <mat-label>Search Location</mat-label>
               <input matInput ngx-google-places-autocomplete [options]="options" #placesRef="ngx-places"
-                (onAddressChange)="handleBillingAddressChange($event)" />
+                (onAddressChange)="handleAddressChange($event, 'billing')" />
             </mat-form-field>
             <mat-form-field appearance="outline">
               <mat-label>Flat/Box No:</mat-label>
-              <input name="billingFlatNo" matInput clickOutside />
+              <input name="billingFlatNo" #billingFlatNo matInput clickOutside />
             </mat-form-field>
             <button mat-raised-button (click)="addAddress('billing')"> Add Address </button>
           </div>

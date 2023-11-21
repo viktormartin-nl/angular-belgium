@@ -46,7 +46,7 @@
       </div>
     </div>
     <div class="profile-add">
-      <button mat-flat-button color="primary">
+      <button mat-flat-button color="primary" [routerLink]="['/providerprofile']">
         <!-- <mat-icon>edit</mat-icon> -->
         Add provider profile
       </button>
@@ -65,7 +65,8 @@
                 <ng-image-slider #nav [images]="imageObject" [infinite]="true" [autoSlide]="1"
                   [imageSize]="{width: '100%'}" slideImage="1"></ng-image-slider>
               </div>
-              <div class="work-category">Category1, Category2, Category3</div>
+              <a class="work-category" [routerLink]="['/providerprofileview/']">
+                Category1, Category2, Category3</a>
             </div>
             <div class="col-md-5 col-sm-12 profile-description">
               <div class="profile-review" style="display: flex; justify-content: space-between;">

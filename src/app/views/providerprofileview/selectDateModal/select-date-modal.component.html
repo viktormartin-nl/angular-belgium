@@ -11,39 +11,13 @@
               <mat-calendar></mat-calendar>
             </div>
           </div>
-          <!-- <input type="text" ngxDaterangepickerMd class="form-control" /> -->
         </div>
         <div class="col-sm-12 col-md-3">
           <div class="time-picker">
-            <div class="time-picker-item">
-              <button mat-raised-button>07:00 - 08:00</button>
-            </div>
-            <div class="time-picker-item">
-              <button mat-raised-button>08:00 - 09:00</button>
-            </div>
-            <div class="time-picker-item">
-              <button mat-raised-button>09:00 - 10:00</button>
-            </div>
-            <div class="time-picker-item">
-              <button mat-raised-button>10:00 - 11:00</button>
-            </div>
-            <div class="time-picker-item">
-              <button mat-raised-button>11:00 - 12:00</button>
-            </div>
-            <div class="time-picker-item">
-              <button mat-raised-button>12:00 - 01:00</button>
-            </div>
-            <div class="time-picker-item">
-              <button mat-raised-button>01:00 - 02:00</button>
-            </div>
-            <div class="time-picker-item">
-              <button mat-raised-button>02:00 - 03:00</button>
-            </div>
-            <div class="time-picker-item">
-              <button mat-raised-button>03:00 - 04:00</button>
-            </div>
-            <div class="time-picker-item">
-              <button mat-raised-button>04:00 - 05:00</button>
+            <div class="time-picker-item" *ngFor="let timeItem of times; let i = index">
+              <button mat-raised-button [ngClass]="{'selected-time': selectedTime.includes(i)}"
+                (click)="changeTime(i)">{{
+                timeItem }}</button>
             </div>
             <div class="time-picker-item">
               <button mat-raised-button color="primary" style="width: 100px;">Add</button>
@@ -51,66 +25,32 @@
           </div>
         </div>
       </div>
+      <mat-divider></mat-divider>
       <div class="start-date row">
-        <div class="col-sm-12 col-md-4 col-xl-4">
+        <div class="col-sm-12 col-md-4 col-xl-4" *ngFor="let index of selectedTime">
           <div class="start-date-item">
             <div>
               <div class="start-date-item-label">Start Date</div>
-              <mat-form-field>
+              <mat-form-field appearance="outline">
                 <input matInput [matDatepicker]="picker1">
                 <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
                 <mat-datepicker #picker1></mat-datepicker>
               </mat-form-field>
               <div>
-                <button mat-raised-button>17-18</button>
+                <button mat-raised-button>{{ times[index] }}</button>
               </div>
             </div>
             <div>
-              <mat-icon>cancel</mat-icon>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-12 col-md-4 col-xl-4">
-          <div class="start-date-item">
-            <div>
-              <div class="start-date-item-label">Start Date</div>
-              <mat-form-field>
-                <input matInput [matDatepicker]="picker2">
-                <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
-                <mat-datepicker #picker2></mat-datepicker>
-              </mat-form-field>
-              <div>
-                <button mat-raised-button>15-16</button>
-                <button mat-raised-button>17-18</button>
-              </div>
-            </div>
-            <div>
-              <mat-icon>cancel</mat-icon>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-12 col-md-4 col-xl-4">
-          <div class="start-date-item">
-            <div>
-              <div class="start-date-item-label">Start Date</div>
-              <mat-form-field>
-                <input matInput [matDatepicker]="picker3">
-                <mat-datepicker-toggle matIconSuffix [for]="picker3"></mat-datepicker-toggle>
-                <mat-datepicker #picker3></mat-datepicker>
-              </mat-form-field>
-              <div>
-                <button mat-raised-button>17-18</button>
-              </div>
-            </div>
-            <div>
-              <mat-icon>cancel</mat-icon>
+              <button mat-mini-fab color="warn" (click)="removeTime(index)">
+                <mat-icon>cancel</mat-icon>
+              </button>
             </div>
           </div>
         </div>
       </div>
       <div class="mat-dialog-actions" mat-dialog-actions>
         <button mat-raised-button color="warn" mat-dialog-close>cancel</button>
-        <button mat-raised-button color="primary" mat-dialog-close cdkFocusInitial>Next</button>
+        <button mat-raised-button color="primary" mat-dialog-close>Next</button>
       </div>
     </mat-card-content>
   </mat-card>

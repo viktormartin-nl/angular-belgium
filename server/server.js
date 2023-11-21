@@ -162,7 +162,7 @@ server.post('/profile/:id', (req, res) => {
     console.log(req.body);
     const jsonData = JSON.stringify(db);
 
-    fs.writeFile('/server/data.json', jsonData, 'utf8', (err) => {
+    fs.writeFile('server/profile.json', jsonData, 'utf8', (err) => {
       if (err) {
         console.error(err);
         return;
@@ -176,6 +176,144 @@ server.post('/profile/:id', (req, res) => {
     res.status(500).send(e);
   }
 });
+
+server.post('/providerprofile/:id', (req, res) => {
+  const providerProfie = {
+    id: 12,
+    email: req.body.email,
+    user: {
+      id: 1,
+      email: req.body.email,
+      password: req.body.password
+    },
+    userInfo: {
+      id: "",
+      type: "serviceProvider",
+      user: {
+        id: 1,
+        email: req.body.email,
+        password: req.body.password
+      },
+      idProof: {
+        id: '23',
+        type: 'idProof',
+        value: req.body.idProof
+      },
+      email: req.body.email,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      DOB: req.body.DOB,
+      phoneNo: req.body.phoneNo,
+      alternatePhNo: req.body.alternatePhNo,
+      gender: req.body.gender,
+      spokenLanguage: req.body.spokenLanguage,
+      higherEduction: req.body.higherEducation,
+      aboutYou: req.body.aboutYou,
+      createdAt: "11/11/2023"
+    },
+    profilePhoto: {
+      id: "23",
+      email: req.body.email,
+      type: 'profile',
+      value: req.body.profile
+    },
+    address: {
+      id: "23",
+      email: req.body.email,
+      type: "serviceProvider",
+      address: req.body.address,
+      street: req.body.street,
+      no: req.body.no,
+      flatNo: req.body.flatNo,
+      state: req.body.state,
+      city: req.body.city,
+      postCode: req.body.postCode,
+      country: req.body.country,
+      Longitude: req.body.Longitude,
+      Latitude: req.body.Latitude
+    },
+    socialMediaLinks: {
+      id: "34",
+      email: req.body.email,
+      type: "serviceProvider",
+      instagram: req.body.instagram,
+      linkedIn: req.body.linkedIn,
+      facebook: req.body.facebook,
+      twitter: req.body.twitter
+    },
+    workCategory: req.body.workCategory,
+    experiencedIn: req.body.experiencedIn,
+    workImages: [{
+      id: "23",
+      email: req.body.email,
+      type: "workImage",
+      value: req.body.workImage[0]
+    },
+    {
+      id: "24",
+      email: req.body.email,
+      type: "workImage",
+      value: req.body.workImage[1]
+    },],
+    charge: req.body.charge,
+    companyDetails: {
+      id: "34",
+      // "serviceProviderObject": serviceProviderObject,
+      name: req.body.companyName,
+      address: {
+        id: "23",
+        email: req.body.email,
+        type: "additional",
+        address: req.body.companyAddress,
+        street: "Rue de la Loi",
+        no: "20",
+        flatNo: "23",
+        state: "Bruxelles",
+        city: "Bruxelles",
+        postCode: "1000",
+        country: "Belgium",
+        Longitude: "4.3643164",
+        Latitude: "50.8756265"
+      },
+      enterpriseNo: req.body.companyEnterpriseNumber,
+      phoneNo: req.body.companyPhone,
+      websiteLink: req.body.companyWebsiteLink
+    },
+    emergencyContact: {
+      // "id": "",
+      // "serviceProviderObject": serviceProviderObject,
+      name: req.body.emergencyName,
+      email: req.body.emergencyEmail,
+      relation: req.body.emergencyRelation,
+      phoneNo: req.body.emergencyPhone
+    },
+    serviceOrder: "",
+    createdAt: "11/11/2023"
+  };
+
+  fs.writeFile('server/providerProfile.json', JSON.stringify(providerProfie), 'utf8', (err) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    console.log('Data saved to providerProfile.json');
+  });
+  res.send({
+    success: 'Profile is successfully updated!'
+  });
+});
+
+server.get('providerprofile/:id', (req, res) => {
+  fs.readFile('server/providerProfile.json', 'utf8', (err, data) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    const providerProfile = JSON.parse(data);
+    console.log(providerProfile);
+    res.send(providerProfile);
+  });
+})
 
 // server.post('/profile/photo/:id', async (req, res) => {
 //     try {

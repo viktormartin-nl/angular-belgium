@@ -5,6 +5,10 @@ main.profile-view {
   background-color: $light-primary;
   padding: 3%;
 
+  mat-icon {
+    margin-bottom: -5px;
+  }
+
   .profile-search-bar {
     .col-sm-12 {
       margin-bottom: 10px;
@@ -36,6 +40,22 @@ main.profile-view {
             font-size: 20px;
             font-weight: 800;
             text-decoration: underline;
+            cursor: pointer;
+
+            /* Hover styles */
+            &:hover {
+              color: #67757c;
+            }
+
+            /* Visited styles */
+            &:visited {
+              color: #67757c;
+            }
+
+            /* Active styles */
+            &:active {
+              color: #000;
+            }
           }
 
           .profile-description {

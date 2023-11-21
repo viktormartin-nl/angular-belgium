@@ -34,7 +34,7 @@ export class UserService {
     return this.http.post<User>(`${url}/profile/${id}`, user);
   }
 
-  fileUpload(id: number, formData: FormData): Observable<any> {
-    return this.http.post<any>(`${url}/profile/photo/${id}`, formData);
+  postProviderProfile(id: number, user: any): Observable<any> {
+    return this.http.post<any>(`${url}/providerProfile/${id}`, user);
   }
 }

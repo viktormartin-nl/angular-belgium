@@ -147,7 +147,6 @@ export class ProfileComponent implements OnInit {
         facebook: [this.profileForm.controls['facebook'].value],
         twitter: [this.profileForm.controls['twitter'].value],
       });
-      console.log(this.profileForm.controls['spokenLanguage'].value);
       this.userService.postProfile(this.userId, this.profileForm.value).subscribe({
         next: (loggedInUser: User) => {
           // localStorage['loggedInUser'] = JSON.stringify(loggedInUser);
@@ -379,6 +378,7 @@ export class ProfileComponent implements OnInit {
     console.log('aaa');
     console.log(this.languages);
     console.log(this.languageList);
+    console.log(this.languages.length);
   }
 
   remove(language: string): void {

@@ -8,7 +8,8 @@
             <!-- <div class="image-container" [ngStyle]="{backgroundImage: 'url(' + fileName + ')'}">
             </div> -->
             <div class="cropped-image">
-              <img class="image-container" style="background-color: lightblue;" [src]="profile" />
+              <img class="image-container" style="background-color: lightblue;" [src]="profile"
+                (click)="expandImage($event)" />
             </div>
 
             <label for="avatar-input-file">
@@ -25,7 +26,8 @@
             <!-- <div class="image-container" [ngStyle]="{backgroundImage: 'url(' + fileName + ')'}">
                     </div> -->
             <div class="cropped-image">
-              <img class="image-container" style="background-color: lightblue;" [src]="idProof" />
+              <img class="image-container" style="background-color: lightblue;" [src]="idProof"
+                (click)="expandImage($event)" />
             </div>
 
             <label for="avatar-input-file">
@@ -107,7 +109,7 @@
               <div class="col-md-6 col-sm-12">
                 <mat-form-field appearance="outline">
                   <mat-label>Email</mat-label>
-                  <input formControlName="email" matInput clickOutside />
+                  <input formControlName="email" matInput clickOutside readonly />
                   <mat-error
                     *ngIf="!providerProfileForm.controls['email'].valid && providerProfileForm.controls['email'].touched">
                     <mat-icon [inline]="true" color="warn">info</mat-icon>
@@ -416,11 +418,37 @@
                 </mat-form-field>
               </div>
               <div class="col-sm-12">
-                <mat-form-field appearance="outline">
+                <!-- <mat-form-field appearance="outline">
                   <mat-label>Experienced-In</mat-label>
                   <input formControlName="experiencedIn" matInput clickOutside />
                   <mat-error
                     *ngIf="!providerProfileForm.controls['experiencedIn'].valid && providerProfileForm.controls['experiencedIn'].touched">
+                    <mat-icon [inline]="true" color="warn">info</mat-icon>
+                    <p>Experienced-In required</p>
+                  </mat-error>
+                </mat-form-field> -->
+                <mat-form-field class="example-chip-list" appearance="outline">
+                  <mat-label>Experienced In</mat-label>
+                  <mat-chip-grid #chipGridExperience aria-label="Enter experiences">
+                    <mat-chip-row *ngFor="let experience of experiences" (removed)="removeExperience(experience)"
+                      color="accent" [aria-description]="'press enter to edit ' + experience">
+                      {{experience}}
+                      <button matChipRemove [attr.aria-label]="'remove ' + experience">
+                        <mat-icon>cancel</mat-icon>
+                      </button>
+                    </mat-chip-row>
+                    <input formControlName="experiencedIn" placeholder="New Experience..."
+                      (keyup.enter)="additionExperience($event)" [matChipInputFor]="chipGridExperience" #experienceInput
+                      [formControl]="experienceCtrl" [matAutocomplete]="auto4"
+                      [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+                      (matChipInputTokenEnd)="addExperience($event)" />
+                    <mat-autocomplete #auto4="matAutocomplete" (optionSelected)="selectedExperience($event)">
+                      <mat-option *ngFor="let experience of filteredExperiences | async" [value]="experience">
+                        {{experience}}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </mat-chip-grid>
+                  <mat-error *ngIf="experiences.length === 0 && providerProfileForm.controls['experiencedIn'].touched">
                     <mat-icon [inline]="true" color="warn">info</mat-icon>
                     <p>Experienced-In required</p>
                   </mat-error>
@@ -451,7 +479,8 @@
               <!-- <div class="image-container" [ngStyle]="{backgroundImage: 'url(' + fileName + ')'}">
                       </div> -->
               <div class="cropped-image">
-                <img class="image-container" style="background-color: lightblue;" [src]="workImage[0]" />
+                <img class="image-container" style="background-color: lightblue;" [src]="workImage[0]"
+                  (click)="expandImage($event)" />
               </div>
 
               <label for="work-image-file">
@@ -469,7 +498,7 @@
               <mat-card-content>
                 <mat-grid-list cols="2" rowHeight="2:1">
                   <mat-grid-tile *ngFor="let image of workImage; let i = index">
-                    <img [src]="image">
+                    <img [src]="image" (click)="expandImage($event)" />
                     <button type="button" mat-mini-fab color="warn" (click)="cancalWorkImage(i)">
                       <mat-icon>cancel</mat-icon>
                     </button>
@@ -614,8 +643,7 @@
     <div class="row">
       <!-- Card column -->
       <div class="col col-lg-12 col-sm-12">
-        <button mat-fab extended color="primary" type="submit" [disabled]="!providerProfileForm.valid"
-          (click)="providerProfileRegister()">
+        <button mat-fab extended color="primary" type="submit">
           <mat-icon>save</mat-icon>
           Save
         </button>
